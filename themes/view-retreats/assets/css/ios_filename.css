@@ -1,0 +1,11 @@
+@media screen and (max-width: 575px){
+    .collection .slick-dotted.slick-slider {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .collection .slide-content h1{
+        font-weight: 600;
+        font-size: 2px;
+        line-height: 16px;
+    }
+}

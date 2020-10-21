@@ -1,0 +1,200 @@
+<?php  // $this->relationRender('poster') ?>
+
+
+<?= Form::open() ?>
+
+    
+
+    <?php 
+    //$property_id  = Input::get('Property.property_id');
+    //$property_id = '560677';
+    //$property_name  = $this->vars['property_name'];
+
+    // value that has been pass parameter to partial 
+    //print_r($property_name);
+    ?>
+  
+    <input type="hidden" name="property_id" value="<?= $property_id ?>" />
+    <input type="hidden" name="property_name" value="<?= $property_name ?>" />
+    <input type="hidden" name="property_slug" value="<?= $property_slug ?>" />
+
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="popup">&times;</button>
+        <h4 class="modal-title">Select Images for <?=  $property_name ?></h4>
+    </div>
+
+    <div class="modal-body">
+        <!-- <? $itemFormWidget->render() ?> -->
+
+         <?php
+
+		    $imgQuery = Db::select( "SELECT * FROM expedia_expediaimport_images WHERE property_id = $property_id");
+		  ?>
+			
+		  <div style="display: flex;flex-wrap: wrap;">
+		  		<!-- <div class="img_box">
+		        	<img src="<?// $value->links_large ?>" />
+		        </div> -->
+		 
+		 </div>
+
+     <?php if(!empty($imgQuery)):?>
+
+		 <div style="display: flex; flex-wrap: wrap;">
+
+		 	 <?php foreach($imgQuery as $value): ?>
+		        
+
+            <?php if(empty($value->links_large)): ?>
+		        <div class="img_box">
+			        <div class="custom-control custom-checkbox image-checkbox">
+			            
+			            <label class="custom-control-label" for="ck_<?= $value->id ?>">
+			                <div style="height:200px;border:1px solid red;width:305px; display: flex;justify-content: center;align-items: center;">
+                        <h4>Missing image link</h4>
+                        </div>
+			            </label>
+			        </div>
+			    </div>
+          <?php else: ?>
+          <div class="img_box">
+              <div class="custom-control custom-checkbox image-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="selected_images[]" value="<?= $value->id ?>" id="ck_<?= $value->id ?>">
+                  <label class="custom-control-label" for="ck_<?= $value->id ?>">
+                      <?php if($value->images == 'removed'):?>
+                          <img src="<?= $value->links_large ?>" alt="REMOVED - <?= $value->links_large ?>" class="img-fluid removed">
+                      <?php else: ?>
+                          <img src="<?= $value->links_large ?>" alt="<?= $value->links_large ?>" class="img-fluid">
+                      <?php endif; ?>
+                  </label>
+              </div>
+          </div>
+
+          <?php endif; ?>
+
+           <?php if($value->poster == 1): ?>
+              <script type="text/javascript">
+                console.log('<?php echo $value->id;?>');
+                $('#ck_'+ <?php echo $value->id;?>).trigger("click");
+              </script>  
+
+            <?php endif;?> 
+
+            
+		  	<?php endforeach; ?>
+		</div>
+
+    <?php else: ?>
+
+      <p>No images saved on the property yet. Please click "Update Images" button to import images from Expedia</p>
+
+    <?php endif;?>
+
+	    
+    </div>
+
+    <div class="modal-footer">
+        <button
+            type="submit"
+            data-request="onCreateItem"
+            data-request-data="redirect:0"
+            data-hotkey="ctrl+s, cmd+s"
+            data-popup-load-indicator
+            class="btn btn-primary">
+            Save
+        </button>
+
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+            Cancel
+        </button>
+    </div>
+
+<?= Form::close() ?>
+
+
+<style>
+.img_box {
+	/*border:1px solid #ccc;
+	*/
+	max-width: 302px;
+
+	
+}
+
+.img_box img {
+	
+}
+
+
+
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
+
+ .custom-control img {
+ 	max-width: 300px;
+ }
+.custom-control.image-checkbox {
+  position: relative;
+  padding-left: 0;
+}
+
+.custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:after, .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:before {
+  opacity: 1;
+}
+
+.custom-control.image-checkbox label {
+  cursor: pointer;
+  position: unset !important;
+}
+
+.custom-control.image-checkbox label:before {
+  border-color: #007bff;
+  background-color: #007bff;
+}
+
+.custom-control.image-checkbox label:after, .custom-control.image-checkbox label:before {
+  transition: opacity .3s ease;
+  opacity: 0;
+  left: .25rem;
+}
+
+.custom-control.image-checkbox label:focus, .custom-control.image-checkbox label:hover {
+  opacity: .8;
+}
+
+.custom-control.image-checkbox label img {
+  border-radius: 2.5px;
+}
+
+.form-group-image-checkbox.is-invalid label {
+  color: #dc3545;
+}
+
+.form-group-image-checkbox.is-invalid .invalid-feedback {
+  display: block;
+}
+
+.removed {
+  opacity: 0.3;
+  border: 5px dashed red;
+}
+
+
+.grid-item { width: 310px;}
+.grid-item--width2 { width: 600px; }
+
+
+</style>
+
+
+<script type="text/javascript">
+
+
+</script>

@@ -1,0 +1,262 @@
+description = "Home layout"
+
+[account]
+redirect = "favourites"
+paramCode = "code"
+forceSecure = 0
+requirePassword = 0
+
+[sociallogin]
+
+[session]
+security = "all"
+==
+<?php
+function onEnd() {
+//$regionLists = Db::table('expedia_expediaimport_regions')->select('region_name as id','region_name as text')->take(100)->get();
+
+//$regionLists = Db::table('expedia_expediaimport_regions')->select('region_name')->orderBy('region_id', 'asc')->get();
+$regionLists = Db::select("SELECT region_id, region_name, region_name_full FROM expedia_expediaimport_regions ORDER BY field(region_type,'country','province_state','high_level_region','multi_city_vicinity','city','neighborhood','airport','point_of_interest','train_station','metro_station'), region_id");
+
+
+
+// this is the one used 
+foreach ($regionLists as $regionList) {
+         $RegionArray[] = $regionList->region_name_full;
+}
+
+
+$propertyLists = Db::select("SELECT expedia_expediaimport_properties.property_id, expedia_expediaimport_properties.name, expedia_expediaimport_properties.city, expedia_expediaimport_properties.state, expedia_expediaimport_properties.country_code,rainlab_location_countries.name AS country_name FROM expedia_expediaimport_properties JOIN rainlab_location_countries ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code WHERE expedia_expediaimport_properties.active = 1 order by expedia_expediaimport_properties.rank");
+
+
+foreach ($propertyLists as $propertyList) {
+        $propertyName = $propertyList->name.", ".$propertyList->city.", ".$propertyList->state.", ".$propertyList->country_name;
+        //$newpropertyName = strlen($propertyName) > 60 ? substr($propertyName,0,60)."..." : $propertyName;
+        $PropertyArray[] = $propertyName;
+}
+
+
+//print_r($jsonRegionsArray);
+$this['RegionArray'] = array_unique($RegionArray);
+$this['PropertyArray'] = $PropertyArray;
+//$this['myRegions'] = $jsonRegionsArray;
+//$this['myList'] = $RegionArray->toJson();
+
+}
+?>
+==
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ this.page.title }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        <meta name="author" content="OctoberCMS">
+        <meta name="generator" content="OctoberCMS">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+        {% partial 'site/favicon' %}
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@2.4.1/github-markdown.min.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script> -->
+        <link href="{{ [
+          'assets/vendor/font-awesome/css/font-awesome.min.css',
+          'assets/less/main.less'
+        ]|theme }}" rel="stylesheet">
+        
+        {% styles %}
+
+    </head>
+    <body class="page-{{ this.page.id }}">
+
+        <!-- side nav -->
+        {% partial 'site/sidenav' %}
+        {% partial 'site/sideuser' %}
+        {% partial 'site/opacity-body-side-nav' %}
+
+        <!-- Header -->
+        <header id="layout-header" class="hearder-home">
+            {% partial 'site/header-home' %}
+        </header>
+        <!-- Content -->
+        <section id="layout-content" onclick="closeNav()">
+            {% page %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            {% partial 'site/footer' %}
+        </footer>
+
+        <!-- Scripts -->
+        
+        
+        {% framework extras %}
+        {% scripts %}
+        <script>
+           $('.your-class').slick({
+              infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                dots: true
+            });
+           $('.gallery').slick({
+              infinite: true,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows: false
+            });
+            $('.slider-slick [class*="slick-slider-"]  ').slick({
+                slidesToShow: 4,
+                slidesToScroll: 2,
+                infinite: true,
+                dots: true,
+                autoplay: false,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                      breakpoint: 991,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                      }
+                    },
+                  {
+                  breakpoint: 767,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                  }
+                },
+                {
+                  breakpoint: 575,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    variableWidth: true,
+                  }
+                },
+                
+              ]
+            });
+            
+        </script>
+
+         <script type="text/javascript" src="{{ [     
+          'assets/js/owl.carousel.min.js',
+          'assets/js/slick.min.js', 
+          'assets/js/scripts.js',
+          'assets/js/moment.min.js', 
+          'assets/js/daterangepicker.js',     
+          'assets/js/litepicker.js'
+       ]|theme }}"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+       <script src="themes/view-retreats/assets/js/typeahead.bundle.js"></script>
+       <script> 
+            $(document).ready(function(){
+
+              var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                  var matches, substringRegex;
+
+                  // an array that will be populated with substring matches
+                  matches = [];
+
+                  // regex used to determine if a string contains the substring `q`
+                  substrRegex = new RegExp(q, 'i');
+
+                  // iterate through the pool of strings and for any string that
+                  // contains the substring `q`, add it to the `matches` array
+                  $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+                      matches.push(str);
+                    }
+                  });
+
+                  cb(matches);
+                };
+              };
+
+              var states = {{ RegionArray|json_encode|raw }};
+              var properties = {{ PropertyArray|json_encode|raw }};
+             // var regions = {{ myRegions|json_encode|raw }};
+            
+           
+              //var states = JSON.stringify(myarray);
+             /* var regions = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                // `states` is an array of state names defined in "The Basics"
+                local: regions
+              });
+
+
+              var states = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                // `states` is an array of state names defined in "The Basics"
+                local: states
+              });
+
+              var properties = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                // `states` is an array of state names defined in "The Basics"
+                local: properties
+              });
+              */
+
+              $('.typeahead').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+              },
+              {
+                name: 'states',
+                //limit: 5,
+                //source: states
+                source: substringMatcher(states)
+                /*templates: {
+                  suggestion: function(data){
+                        return '<div><div class="myicon">' + data + '</div></div>';
+                  }
+                }*/
+              },
+              {
+                name: 'properties',
+                //limit: 5,
+                //source: properties
+                source: substringMatcher(properties)
+              }
+
+
+              /*$('.typeahead').typeahead(null, {
+                name: 'regions',
+                limit: 5,
+                source: regions,
+                templates: {
+                  suggestion: Handlebars.compile('<div><strong>{{region_name}}</strong> – {{region_id}}</div>')
+                }*/
+
+
+              );
+
+
+
+             $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+                console.log('Selection: ' + suggestion);
+              });
+
+            });
+
+          </script>
+    </body>
+</html>

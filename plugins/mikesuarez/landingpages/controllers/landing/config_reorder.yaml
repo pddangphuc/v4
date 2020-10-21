@@ -1,0 +1,4 @@
+title: Landing
+modelClass: MikeSuarez\LandingPages\Models\Landing
+toolbar:
+    buttons: reorder_toolbar

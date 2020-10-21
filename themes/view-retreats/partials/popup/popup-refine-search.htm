@@ -1,0 +1,209 @@
+==
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content content-refine">
+      <div class="modal-header justify-content-center">
+        <h5 class="modal-title" id="room1ModalLongTitle">Refine Search</h5>
+        <button type="button" id="close-refine-filter" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body ">
+          <div class="ss-instant">
+              <h6>Sort by</h6>
+              <div class="list-softby">
+              <select class="">
+                  <option value="recommended">Recommended</option>
+                  <option value="price">Price</option>
+                  <option value="deals">Deals</option>
+                  <option value="guest_rating">Guest rating</option>
+                </select>
+            </div>
+          </div>
+          <hr class="mb-0">
+          <div class="ss-instant">
+              <h6>Rate Per Night</h6>
+              <div class="row">
+                  <div class="col-6 col-md-5">
+                      <div class="input-group">
+                          <div class="input-group-addon">Min.</div>
+                          <input type="text" class="form-control" id="amountMin" placeholder="AUD $0">
+                        </div>
+                  </div>
+                  <div class="col-md-2 d-none d-md-block"></div>
+                  <div class="col-6 col-md-5">
+                      <div class="input-group">
+                          <div class="input-group-addon">Max.</div>
+                          <input type="text" class="form-control" id="amountMax" placeholder="AUD $1,500 +">
+                        </div>
+                  </div>
+              </div>
+              <div slider id="slider-distance">
+                  <div>
+                    <div inverse-left style="width:70%;"></div>
+                    <div inverse-right style="width:70%;"></div>
+                    <div range style="left:0%;right:0%;"></div>
+                    <span thumb style="left:0%;"></span>
+                    <span thumb style="left:100%;"></span>
+                    
+                  </div>
+                  <input type="range" value="0" max="1500" min="0" onchange="updateMin(this.value);" step="1"  oninput="
+                  this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+                  amountMin.value = 'AUD $' + this.value;
+                  let value = (this.value/parseInt(this.max))*100
+                  var children = this.parentNode.childNodes[1].childNodes;
+                  children[1].style.width=value+'%';
+                  children[5].style.left=value+'%';
+                  children[7].style.left=value+'%';children[11].style.left=value;" />
+                
+                 
+                  <input type="range" value="1500" max="1500" min="0" step="1" onchange="updateMax(this.value);" oninput="
+                  this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+                  amountMax.value = 'AUD $' + this.value;
+                  let value = (this.value/parseInt(this.max))*100
+                  var children = this.parentNode.childNodes[1].childNodes;
+                  children[3].style.width=(100-value)+'%';
+                  children[5].style.right=(100-value)+'%';
+                  children[9].style.left=value+'%';children[13].style.left=value+'%';
+                  children[13].childNodes[1].innerHTML=this.value;" />
+                </div>
+                
+          </div>
+          <hr class="m-0">
+          
+          <div class=" ss-instant">
+              <h6>Free cancellation</h6>
+              <div class="row">
+                  <div class="col-9">
+                      <p>Only show accommodation that offers free cancellation</p>
+                  </div>
+                  <div class="col-3">
+                      <label class="switch" style="float: right;">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <hr class="m-0">
+          <div class=" ss-instant">
+              <div id="down-1">
+                  <h6>Accommodation Type</h6>
+              </div>
+             <label class="con">
+                <span>Hotel, Resort or Guesthouse</span>
+                <p>Guest have a private room with some shared facilites</p>
+                <input type="checkbox"><span class="checkmark"></span>
+            </label>
+              <label class="con">
+                <span>Holiday Home or Private Villa</span>
+                <p>Guests have private use of the entire place </p>
+                <input type="checkbox" id="check-bedrooms" ><span class="checkmark"></span>
+            </label>
+             <div class="row">
+              <div class="col-8 col-md-9" style="padding-top: 15px">
+                  <span>Number of Bedrooms</span>
+              </div>
+              <div class="col-4 col-md-3">
+                  <div class="row guests-popup" style="float: right;margin-right: 0;">   
+                      <input type="text" id="txtbedrooms" value="1" style="display: none;">
+                      <div class='btn-minus btn-minus-bedrooms'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+                      <div class="total total-bedrooms" style="padding: 5px 10px;color: #323A45;">1</div>
+                      <div class='btn-plus btn-plus-bedrooms'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+                    </div>
+              </div>
+          </div>
+          </div>
+          <hr class="m-0">
+          <div class=" ss-instant">
+              <h6>Getaway Type</h6>
+           <ul class="list-type">
+               <li><label class="con">Romantic Getaway<input type="checkbox" id="romantic_getaway" data-val="Romantic Getaway" ><span class="checkmark"></span></label></li>
+               <li><label class="con" label="corporate_retreat">Corporate Retreat<input id="corporate_retreat"  type="checkbox" data-val="Corporate Retreat" ><span class="checkmark"></span></label></li>
+               <li><label class="con">Apartment<input type="checkbox" id="apartment" data-val="Apartment"  ><span class="checkmark"></span></label></li>
+               <li><label class="con">Hotel<input type="checkbox" id="hotel" data-val="Hotel"  ><span class="checkmark"></span></label></li>
+               <li><label class="con">Hosted B&B<input type="checkbox" id="hosted" data-val="Hosted B&B"  ><span class="checkmark"></span></label></li>
+               <li><label class="con">Penthouse<input type="checkbox" id="penthouse" data-val="Penthouse"  ><span class="checkmark"></span></label></li>
+               <li><label class="con">Resort<input type="checkbox" id="resort" data-val="Resort"  ><span class="checkmark"></span></label></li>
+               <li><label class="con">Cottage<input type="checkbox" id="cottage" data-val="Cottage"  ><span class="checkmark"></span></label></li>
+               <li><label class="con">Safari Camp<input type="checkbox" id="safari_camp" data-val="Safari Camp"  ><span class="checkmark"></span></label></li>
+            </ul>
+              <p class="text-right btn-showmore more" id="show-type" >Show more</p>
+          </div>
+          <hr class="m-0">
+          <div class=" ss-instant">
+              <h6>Suitability</h6>
+              <div id="holiday-style">
+                  <ul class="list-holiday">
+                    <li><label class="con">Child Friendly<input type="checkbox" id="child_friendly" data-val="Child Friendly"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Pet Friendly<input type="checkbox" id="pet_friendly" data-val="Pet Friendly"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Adults-Only<input type="checkbox" id="adults_only" data-val="Adults-Only"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Wheelchair Accessible<input type="checkbox" id="wheelchair_accessible" data-val="Wheelchair Accessible"   ><span class="checkmark"></span></label></li>
+                </ul>
+              </div>
+          </div>
+          <hr class="m-0">
+          <div class=" ss-instant">
+              <h6>Amenities, Inclusions & Extras</h6>
+              <div class="" id="amenities-ie">
+                  <ul class="list-extras">
+                    <li><label class="con">Breakfast Included<input type="checkbox" id="breakfast" data-val="Breakfast Included"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">All Inclusive<input type="checkbox" id="inclusive" data-val="All Inclusive"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Kitchen<input type="checkbox" id="kitchen" data-val="Kitchen"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Restaurant<input type="checkbox" id="restaurant" data-val="Restaurant"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Bar or Lounge<input type="checkbox" id="bar" data-val="Bar or Lounge"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Swimming Pool<input type="checkbox" id="swimming" data-val="Swimming Pool"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Spa Bath or Tub<input type="checkbox" id="spa" data-val="Spa Bath or Tub"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Wood Fireplace<input type="checkbox" id="fireplace" data-val="Wood Fireplace"   ><span class="checkmark"></span></label></li>
+                    <li><label class="con">Internet Available<input type="checkbox" id="internet" data-val="Internet Available"   ><span class="checkmark"></span></label></li>
+                </ul>
+                <p class="text-right btn-showmore more" id="show-extras" >Show more</p>
+              </div>
+          </div>
+          <hr class="m-0">
+          <div class=" ss-instant">
+              <div class="d-flex justify-content-between align-items-center">
+                  <buton class="btn btn-refine-clear-all mb-2">CLEAR ALL FILTERS</buton>
+                  <buton class="btn btn-refine-search" id="btn-refine-search">Update</buton>
+              </div>
+              
+          </div>
+      </div>
+    </div>
+</div>
+<script>
+    $(document).on('click', '#close-refine-filter', function(){
+         $("#btn-filter").css("background", "#FFFFFF");
+         
+    });
+    const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 0
+        })
+    function updateMin(val) {
+      document.getElementById('amountMin').value='AUD '+formatter.format(val); 
+    };
+    function updateMax(val) {
+        if(val == "1500"){
+            document.getElementById('amountMax').value='AUD '+formatter.format(val) + ' +'; 
+        }else{ 
+            document.getElementById('amountMax').value='AUD '+formatter.format(val); 
+        }
+      
+    }
+    
+    function showMore(){
+        
+        var $this = $(this); 
+        var $content = $this.parent().prev("div.content");
+        var linkText = $this.text().toUpperCase();   
+        if(linkText === "SHOW MORE"){
+            linkText = "Show less";
+            $content.addClass('hideContent').removeClass('showContent');
+        } else {
+            linkText = "Show more";
+            $content.addClass('showContent').removeClass('hideContent');
+        };
+       
+        $this.text(linkText);
+    }
+</script>

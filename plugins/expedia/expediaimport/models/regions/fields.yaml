@@ -1,0 +1,25 @@
+fields:
+    region_id:
+        label: 'Region ID'
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    region_name:
+        label: 'Region Name'
+        span: right
+        disabled: 1
+        readOnly: 1
+        type: text
+    region_type:
+        label: Type
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    region_name_full:
+        label: 'Full Region Name'
+        span: right
+        disabled: 1
+        readOnly: 1
+        type: text

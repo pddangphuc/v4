@@ -1,0 +1,11 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+        sortable: true
+    region_name:
+        label: 'Region Name'
+        type: text
+        searchable: true
+        sortable: true

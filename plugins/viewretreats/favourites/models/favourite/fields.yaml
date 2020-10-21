@@ -1,0 +1,9 @@
+fields:
+    user_id:
+        label: 'User ID'
+        span: left
+        type: text
+    product_id:
+        label: 'Product ID'
+        span: auto
+        type: text

@@ -1,0 +1,160 @@
+==
+<?php
+function onStart()
+{
+    $stats_array = unserialize($this->stats);
+    $accommodation_type = $this->accom_type;
+    $this['accommodation_type'] = $accommodation_type;
+    //print_r($stats_array);
+    if(!empty($stats_array)){
+    foreach($stats_array as $stats_key => $stats_value) {
+    	$bb_array[] = $stats_value;
+    }
+   
+
+    $this['bb_array'] = $bb_array;
+    }
+  // echo $accommodation_type;
+
+   // print_r($bb_array);
+
+}
+?>
+==
+{% set listbb = bb_array %}
+<div class="clearfix">
+   <div class="info-left">
+       <p class="landing_name">{{ property.name }} <span style="display: none;">{{ accommodation_type }}</span></p>
+	  <!--     <a class="landing_address" data-toggle="modal" data-target="#popupMap" href="#">{{ region }}, {{ state }}, {{ country }}</a> -->
+	  	{% if accommodation_type == "Holiday Home or Private Villa" %}
+	  		<p class="landing_address" style="margin-bottom: 2px;">
+	  		<span>Self contained</span>
+             {% if listbb is not empty %}
+    			 {% for bedbath in listbb %}
+    			 	{% if bedbath.id == "1073743378" %}
+    			 	{% set withBed = 1 %}
+    			 	<span>
+    			 			{% if bedbath.value > 1 %}
+    				 		 - {{ bedbath.value }} bedrooms
+    				 		{% else %}
+    				 		 - {{ bedbath.value }} bedroom
+    				 		{% endif %}
+    			 	</span>	
+    			 	{% endif %}
+    
+    			 	{% if bedbath.id == "1073743379" and withBed == 1 %}
+    				 	<span>
+    				 		{% if bedbath.value > 1 %}
+    				 		, {{ bedbath.value }} bathrooms
+    				 		{% else %}
+    				 		, {{ bedbath.value }} bathroom
+    				 		{% endif %}
+    				 	</span>
+    				{% endif %}
+    
+    			 {% endfor %}
+			 {% endif %}
+			
+
+			 </p>
+
+
+	  	{% endif %}
+	  	<p class="landing_address">{{ property.city }}, {{ property.state }}, {{ property.country_name }}</p>
+	  	<p></p>
+	  	<!-- <p class="landing_content">{{ obProduct.preview_text|length > 110 ? obProduct.preview_text|slice(0, 110) ~ '...' : obProduct.preview_text  }}</p> -->
+   </div>
+  	<div class="info-right pull-right text-right">
+        {% if property.overall > 0 %}
+  		<div class="rate-count"><span>{{property.ratings}}</span>/5 </div>
+        
+
+  		<div class="rate-star">
+          
+            {% if property.ratings >= 1.0 and property.ratings <= 1.3 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                {% for i in 1..4 %}
+                     <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                {% endfor %}
+            {% elseif property.ratings >= 1.4 and property.ratings <= 1.8 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                {% for i in 1..3 %}
+                     <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                {% endfor %}
+            {% elseif property.ratings >= 1.9 and property.ratings <= 2.3 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                {% for i in 1..3 %}
+                     <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                {% endfor %}
+            {% elseif property.ratings >= 2.4 and property.ratings <= 2.8 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                {% for i in 1..2 %}
+                     <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                {% endfor %}
+            {% elseif property.ratings >= 2.9 and property.ratings <= 3.3 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                {% for i in 1..2 %}
+                     <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                {% endfor %}
+            {% elseif property.ratings >= 3.4 and property.ratings <= 3.8 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                
+            {% elseif property.ratings >= 3.9 and property.ratings <= 4.3 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+
+            {% elseif property.ratings >= 4.4 and property.ratings <= 4.8 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                
+
+            {% elseif property.ratings >= 4.9 and property.ratings <= 5.0 %}
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+
+            {% endif %}
+
+
+  		</div>
+  		
+            {% if property.ratings > 4.6 and property.ratings < 5.1 %}
+                <p>Exceptional</p>
+            {% elseif property.ratings > 4.4 and property.ratings < 4.7 %}
+                <p>Wonderful</p>
+            {% elseif property.ratings > 4.2 and property.ratings < 4.5 %}
+                <p>Excellent</p>
+            {% elseif property.ratings > 4.1 and property.ratings < 4.3 %}
+                <p>Very Good</p>
+            {% else %}
+                <p>Good</p>
+            {% endif %}
+        
+        
+  		<div class="count-review">({{property.reviews}} reviews)</div>
+        {% else %}
+        <div class="rate-count" style="visibility: hidden;">No ratings</div>
+        <div class="rate-star" style="visibility: hidden;"></div>
+        <p style="visibility: hidden;">No rating</p>
+        {% endif %}
+
+  	</div>
+</div>

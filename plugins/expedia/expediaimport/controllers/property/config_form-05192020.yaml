@@ -1,0 +1,11 @@
+name: Property
+modelClass: Expedia\ExpediaImport\Models\Property
+form: $/expedia/expediaimport/models/property/fields.yaml
+defaultRedirect: expedia/expediaimport/property
+create:
+    redirect: 'expedia/expediaimport/property/update/:id'
+    redirectClose: expedia/expediaimport/property
+update:
+    redirect: expedia/expediaimport/property
+    redirectClose: expedia/expediaimport/property
+preview: {  }

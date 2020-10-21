@@ -1,0 +1,11 @@
+1.0.0:
+    - 'Initialize plugin.'
+1.0.1:
+    - 'Created table expedia_expediaupdate_log'
+    - builder_table_create_expedia_expediaupdate_log.php
+1.0.2:
+    - 'Updated table expedia_expediaupdate_log'
+    - builder_table_update_expedia_expediaupdate_log.php
+1.0.3:
+    - 'Add soft delete'
+    - migration103.php

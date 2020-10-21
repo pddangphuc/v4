@@ -1,0 +1,25 @@
+plugin:
+    name: 'expedia.expediaimport::lang.plugin.name'
+    description: 'expedia.expediaimport::lang.plugin.description'
+    author: expedia
+    icon: oc-icon-cloud-download
+    homepage: ''
+navigation:
+    main-menu-expedia-import:
+        label: Expedia
+        url: expedia/expediaimport/property
+        icon: icon-cloud-download
+        order: '100'
+        sideMenu:
+            side-menu-property:
+                label: Properties
+                url: expedia/expediaimport/property
+                icon: icon-home
+            side-menu-collection:
+                label: Collections
+                url: expedia/expediaimport/collection
+                icon: icon-building
+            side-menu-regions:
+                label: Regions
+                url: expedia/expediaimport/regions
+                icon: icon-map-marker

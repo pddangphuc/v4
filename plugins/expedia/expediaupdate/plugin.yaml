@@ -1,0 +1,12 @@
+plugin:
+    name: 'expedia.expediaupdate::lang.plugin.name'
+    description: 'expedia.expediaupdate::lang.plugin.description'
+    author: 'Mike Suarez'
+    icon: icon-check-circle-o
+    homepage: ''
+navigation:
+    main-menu-expedia-update:
+        label: Updates
+        url: expedia/expediaupdate/log
+        icon: icon-check-circle-o
+        order: '140'

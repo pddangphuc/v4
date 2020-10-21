@@ -1,0 +1,162 @@
+[bookmarkfavorite bookmarkfavorite2]
+==
+<?php
+function onStart()
+{
+    $varcollection = $this['propCollection'];
+    //print_r($varcollection);
+
+    $myproperties = $this['properties'];
+    //print_r($myproperties);
+
+    if(!empty($varcollection)) {
+        foreach($myproperties as $mykey => $myvalue) {
+
+            // check if has value 
+
+            $ncollect = $varcollection->where('property_id', $myvalue->property_id);
+
+            $nprices = $ncollect->first();
+            $ntotal = $nprices['total'];
+           
+            $myvalue->tmp_total = $ntotal;
+            //echo $myvalue->property_id." = ".$myvalue->tmp_total.'<br />';
+
+            $newproperties[] = $myvalue;
+
+        }
+
+
+        //print_r($newproperties);
+
+        $this['properties'] = $newproperties;
+    
+    }
+
+
+
+}
+?>
+==
+<div style="display: none;">
+ {% set listProperties = properties %}
+ {% set dateSelected = dateString %}
+
+ {% if dateSelected is not empty %}
+
+    {% set checkInDate = checkIn %}
+    {% set checkOutDate = checkOut %}
+
+ {% endif %}
+ {% if listProperties is not empty %}
+ <ul>
+ {% for property in listProperties %}
+ 	<li>{{ property.name }}</li>
+ {% endfor %}
+</ul>
+{% endif %}
+</div> 
+
+
+
+{# Let's check that the list of products is not empty #}
+{% if listProperties is not empty %}
+		
+	{# Render product list #}
+    {% for property in listProperties %}
+            
+            {% if property.tmp_total > 0 %}
+			  {% if property.accommodation_type == "Holiday Home or Private Villa" %}
+              <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 holiday">
+              {% else %}
+              <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 hotel">
+              {% endif %}
+				<div class="card card-height-landing" >
+				   
+                   {# Gallery part #}
+                   
+                   {% partial 'site/search-gallery-block' propid=property.property_id%}
+				    
+				    
+				    <div class="card-body" data-id="{{ property.property_id }}">
+				    	{# Info details #}
+                        {% partial 'site/search-details-block' property=property stats=property.statistics accom_type=property.accommodation_type %}
+
+                       {# Rates Details#}					   
+					  	{% partial 'site/search-info-block' sw=searchString propid=property.property_id prop_collect=property.property_collect exp_collect=property.expedia_collect all_inclusive=property.inc_all_rate_plans %}
+					  		
+				    </div>
+                    
+				 </div>
+			</div>
+            {% endif %}
+
+	{% endfor %}
+
+
+    <!-- empty or unavailable -->
+    {% for property in listProperties %}
+            
+            {% if property.tmp_total is empty %}
+              {% if property.accommodation_type == "Holiday Home or Private Villa" %}
+              <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 holiday">
+              {% else %}
+              <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 hotel">
+              {% endif %}
+                <div class="card card-height-landing" >
+                   
+                   {# Gallery part #}
+                   {% partial 'site/search-gallery-block' propid=property.property_id %}
+                    
+                    
+                    <div class="card-body" data-id="{{ property.property_id }}">
+                    	{# Info details #}
+                        {% partial 'site/search-details-block'  property=property stats=property.statistics accom_type=property.accommodation_type %}
+
+                        {# Card Info #}                    
+                        {% partial 'site/search-info-block' sw=searchString propid=property.property_id prop_collect=property.property_collect exp_collect=property.expedia_collect all_inclusive=property.inc_all_rate_plans %}
+                            
+                    </div>
+                    
+                 </div>
+            </div>
+            {% endif %}
+
+    {% endfor %}
+    
+{% endif %}
+
+
+<div class="modal fade room-popup" id="mapSearch" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+        {% partial 'popup/popup-map-search' %}
+</div>
+<script>
+ 
+function myMap() {
+    var uluru = {lat: 1.28193, lng: 103.861598};
+    var mapProp= {
+      center: {lat: 1.282392, lng: 103.861592},
+      zoom:17,
+    };
+
+    var map1 = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+   var image = 'https://app.viewretreats.net/themes/view-retreats/assets/images/search-popup-search.png';
+ 
+  var marker1 = new google.maps.Marker({
+    position: uluru,
+    map: map1,
+    icon: image,
+    title: 'Uluru (Ayers Rock)'
+  });
+  
+  var map = new google.maps.Map(
+      document.getElementById('map-popup'), {zoom: 17, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map, icon: image});
+
+}
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZpADMQa8FywO16leHeiX1Jwx4-7McbMQ&callback=myMap"></script>

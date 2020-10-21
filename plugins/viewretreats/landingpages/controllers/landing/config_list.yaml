@@ -1,0 +1,12 @@
+list: $/viewretreats/landingpages/models/landing/columns.yaml
+modelClass: ViewRetreats\LandingPages\Models\Landing
+title: Landing
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'viewretreats/landingpages/landing/update/:id'

@@ -1,0 +1,150 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('expedia/expediaimport/property') ?>">Property</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<!-- <h1>Your ID number is <?= $propertyId; ?></h1> -->
+
+<?= Form::open() ?>
+    <?= $widget->render() ?>
+
+<!--     <button data-request="onUpdate" class="btn btn-primary">
+        Write to log
+    </button> -->
+
+
+
+<!-- Image Part -->
+        <div class="layout-row">
+
+            <div class="control-toolbar">
+                <div class="toolbar-item toolbar-primary">
+                    <div data-control="toolbar">
+                        <button
+                            type="button"
+                            class="btn btn-default oc-icon-download"
+                            title="Update property images from expedia"
+                            data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                            data-request="onUpdateImages"
+                            data-stripe-load-indicator>
+                            Update Images 
+                        </button>
+
+                        <a
+                            href="javascript:;"
+                            class="btn btn-secondary oc-icon-plus"
+                            title="Select 5 images property profile heading"
+                            data-control="popup"
+                            data-handler="onImportImages"
+                            data-size="giant">
+                            Select Images
+                        </a>
+
+                         <a 
+                         href="javascript:;" 
+                         class="reorder_link btn btn-secondary oc-icon-reorder"
+                         id="saveReorder">
+                          Reorder
+                        </a>
+
+                        <!--  <a 
+                         href="javascript:;" 
+                         class=" btn btn-secondary oc-icon-reorder"
+                         data-request="onRefreshTime"
+                         data-request-update="image_selected: '#myPreview'"
+                         >
+                          Refresh
+                        </a> -->
+
+                        <a 
+                         href="javascript:;" 
+                         class="reorder_link btn btn-secondary oc-icon-reorder"
+                         id="saveReorderNow"
+                         style="display:none;">
+                          Save reordering
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    <div class="layout-row">
+       <div id="myPreview"><?= $this->makePartial('image_selected', ['propertyID' => $propertyId]) ?></div>
+    </div>
+
+
+
+
+     <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onUpdate"
+                    data-request-data="redirect:1"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary">
+                    <?= e(trans('backend::lang.form.save')) ?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onUpdateClose"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-default">
+                    <?= e(trans('backend::lang.form.save_and_close')) ?>
+                </button>
+                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.form.confirm_delete')) ?>">
+                </button>
+
+                <span class="btn-text">
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('expedia/expediaimport/property') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                </span>
+            </div>
+        </div>
+
+
+<?= Form::close() ?>
+
+
+
+<style>
+
+    .disable-check input[type=checkbox]{
+        opacity: 0;
+        display: none !important;
+
+    }
+
+    .disable-check .custom-checkbox label:before {
+        display: none !important;
+    }
+
+    .disable-check .custom-checkbox label {
+        padding-left: 0px !important;
+        color: #999;
+    }
+
+
+    .disable-check .field-checkboxlist-inner {
+
+        background-color: #eee !important;
+        color: #999;
+
+    }
+
+
+</style>

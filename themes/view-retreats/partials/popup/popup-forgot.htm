@@ -1,0 +1,72 @@
+==
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+           <button type="button" class="btn-back" id="back-forgot"></button>
+            <h5 class="modal-title">Manage your booking</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >      	
+         <div class="form-email-login form-signup"  id="form-forgot-email">
+             <h3 class="social-login-text">Retrieve booking</h3>
+             <p>Please enter your booking email. You will also need your password or itinerary number.</p>
+            <form>
+                <div class="form-group">
+                   <input type="text" id="login-by-email-booking" name="login-by-email" class="form-control" placeholder="Email">
+                </div>
+                 <div class="form-group">
+                     <button type="button" class="login-button" id="forgot-button">Next</button>
+                 </div>
+            </form>
+            <div class="login-social">
+                <h5 class="title-social"><span>or sign in with one click</span></h5>
+                <div class="box-social d-flex justify-content-between align-items-center flex-row">
+                    <div class="item-social text-center">
+                        <a href="#">
+                            <img src="{{ '/assets/images/gg1.png'|theme }}" alt="Google">
+                            <span>Google</span>
+                        </a>
+                    </div>
+                    <div class="item-social text-center">
+                        <a href="#">
+                            <img src="{{ '/assets/images/fb.png'|theme }}" alt="Facebook">
+                            <span>Facebook</span>
+                        </a>
+                    </div>
+                      <div class="item-social text-center">
+                        <a href="#">
+                            <img src="{{ '/assets/images/apple1.png'|theme }}" alt="Apple">
+                            <span>Apple</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-email-login form-signup" id="form-forgot-password">
+             <h3 class="social-login-text">Password or itinerary number</h3>
+             <p>Enter your password or itinerary number for <strong>mlewis77@gmail.com</strong></p>
+            <form>
+                <div class="form-group">
+                   <input type="password" id="password" name="login-by-password-booking" class="form-control" placeholder="Password">
+                </div>
+                <p class="text-center" style="color: #aaa;">or</p>
+                <div class="form-group">
+                   <input type="text" name="itinerary_number" class="form-control" placeholder="Itinerary number">
+                </div>
+                 <div class="form-group">
+                     <button type="button" class="login-button" >Retrieve booking</button>
+                 </div>
+            </form>
+            <div class="login-social d-sm-block d-none ">
+                <p class="text-center"><a href="#">Forgotten your password?</a></p>
+                <p class="text-center"><a href="#">Forgotten your itinerary number?</a></p>
+            </div>
+        </div>
+      </div>
+      <p class="modal-bottom">By signing in you agree that you have read and accept our <a href="/about-us#privacy-policy" target="_blank">privacy policy</a> & <a href="/about-us#terms-conditions" target="_blank" >website terms of use</a></p>
+    </div>
+  </div>
+  <script>
+      
+    
+  </script>

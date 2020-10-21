@@ -1,0 +1,4 @@
+title: Favourites
+modelClass: ViewRetreats\Favourites\Models\Favourite
+toolbar:
+    buttons: reorder_toolbar

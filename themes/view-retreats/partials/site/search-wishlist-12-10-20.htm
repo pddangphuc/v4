@@ -1,0 +1,210 @@
+description = "search-wishlist-12-10-20-backup"
+
+[CategoryList]
+
+[ProductList]
+sorting = "new"
+
+[ProductData]
+==
+<?php
+function onStart()
+{
+    $this["myVar"] = "<div>
+    	<div class='info-popup'>
+    		<b>Additional Fees</b>
+    		<br />
+    		 This property charges additional fees that will be added to the nightly rate total once you select your room type (if applicable).  
+    		<br />
+    		<span>Fees: $600 Cleaning Fee, $114 Accidental Damage Levy, 1.5% Visa/Mastercard & Amex   </span>
+    		<br />
+    		<b>Refundable Security Bond</b> 
+    		<br />
+    		This property charges a refundable security bond. The bond is separate from the nightly rate and is paid directly to the property owner prior to check-in. Payment details will be provided by the host after confirmation.  
+    		<br />
+    		<span>Bond amount: $2,000  </span>
+    		<br />
+    		<b>Price Guarantee</b>
+    		<br />
+    		 We always offer the best available prices. If you find a better price that includes all applicable fees, let us know and we’ll match it!
+    	</div>
+    </div>";
+}
+?>
+==
+{% if sw is empty %}	
+	{% set obProductList = ProductList.make().sort(ProductList.getSorting()).active() %}
+{% else %}
+	{% set obProductList = ProductList.make().search(sw) %}
+{% endif %}
+
+{% set mobProductList = obProductList.take(10) %}
+
+
+{# Let's check that the list of products is not empty #}
+{% if mobProductList is not empty %}
+		
+	{# Render product list #}
+    {% for obProduct in mobProductList %}
+    {% set dbProduct = ProductData.get(obProduct.id) %}
+    {% set pbProduct = ProductPage.get() %}
+
+			<div class="col-xs-12 col-sm-6">
+				<div class="card card-height-landing" >
+				    <div class="collection-landing-post">
+				    	{# component 'slider' slide_show_id = 6 #}
+				    	<div class="image-block">
+							<div class="gallery search-slider" >
+							 {# if obProduct.images.isNotEmpty() #}
+
+					            {% for obProductImages in obProduct.images %}
+					               <div class="img-block" style="background: url('{{ obProductImages.path }}');">
+					               	
+					               </div>
+					            {% endfor %}
+
+					          {# endif #}			
+							</div>
+						</div>
+
+				    	<i class="fa fa-heart hover-fa-heart" style="z-index: 1;"></i>
+                       <!--  <div class="hover-slide-pre"></div>
+                                               <div class="hover-slide-next"></div> -->
+				    </div>
+				    
+				    {% set pbPropertyList = obProduct.property %}
+				    <div class="card-body" data-id="{{ obProduct.id }}">
+				    	{# get details #}
+					{% if pbPropertyList.isNotEmpty() == true %}
+					{% set beds = "text" %}
+					{% set guest = "text" %}
+					{% set region = "text" %}
+					{% set state = "text" %}
+					{% set country = "text" %}
+					{% set minaverage = "text" %}
+					{% set addfees = "text" %}
+					{% set addfeesnotes = "text" %}
+					{% set bond = "text" %}
+					{% set bondnotes = "text" %}
+					{% set propertytype = "text" %}
+					        <ul style="display: none;">
+					            {% for pbProperty in pbPropertyList if pbProperty.hasValue() %}
+					                <li data-id="{{ pbProperty.slug }} - {{ pbProperty.property_value.getValueString() }}">{{ pbProperty.name }}: {{ pbProperty.property_value.getValueString() }}</li>
+
+					                {% if pbProperty.slug == 'totalbedrooms' %}
+					                	{%  set beds = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'maximumguests' %}
+					                	{%  set guest = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'region' %}
+					                	{%  set region = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'state' %}
+					                	{%  set state = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'country' %}
+					                	{%  set country = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					          		{% if pbProperty.slug == 'minimumaveragerate' %}
+					                	{%  set minaverage = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'additionalfees' %}
+					                	{%  set addfees = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'additionalfeenotes' %}
+					                	{%  set addfeesnotes = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'securitybondrequired' %}
+					                	{%  set bond = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'securitybondnotes' %}
+					                	{%  set bondnotes = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+
+					                {% if pbProperty.slug == 'propertytype' %}
+					                	{%  set propertytype = pbProperty.property_value.getValueString() %}
+					                {% endif %}
+					            {% endfor %}
+					        </ul>
+					   {% endif %}
+					   <div class="clearfix">
+					       <div class="info-left">
+    					       <p class="landing_name">{{ obProduct.name }}</p>
+        					  <!--     <a class="landing_address" data-toggle="modal" data-target="#popupMap" href="#">{{ region }}, {{ state }}, {{ country }}</a> -->
+        					  	<p class="landing_address">{{ region }}, {{ state }}, {{ country }}</p>
+        					  
+        					  	<!-- <p class="landing_content">{{ obProduct.preview_text|length > 110 ? obProduct.preview_text|slice(0, 110) ~ '...' : obProduct.preview_text  }}</p> -->
+    					   </div>
+    					  	<div class="info-right pull-right text-right  d-none d-lg-block">
+    					  		<div class="rate-count"><span>{{property.ratings}}</span>/5 </div>
+                                
+
+    					  		<div class="rate-star">
+                                  
+                                        <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                        <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                        <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                        <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                        <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+
+                                   
+    					  		</div>
+                                        <p>Exceptional</p>
+                                
+    					  		<span class="count-review">({{property.reviews}} reviews)</span>
+                              
+    					  	</div>
+					   </div>
+					   	<div class="ladding-info d-flex justify-content-between justify-content-lg-end align-items-center">
+					    <div class="d-lg-none pull-left">
+					          <div class="info-left ">
+                                 <div class="d-flex justify-content-start align-items-center">
+                                     <div class="rate-count"><strong>{{property.ratings}}</strong> </div>
+
+        					  		<div class="rate-star mb-1 ml-1">
+                                      
+                                            <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                            <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                            <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                            <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                                            <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+    
+        					  		</div>
+                                 </div>
+    					  		<div class="box-count-review">
+    					  		   
+                                        <span>Exceptional</span>
+    					  		    <small class="count-review">({{property.reviews}} reviews)</small>
+    					  		</div>
+    					  		
+    					  	</div>
+					      </div>
+					  	<div class="ladding-info">
+    					  	<div class="text-right">
+                                <div class="clearfix">
+                                    <button class="btn">Learn more</button>
+                                </div>
+                            </div>
+					  	</div>
+					  </div>
+				    </div>
+                    
+				 </div>
+			</div>
+
+	{% endfor %}
+
+{% endif %}
+<div class="modal fade room-popup" id="mapSearch" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+        {% partial 'popup/popup-map-search' %}
+</div>

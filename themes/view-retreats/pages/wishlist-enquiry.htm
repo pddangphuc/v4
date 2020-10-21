@@ -1,0 +1,268 @@
+title = "Wishlist Enquiry"
+url = "/wishlist-enquiry"
+layout = "login"
+is_hidden = 0
+
+[slider]
+slide_show_id = 1
+==
+<div class="container-fluid">
+		<!-- Nav tabs -->
+		<div class="row wislist-enquiry-fixed-bar" id="wish-list-navbar">
+			<table style="margin-left: 85px;">
+				<tr height="56px">
+					<td width="800px">
+						<ul class="nav nav-tabs" >
+						  <li class="nav-item">
+						    <a class="nav-link active wishlist-a-tag" data-toggle="tab" href="#home-wishlist-favourites">FAVOURITES</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link wishlist-a-tag enquiry-0" data-toggle="modal" href="#wishlist-enquiry-modal">ENQUIRE</a>
+							<div class="modal fade" id="wishlist-enquiry-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  {% partial 'popup/popup-booking-enquiry'%}
+							</div>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link wishlist-a-tag" data-toggle="tab" href="#menu2-wishlist-profile">PROFILE</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link wishlist-a-tag" data-toggle="tab" href="#menu3-wishlist-logout">LOGOUT</a>
+						  </li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+</div>
+<div class="container-fuild wishlist-form-body" style="background: #ffffff;">
+	<div class="container" >
+	<div class="row wishlist-form-body-row">
+		<!-- Tab panes -->
+		<div class="tab-content" >
+		  <div class="tab-pane container-fuild active" style="background: #ffffff;">
+		  	<section class="filter-block" style="background-color: #ffffff; padding: 40px 0px 28px 0px;">
+		        <div class="row">
+		            <div class="col-10 favourite-title">
+		                <h2 style="margin-left: 3px;">Your Favourites</h2>
+		            </div>
+		        </div>
+		   </section>
+			<br>
+		  	<div class="row background-col">
+				<div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+					<div class="card card-height-landing wishlist-enquiry-card-align-left" style="width:585px;">
+					    <div class="collection-landing-post">
+					    	{% component 'slider' slide_show_id = 6 %}
+					    	<i class="fa fa-heart hover-fa-heart"></i>
+							<div class="hover-slide-pre"></div>
+							<div class="hover-slide-next"></div>
+					    </div>
+					  	
+					    <div class="card-body">
+					    	<table>
+					    		<tr class="landing-note">
+					    			<td><li class="landing-note-house">HOUSE</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-bedroom">1 BEDROOM</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-guest">2 GUESTS</li></td>
+					    		</tr>
+					    	</table>
+						  	<p class="landing_name">Ablac Studio</p>
+						  	<a class="landing_address" href="#">Mt Franklin, Victoria, Australia</a>
+						  	<p></p>
+						  	<p></p>
+						  	<p class="landing_content">Are you in need of a getaway or escape? We have some fantastic special offers available on luxury accommodation across Australia. These deals change regularly...</p>
+						  	<br>
+						  	<p class="landing_days">Nightly Rate Total</p>
+						  	<p class="landing_cost">From AUD $1,250</p><span style="margin-left:2px; font-weight: 300; font-size: 10px;">plus fees</span><i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" style="margin-left:2px; color: #38B1EA; "></i>
+					    </div>
+					 </div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 ">
+					<div class="card card-height-landing wishlist-enquiry-card-align-right" style="width:585px;">
+					    <div class="collection-landing-post">
+					    	{% component 'slider' slide_show_id = 6 %}
+					    	<i class="fa fa-heart hover-fa-heart"></i>
+					    	<div class="hover-slide-pre"></div>
+							<div class="hover-slide-next"></div>
+					    </div>
+					    <div class="card-body">
+						 	<table>
+					    		<tr class="landing-note">
+					    			<td><li class="landing-note-house">HOUSE</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-bedroom">1 BEDROOM</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-guest">2 GUESTS</li></td>
+					    		</tr>
+					    	</table>
+						  	<p class="landing_name">Ablac Studio</p>
+						  	<a class="landing_address" href="#">Mt Franklin, Victoria, Australia</a>
+						  	<p></p>
+						  	<p></p>
+						  	<p class="landing_content">Are you in need of a getaway or escape? We have some fantastic special offers available on luxury accommodation across Australia. These deals change regularly...</p>
+						  	<br>
+						  	<p class="landing_days">Nightly Rate Total</p>
+						  	<p class="landing_cost">From AUD $1,250</p><span style="margin-left:2px; font-weight: 300; font-size: 10px;">plus fees</span><i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" style="margin-left:2px; color: #38B1EA; "></i>
+					    </div>
+					 </div>
+			</div>
+		</div>
+		<br>
+		<div class="row background-col">
+				<div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+					<div class="card card-height-landing wishlist-enquiry-card-align-left" style="width:585px;">
+					    <div class="collection-landing-post">
+					    	{% component 'slider' slide_show_id = 6 %}
+					    	<i class="fa fa-heart hover-fa-heart" ></i>
+							<div class="hover-slide-pre"></div>
+							<div class="hover-slide-next"></div>
+					    </div>
+					    <div class="card-body">
+						    <table>
+					    		<tr class="landing-note">
+					    			<td><li class="landing-note-house">HOUSE</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-bedroom">1 BEDROOM</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-guest">2 GUESTS</li></td>
+					    		</tr>
+					    	</table>
+						  	<p class="landing_name">Ablac Studio</p>
+						  	<a class="landing_address" href="#">Mt Franklin, Victoria, Australia</a>
+						  	<p></p>
+						  	<p></p>
+						  	<p class="landing_content">Are you in need of a getaway or escape? We have some fantastic special offers available on luxury accommodation across Australia. These deals change regularly...</p>
+						  	<br>
+						  	<p class="landing_days">Nightly Rate Total</p>
+						  	<p class="landing_cost">From AUD $1,250</p><span style="margin-left:2px; font-weight: 300; font-size: 10px;">plus fees</span><i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" style="margin-left:2px; color: #38B1EA; "></i>
+					    </div>
+					 </div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+					<div class="card card-height-landing wishlist-enquiry-card-align-right" style="width:585px;">
+					    <div class="collection-landing-post">
+					    	{% component 'slider' slide_show_id = 6 %}
+					    	<i class="fa fa-heart hover-fa-heart" ></i>
+							<div class="hover-slide-pre"></div>
+							<div class="hover-slide-next"></div>
+					    </div>
+					    <div class="card-body">
+							<table>
+					    		<tr class="landing-note">
+					    			<td><li class="landing-note-house">HOUSE</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-bedroom">1 BEDROOM</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-guest">2 GUESTS</li></td>
+					    		</tr>
+					    	</table>
+						  	<p class="landing_name">Ablac Studio</p>
+						  	<a class="landing_address" href="#">Mt Franklin, Victoria, Australia</a>
+						  	<p></p>
+						  	<p></p>
+						  	<p class="landing_content">Are you in need of a getaway or escape? We have some fantastic special offers available on luxury accommodation across Australia. These deals change regularly...</p>
+						  	<br>
+						  	<p class="landing_days">Nightly Rate Total</p>
+						  	<p class="landing_cost">From AUD $1,250</p><span style="margin-left:2px; font-weight: 300; font-size: 10px;">plus fees</span><i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" style="margin-left:2px; color: #38B1EA; "></i>
+					    </div>
+					 </div>
+			</div>
+		</div>
+		<br>
+		<div class="row background-col">
+		
+			
+			<div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+					<div class="card card-height-landing wishlist-enquiry-card-align-left" style="width:585px;">
+					    <div class="collection-landing-post">
+					    	{% component 'slider' slide_show_id = 6 %}
+					    	<i class="fa fa-heart hover-fa-heart" ></i>
+							<div class="hover-slide-pre"></div>
+							<div class="hover-slide-next"></div>
+					    </div>
+					    <div class="card-body">
+							<table>
+					    		<tr class="landing-note">
+					    			<td><li class="landing-note-house">HOUSE</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-bedroom">1 BEDROOM</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-guest">2 GUESTS</li></td>
+					    		</tr>
+					    	</table>
+						  	<p class="landing_name">Ablac Studio</p>
+						  	<a class="landing_address" href="#">Mt Franklin, Victoria, Australia</a>
+						  	<p></p>
+						  	<p></p>
+						  	<p class="landing_content">Are you in need of a getaway or escape? We have some fantastic special offers available on luxury accommodation across Australia. These deals change regularly...</p>
+						  	<br>
+						  	<p class="landing_days">Nightly Rate Total</p>
+						  	<p class="landing_cost">From AUD $1,250</p><span style="margin-left:2px; font-weight: 300; font-size: 10px;">plus fees</span><i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" style="margin-left:2px; color: #38B1EA; "></i>
+					    </div>
+					 </div>
+			</div>
+            <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+					<div class="card card-height-landing wishlist-enquiry-card-align-left" style="width:585px;">
+					    <div class="collection-landing-post">
+					    	{% component 'slider' slide_show_id = 6 %}
+					    	<i class="fa fa-heart hover-fa-heart"></i>
+							<div class="hover-slide-pre"></div>
+							<div class="hover-slide-next"></div>
+					    </div>
+					  	
+					    <div class="card-body">
+					    	<table>
+					    		<tr class="landing-note">
+					    			<td><li class="landing-note-house">HOUSE</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-bedroom">1 BEDROOM</li></td>
+					    			<td class="dot-icon"><img src="{{ 'assets/images/bullet.png'|theme }}" /></td>
+					    			<td><li class="landing-note-guest">2 GUESTS</li></td>
+					    		</tr>
+					    	</table>
+						  	<p class="landing_name">Ablac Studio</p>
+						  	<a class="landing_address" href="#">Mt Franklin, Victoria, Australia</a>
+						  	<p></p>
+						  	<p></p>
+						  	<p class="landing_content">Are you in need of a getaway or escape? We have some fantastic special offers available on luxury accommodation across Australia. These deals change regularly...</p>
+						  	<br>
+						  	<p class="landing_days">Nightly Rate Total</p>
+						  	<p class="landing_cost">From AUD $1,250</p><span style="margin-left:2px; font-weight: 300; font-size: 10px;">plus fees</span><i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" style="margin-left:2px; color: #38B1EA; "></i>
+					    </div>
+					 </div>
+			</div>
+		</div>
+		<div class="row wishlist-enquiry-loading-more">
+			<div class="col" >
+				<p><img src="{{ 'assets/images/rotation.png'|theme }}" />LOADING MORE</p>
+			</div>
+			
+		</div>
+		  </div>
+		  <div class="tab-pane container " id="menu1-wishlist-compare">...</div>
+		  <div class="tab-pane container " id="menu2-wishlist-enquiry">...</div>
+		  <div class="tab-pane container " id="menu3-wishlist-profile">
+		  	
+		  </div>
+		  <div class="tab-pane container " id="menu4-wishlist-logout">...</div>
+		</div>
+	</div>
+</div>
+</div>
+<script>
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var header = document.getElementById("wish-list-navbar");
+    if (window.pageYOffset > 56) {
+        header.classList.add("sticky-1");
+        $('#wishlist-enquiry-navbar .nav-tabs .nav-link').addClass('sticky-0');
+    } else {
+        header.classList.remove("sticky-1");
+        $('#wishlist-enquiry-navbar .nav-tabs .nav-link').removeClass('sticky-0');
+    }
+}
+</script>

@@ -1,0 +1,73 @@
+{% put styles %}
+    <style>
+        #{{ __SELF__ }} div {
+            display: block;
+            float: left;
+            margin: 3px;
+        }
+    </style>
+{% endput %}
+
+<div style="width: 100%" id="{{ __SELF__ }}">
+    {% for image in gallery.images %}
+        <div data-src="{{ image.path }}" data-sub-html="<h4>{{ image.title }}</h4><p>{{ image.description }}</p>">
+            <a href=""><img class="img-responsive" src="{{ image.getThumb(mainThumbWidth, mainThumbHeight, resizer) }}" alt="{{ image.title }}"></a>
+        </div>
+    {% endfor %}
+</div>
+
+{% put scripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#{{ __SELF__ }}').lightGallery({
+                mode: '{{ mode }}',
+                speed: {{ speed }},
+                height: '{{ height }}',
+                width: '{{ width }}',
+                addClass: '{{ addClass }}',
+                startClass: '{{ startClass }}',
+                backdropDuration: {{ backdropDuration }},
+                hideBarsDelay: {{ hideBarsDelay }},
+                closable: {{ closable }},
+                loop: {{ loop }},
+                escKey: {{ escKey }},
+                keyPress: {{ keyPress }},
+                controls: {{ controls }},
+                slideEndAnimation: {{ slideEndAnimation }},
+                hideControlOnEnd: {{ hideControlOnEnd }},
+                mousewheel: {{ mousewheel }},
+                preload: {{ preload }},
+                showAfterLoad: {{ showAfterLoad }},
+                download: {{ download }},
+                counter: {{ counter }},
+                swipeThreshold: '{{ swipeThreshold }}',
+                enableDrag: {{ enableDrag }},
+                enableTouch: {{ enableTouch }},
+
+                thumbnail: {{ thumbnail }},
+                animateThumb: {{ animateThumb }},
+                currentPagerPosition: '{{ currentPagerPosition }}',
+                thumbWidth: {{ thumbWidth }},
+                thumbContHeight: {{ thumbContHeight }},
+                thumbMargin: {{ thumbMargin }},
+                toogleThumb: {{ toogleThumb }},
+                enableThumbDrag: {{ enableThumbDrag }},
+                enableThumbSwipe: {{ enableThumbSwipe }},
+                swipeThreshold: {{ thumbSwipeThreshold }},
+
+                autoplay: {{ autoplay }},
+                pause: {{ pause }},
+                progressBar: {{ progressBar }},
+                forceAutoplay: {{ forceAutoplay }},
+                autoplayControls: {{ autoplayControls }},
+
+                fullScreen: {{ fullScreen }},
+                pager: {{ pager }},
+                zoom: {{ zoom }},
+                scale: {{ scale }}
+            });
+        });
+    </script>
+
+{% endput %}

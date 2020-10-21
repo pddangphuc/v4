@@ -1,0 +1,113 @@
+==
+<form data-request="{{ __SELF__ }}::onFormSubmit">
+    {{ form_token() }}
+    <div class="row">
+    
+        <div class="col-md-8">
+            <div class="bg-form-checkout">
+                <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                  <span class="title-img"><img src="{{ 'assets/images/User.png'|theme }}" /> </span>
+                  <h4>Contact Details</h4>
+             </div>
+              <div class="form-row">
+                  <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-first-name" name="wishlist-profile-first-name" value="{{ user.name }}" class="form-control" placeholder="First Name *">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-last-name" name="wishlist-profile-last-name" value="{{ user.surname }}" class="form-control" placeholder="Last Name *">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-4">
+                            <div class="form-group">
+                                <select>
+                                  <option selected>AUS +61</option>
+                                  <option>AUS +61</option>
+                                  <option>AUS +61</option>
+                                </select>
+                              </div>
+                        </div>
+                        <div class="col-sm-9 col-8">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-phone" name="wishlist-profile-phone" class="form-control" placeholder="Mobile phone *">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-address" name="wishlist-profile-address" class="form-control" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-city" name="wishlist-profile-city" class="form-control" placeholder="City / Town">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-country" name="wishlist-profile-country" class="form-control" placeholder="Country">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <input type="text" id="wishlist-profile-state" name="wishlist-profile-state" class="form-control" placeholder="State">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <input type="text" id="wishlist-profile-postcode" name="wishlist-profile-postcode" class="form-control" placeholder="Postcode">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+              </div>
+                
+            </div>  
+            <div class="bg-form-checkout">
+                <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                  <span class="title-img"><img src="{{ 'assets/images/iconlock1.png'|theme }}" /> </span>
+                  <h4>Login Details</h4>
+             </div>
+                <div class="form-row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" value="{{ user.email }}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="New Password">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Confirm New Password">
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="bg-form-checkout pb-3">
+                <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                      <span class="title-img"><img src="{{ 'assets/images/email1.png'|theme }}" /> </span>
+                      <h4>Subscriptions</h4>
+                 </div>
+                 <div class="form-row">
+                    <label class="con">Receive regular email updates on excusive deals & special offers<input type="checkbox" checked><span class="checkmark"></span></label>
+                </div>
+            
+            </div>
+            <div class="clearfix mt-4 mt-sm-3">
+                <button type="button" class="btn form-control" >Update</button>
+            </div>
+        </div>
+    </div>
+</form>

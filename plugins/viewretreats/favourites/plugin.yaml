@@ -1,0 +1,11 @@
+plugin:
+    name: 'viewretreats.favourites::lang.plugin.name'
+    description: 'viewretreats.favourites::lang.plugin.description'
+    author: ViewRetreats
+    icon: oc-icon-bookmark
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Favourites
+        url: viewretreats/favourites/favourites
+        icon: icon-bookmark

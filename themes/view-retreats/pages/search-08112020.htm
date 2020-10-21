@@ -1,0 +1,229 @@
+title = "Search 12-10-20"
+url = "/search-backup-12-10-20"
+layout = "search"
+is_hidden = 0
+enabled_in_sitemap = 0
+use_updated_at = 0
+changefreq = "always"
+priority = 0.1
+==
+<?php
+function onStart()
+{
+
+	if($_POST) {
+		
+		//$searchString = $_POST;	
+
+
+		$searchString = stripslashes($_POST['txtsearch']);
+		$this['searchString'] = $searchString;
+		
+ 
+		// EPS Region Search
+
+		//$search_region_id = Db::select("SELECT region_id FROM expedia_expediaimport_regions where region_name = '.$searchString.' ");
+
+		$search_region_id = Db::table('expedia_expediaimport_regions')->where('region_name', $searchString)->value('region_id');
+
+		// Get all pids under this region 
+
+		if(!empty($search_region_id)) {
+		$pids = Db::select("SELECT concat_ws(\"\",property_ids,property_ids_exp) as pids FROM expedia_expediaimport_region_pids where region_id = $search_region_id GROUP BY pids"); 
+		} else {
+			$pids = "";
+		}
+
+		if(!empty($pids)) {
+			
+			foreach ($pids as $pid) {
+		    //echo $user->first_name;
+				$string_ids[] = $pid->pids;
+			}
+			
+
+			// Property Search
+			$myarray = implode(',', array_map('intval', $string_ids));
+
+	        $properties = Db::select("SELECT *,
+			expedia_expediaimport_properties.id, 
+			expedia_expediaimport_properties.property_id, 
+			expedia_expediaimport_properties.name, 
+			expedia_expediaimport_properties.address_1, 
+			expedia_expediaimport_properties.address_2, 
+			expedia_expediaimport_properties.city, 
+			expedia_expediaimport_properties.state, 
+			expedia_expediaimport_properties.country_code,
+			expedia_expediaimport_ratings.guest_count AS reviews,
+			expedia_expediaimport_ratings.guest_overall AS ratings,
+			ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+			expedia_expediaimport_ratings.property_id AS property_id_rating,
+			rainlab_location_countries.name AS country_name 
+			FROM expedia_expediaimport_properties
+			JOIN expedia_expediaimport_ratings
+			ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+			JOIN rainlab_location_countries
+			ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+			WHERE expedia_expediaimport_properties.property_id IN ($myarray) ORDER BY expedia_expediaimport_properties.rank ASC ");
+
+			foreach ($properties as $property) {
+		    //echo $user->first_name;
+			}
+
+			$this['properties'] = $properties;
+
+
+    	} else {
+
+    		// Search by property 
+
+    		$properties = Db::select("SELECT * FROM expedia_expediaimport_properties where name like '%$searchString%' ORDER BY expedia_expediaimport_properties.rank ASC");
+
+    		foreach ($properties as $property) {
+		    //echo $user->first_name;
+			}
+
+			$this['properties'] = $properties;
+
+    	}
+
+		/*$properties = Db::select("SELECT *,
+		expedia_expediaimport_properties.id, 
+		expedia_expediaimport_properties.property_id, 
+		expedia_expediaimport_properties.name, 
+		expedia_expediaimport_properties.address_1, 
+		expedia_expediaimport_properties.address_2, 
+		expedia_expediaimport_properties.city, 
+		expedia_expediaimport_properties.state, 
+		expedia_expediaimport_properties.country_code,
+		expedia_expediaimport_ratings.guest_overall AS ratings,
+		ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+		expedia_expediaimport_ratings.property_id AS property_id_rating 
+		FROM expedia_expediaimport_properties
+		JOIN expedia_expediaimport_ratings
+		ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+		WHERE expedia_expediaimport_properties.name LIKE '%".$searchString."%' 
+		ORDER BY expedia_expediaimport_properties.rank ASC ");*/
+
+
+
+		
+
+
+	} else {
+
+		$properties = Db::select("SELECT *,
+			expedia_expediaimport_properties.id, 
+			expedia_expediaimport_properties.property_id, 
+			expedia_expediaimport_properties.name, 
+			expedia_expediaimport_properties.address_1, 
+			expedia_expediaimport_properties.address_2, 
+			expedia_expediaimport_properties.city, 
+			expedia_expediaimport_properties.state, 
+			expedia_expediaimport_properties.country_code,
+			expedia_expediaimport_ratings.guest_count AS reviews,
+			expedia_expediaimport_ratings.guest_overall AS ratings,
+			ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+			expedia_expediaimport_ratings.property_id AS property_id_rating,
+			rainlab_location_countries.name AS country_name 
+			FROM expedia_expediaimport_properties
+			JOIN expedia_expediaimport_ratings
+			ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+			JOIN rainlab_location_countries
+			ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+			WHERE expedia_expediaimport_properties.country_code = 'AU' 
+			AND expedia_expediaimport_ratings.guest_overall > 4
+			ORDER BY rand() LIMIT 50");
+
+		foreach ($properties as $property) {
+		    //echo $user->first_name;
+			}
+
+		$this['properties'] = $properties;
+
+
+	}
+
+	// print_r($_POST);
+	// echo $searchString;
+
+	
+}
+?>
+==
+<div style="display: none;">
+	<p>results:</p>
+ {% set listProducts = products %}
+
+ <ul>
+ {% for product in listProducts %}
+ 	<li>{{ product.name }}</li>
+ {% endfor %}
+</ul>
+</div> 
+
+<div id="search-page">
+	<div class="box-search-result">
+	    <div class="container">
+	        <div class="row" id="search-results">
+		         {% partial 'site/search-results-08112020' sw=searchString %}
+    		</div>
+    		<div class="col-xs-12  col-md-12 col-lg-12 text-center">
+    			<p class="landing-loading"> 
+    			    <img class="icon-rotation" src="{{ 'assets/images/rotation.png'|theme }}" />
+    			    <span class="d-sm-none ml-2">LOADING MORE</span>
+    			</p>
+    		</div>
+	    </div>
+	</div>
+		
+	
+	<div class="display-none" id="search-localtion">
+		{% partial 'site/search-localtion'%}
+	</div>
+	
+    <div class="modal fade room-popup" id="RefineSearchModalCenter" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+        {% partial 'popup/popup-refine-search' %}
+    </div>
+</div>
+<script>
+$(document).on('click', '#btn-filter', function() {
+    $('.btn').removeClass('btn-active')
+    $('#btn-filter').addClass('btn-active')
+    if ($(this).hasClass('btn-active')) {
+        $('#btn-filter').removeClass('btn-active')
+    }
+    
+});
+$(document).on('click', '#btn-map', function() {
+    $('.btn').removeClass('btn-active');
+    
+    if ($('#search-localtion').hasClass('display-none')) {
+        $('#search-localtion').removeClass('display-none');
+        $('.box-search-result').addClass('display-none');
+        $(this).addClass('btn-active');
+    }else{
+        $('#search-localtion').addClass('display-none');
+        $('.box-search-result').removeClass('display-none');
+        $(this).removeClass('btn-active');
+    }
+});
+$(document).on('click', '#btn-menu', function() {
+    $('.btn').removeClass('btn-active');
+    $('#btn-menu').addClass('btn-active');
+    $('#search-softby').addClass('display-none');
+    
+});
+
+	
+
+$(document).on('click', '#btn-softby', function() {
+    $('.btn').removeClass('btn-active');
+    $('#btn-softby').addClass('btn-active');
+    if ($('#search-softby').hasClass('display-none')) {
+        $('#search-softby').removeClass('display-none')
+    }else{
+        $('#search-softby').addClass('display-none')
+    }
+});
+</script>

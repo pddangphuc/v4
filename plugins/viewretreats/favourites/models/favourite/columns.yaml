@@ -1,0 +1,20 @@
+columns:
+    id:
+        label: 'Bookmark ID'
+        type: text
+        searchable: true
+        sortable: true
+    user_id:
+        label: 'User ID'
+        type: text
+        searchable: true
+        sortable: true
+    product_id:
+        label: 'Product ID'
+        type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Date Created'
+        type: datetime
+        sortable: true

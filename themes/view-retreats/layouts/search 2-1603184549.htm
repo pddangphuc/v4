@@ -1,0 +1,120 @@
+description = "Search Layout"
+==
+
+<?php
+function onStart()
+{
+    $this["myGuest"] = "<div>
+      <div class='info-popup'>
+        <b>Additional Fees</b>
+        <br />
+         This property charges additional fees that will be added to the nightly rate total once you select your room type (if applicable).  
+        <br />
+        <span>Fees: $600 Cleaning Fee, $114 Accidental Damage Levy, 1.5% Visa/Mastercard & Amex   </span>
+        <br />
+        <b>Refundable Security Bond</b> 
+        <br />
+        This property charges a refundable security bond. The bond is separate from the nightly rate and is paid directly to the property owner prior to check-in. Payment details will be provided by the host after confirmation.  
+        <br />
+        <span>Bond amount: $2,000  </span>
+        <br />
+        <b>Price Guarantee</b>
+        <br />
+         We always offer the best available prices. If you find a better price that includes all applicable fees, let us know and we’ll match it!
+      </div>
+    </div>";
+}
+?>
+==
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>View Retreats - {{ this.page.title }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        <meta name="author" content="OctoberCMS">
+        <meta name="generator" content="OctoberCMS">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+ 
+
+
+        <link href="{{ [
+          'assets/vendor/font-awesome/css/font-awesome.min.css',
+          'assets/vendor/bootstrap/dist/css/bootstrap.css',
+          'assets/less/main.less',
+          'assets/js/assets/owl.carousel.min.css',
+          'assets/js/assets/owl.theme.default.min.css'
+        ]|theme }}" rel="stylesheet">
+        
+        {% styles %}
+
+    </head>
+    <body >
+
+        <!-- side nav -->
+        {% partial 'site/sidenav' %}
+
+
+        <!-- Header -->
+        <header id="layout-header" class="search-page">
+            {% partial 'site/header-search' %}
+        </header>
+
+
+       <!-- search filter -->
+       <section class="filter-block">
+        <div class="container page-container p-0">
+            <div class="row">
+                <div class="col">
+                    <h2>Search Luxury Accommodation</h2>
+                </div>
+                <div class="col pt-1">
+                  <div class="btn-group float-right filter-btn" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-light">FILTER</button>
+                    <button type="button" class="btn btn-light"><img src="{{ 'assets/images/arrow-down-small-grey@2x.png'|theme }}" style="height: 12px;" /></button>
+                    <button type="button" class="btn btn-light"><img src="{{ 'assets/images/map-small-grey@2x.png'|theme }}" /></button>
+                    <button type="button" class="btn btn-light"><img src="{{ 'assets/images/list-grey@2x.png'|theme }}" style="height: 10px;" /></button>
+                  </div>
+                </div>
+            </div>
+            
+        </div>
+       </section>
+
+
+        <!-- Content -->
+        <section id="layout-content" onclick="closeNav()">
+            {% page %}
+        </section>
+
+
+
+        <!-- Footer Now-->
+        <footer id="layout-footer">
+            {% partial 'site/footer' %}
+        </footer>
+
+        <!-- Scripts GO -->
+        <script type="text/javascript" src="{{ [
+       'assets/js/jquery.min.js',
+      'assets/js/owl.carousel.min.js',
+      'assets/js/scripts.js',      
+      'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+       ]|theme }}"></script>
+
+      
+        
+        {% framework extras %}
+        {% scripts %}
+        <!-- <script src="http://localhost:8888/vr3/plugins/peterhegman/slickslider/assets/slick/slick.min.js"></script> -->
+
+    </body>
+</html>

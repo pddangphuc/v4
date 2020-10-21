@@ -1,0 +1,216 @@
+==
+<div class="slider-about-us-list-with-us">
+    <span>List Your Property</span>
+	<img src="https://app.dev.viewretreats.net/storage/app/media/about%20us/Rectangle%201262.png">
+</div>
+<div class="container" >
+	<div class="row about-us-with-us">
+	    <div class="col-md-12 title-with-us">
+    		<span>Apply to list</span>
+    	</div>
+		<div class="col-md-6">
+    		<div class="mr-with-us">
+    		    <span>View Retreats is an exclusive marketing & booking service for unique and luxury accommodation. We only feature boutique accommodation of the highest quality, which is why joining our range is by invitation only. The number of properties that we list is limited by category and region to maintain exclusivity, and all properties are reviewed annually against our extensive membership criteria. Joining View Retreats is free and we have performance-based payment structures to cater to all types of property owners and managers. If you think that your property would be a good fit for our collection, please get in touch.</span>
+    		</div>
+    	</div>
+    	<div class="col-md-6 form-nquire">
+    		<div class="list-group-item-action">
+                <form data-request="{{ __SELF__ }}::onFormSubmit" class="frm-question">
+        
+        		    {{ form_token() }}
+        
+        		    <div id="{{ __SELF__ }}_forms_flash"></div>
+                    <div class="pd-form">
+            			<div class="row">
+            			    <div class="form-group col-sm" style="padding-right: 0px;">
+            			        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name*">
+            			    </div>
+            
+            			    <div class="form-group col-sm">
+            			        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name*">
+            			    </div>
+            		    </div>
+            
+            			<div class="row">
+            			    <div class="form-group col-sm" style="padding-right: 0px;">
+            			        <input type="text" id="email" name="email" class="form-control" placeholder="Email*">
+            			    </div>
+            
+            			    <div class="form-group col-sm">
+            			        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone">
+            			    </div>
+            		    </div>
+            
+            			<div class="row">
+            			    <div class="form-group col-sm" style="padding-right: 0px;">
+            			        <input type="text" id="property" name="property" class="form-control" placeholder="Property Name">
+            			    </div>
+            
+            			    <div class="form-group col-sm">
+            			        <input type="text" id="website" name="website" class="form-control" placeholder="Website">
+            			    </div>
+            			</div>
+            
+            		    <div class="form-group">
+            		        <textarea id="question" name="question" class="form-control" rows="3" cols="72" placeholder="How can we help you?*"></textarea>
+            		    </div>
+                    </div>
+        		    <button id="enquireSubmitButton" type="submit" class="btn-enquire">ENQUIRE</button>
+        		</form>
+            </div>
+    	</div>
+    </div>
+</div>
+<div class="container-fulid" id="about-us-why-list-with-body">
+    <div class="container">
+            <div >
+            <div class="row about-us-list-with-why-us-title">
+                <h3>Why List With View Retreats?</h3>
+            </div>
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-4 about-us-list-with-why-us">
+                    <img src="{{ 'assets/images/diamond-blue.png'|theme }}" />
+                    <h4>Join an exclusive <br> collection of properties</h4>
+                    <p>We’re big believers in quality over quantity, so our hand-picked portfolio features only the most exceptional romantic retreats, luxury holiday homes</p>
+                </div>
+                <div class="col-4 about-us-list-with-why-us">
+                    <img src="{{ 'assets/images/diamond-blue.png'|theme }}" />
+                    <h4>Grow your reach in the luxury market</h4>
+                    <p>We’re big believers in quality over quantity, so our hand-picked portfolio features only the most exceptional romantic retreats, luxury holiday homes</p>
+                </div>
+                <div class="col-4 about-us-list-with-why-us">
+                    <img src="{{ 'assets/images/diamond-blue.png'|theme }}" />
+                    <h4>Target special interest & corporate groups</h4>
+                    <p>We’re big believers in quality over quantity, so our hand-picked portfolio features only the most exceptional romantic retreats, luxury holiday homes</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 50px;">
+                <div class="col-4 about-us-list-with-why-us">
+                    <img src="{{ 'assets/images/diamond-blue.png'|theme }}" />
+                    <h4>Receive personalised <br>service & support</h4>
+                    <p>We’re big believers in quality over quantity, so our hand-picked portfolio features only the most exceptional romantic retreats, luxury holiday homes</p>
+                </div>
+                <div class="col-4 about-us-list-with-why-us">
+                    <img src="{{ 'assets/images/diamond-blue.png'|theme }}" />
+                    <h4>Free set-up & annual listing for invited properties</h4>
+                    <p>We’re big believers in quality over quantity, so our hand-picked portfolio features only the most exceptional romantic retreats, luxury holiday homes</p>
+                </div>
+                <div class="col-4 about-us-list-with-why-us">
+                    <img src="{{ 'assets/images/diamond-blue.png'|theme }}" />
+                    <h4>Support locally owned Australian business</h4>
+                    <p>We’re big believers in quality over quantity, so our hand-picked portfolio features only the most exceptional romantic retreats, luxury holiday homes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fulid" id="about-us-why-list-with-partner">
+    <div class="container">
+            <div >
+            <div class="row about-us-list-with-why-us-title">
+                <div class = "col-6 about-us-title-header">
+                    <h3>What our partners say</h3>
+                </div>
+                <div class = "col-6 about-us-title-button-slide" style="text-align:right; ">
+                  <span class="dot" onclick="currentSlide(1)"></span> 
+                  <span class="dot" onclick="currentSlide(2)"></span> 
+                  <span class="dot" onclick="currentSlide(3)"></span> 
+                </div>
+            </div>
+            <div class="">
+                <div class="row  mySlides fade"> 
+                    <div class="row col-10" style="padding: 28px 121px 121px;">
+                        <div class="col-3">
+                           <div class="Cicler-img" >
+                               <img src="https://app.dev.viewretreats.net/storage/app/media/about%20us/image-partner1.png" style="width:100%">
+                           </div>
+                       </div>
+                       <div class="col-8">
+                           <i>View Retreats do an amazing job for us. No hassles, easy, their site looks amazing!</i>
+                           <p>Jo & William Edwards</p>
+                           <span>Banjara Retreat, Blue Mountains </span>
+                       </div>
+                    </div>
+                    <div class="col-2">
+                        <img src="https://app.dev.viewretreats.net/themes/view-retreats/assets/images/raster%20(12)%201.png">
+                     </div>
+                </div>
+                <div class="row  mySlides fade"> 
+                    <div class="row col-10" style="padding: 28px 121px 121px;">
+                        <div class="col-3">
+                           <div class="Cicler-img" >
+                               <img src="https://app.dev.viewretreats.net/storage/app/media/about%20us/image-partner1.png" style="width:100%">
+                           </div>
+                       </div>
+                       <div class="col-8">
+                           <i>View Retreats do an amazing job for us.  No hassles, easy, their site looks amazing!</i>
+                           <p>Jo & William Edwards</p>
+                           <span>Banjara Retreat, Blue Mountains </span>
+                       </div>
+                    </div>
+                    <div class="col-2">
+                        <img src="https://app.dev.viewretreats.net/themes/view-retreats/assets/images/raster%20(12)%201.png">
+                     </div>
+                </div>
+                
+                <div class="row  mySlides fade"> 
+                    <div class="row col-10" style="padding: 28px 121px 121px;">
+                        <div class="col-3">
+                           <div class="Cicler-img" >
+                               <img src="https://app.dev.viewretreats.net/storage/app/media/about%20us/image-partner1.png" style="width:100%">
+                           </div>
+                       </div>
+                       <div class="col-8">
+                           <i>View Retreats do an amazing job for us.  No hassles, easy, their site looks amazing!</i>
+                           <p>Jo & William Edwards</p>
+                           <span>Banjara Retreat, Blue Mountains </span>
+                       </div>
+                    </div>
+                    <div class="col-2">
+                        <img src="https://app.dev.viewretreats.net/themes/view-retreats/assets/images/raster%20(12)%201.png">
+                     </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "flex";  
+  dots[slideIndex-1].className += " active";
+}
+
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var header = document.getElementById("about-us-navs-tab");
+    if (window.pageYOffset > 56) {
+        header.classList.add("sticky");
+    } else {
+        header.classList.remove("sticky");
+    }
+}
+
+</script>

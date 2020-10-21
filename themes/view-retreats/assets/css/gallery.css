@@ -1,0 +1,28 @@
+
+@media (min-width: 1200px) {
+      .container, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 1236px;
+      }
+}
+@media screen and (max-width: 575.98px){
+    .nav-bg-fix .container .nav-menu-block .nav-icons-block #cart{
+        display: none;
+    }
+    .nav-bg-fix .container .nav-menu-block .nav-icons-block #heart{
+        display: none;
+    }
+    .nav-bg-fix .container .nav-menu-block .nav-icons-block #mobile-menu{
+        margin-right: 17px;
+        margin-left: 11px;
+    }
+    .nav-bg-fix .navbar-brand{
+        padding-top: 1px;
+        padding-left: 15px;
+    }
+
+    .nav-bg-fix .navbar-brand img{
+        width: 189px;
+        height: 20px;
+    }
+
+}

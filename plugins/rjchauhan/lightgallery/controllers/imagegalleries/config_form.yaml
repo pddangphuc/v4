@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Image Gallery
+
+# Model Form Field configuration
+form: $/rjchauhan/lightgallery/models/imagegallery/fields.yaml
+
+# Model Class name
+modelClass: Rjchauhan\LightGallery\Models\ImageGallery
+
+# Default redirect location
+defaultRedirect: rjchauhan/lightgallery/imagegalleries
+
+# Create page
+create:
+    title: Create Image Gallery
+    redirect: rjchauhan/lightgallery/imagegalleries/update/:id
+    redirectClose: rjchauhan/lightgallery/imagegalleries
+
+# Update page
+update:
+    title: Edit Image Gallery
+    redirect: rjchauhan/lightgallery/imagegalleries
+    redirectClose: rjchauhan/lightgallery/imagegalleries
+
+# Preview page
+preview:
+    title: Preview Image Gallery

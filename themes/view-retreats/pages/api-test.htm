@@ -1,0 +1,121 @@
+title = "api-test"
+url = "/api/:idnum?"
+layout = "default"
+description = "this is a test page for API calls"
+is_hidden = 0
+==
+<?php
+function onStart()
+{
+
+
+	$idnum = $this->param('idnum');
+    $this['idnum'] = $this->param('idnum');
+
+
+    if(!empty($idnum)) {
+	
+	// API Settings from backend
+	$apiKey = "1d99ilkinggvercocq9u21ki1p";
+	$secret = "bep3s64f1ou57";
+	$timestamp = time();
+	$authHeader = 'Authorization: EAN APIKey=' . $apiKey . ',Signature=' . hash("sha512", $apiKey.$secret.$timestamp) . ',timestamp=' . time();
+
+
+
+	// Initialize API connection
+	$curl = curl_init();
+
+	// make the call
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => "https://test.ean.com/2.4/properties/content?property_id=". $idnum ."&language=en-US",
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_ENCODING => "",
+	  CURLOPT_MAXREDIRS => 10,
+	  CURLOPT_TIMEOUT => 0,
+	  CURLOPT_FOLLOWLOCATION => true,
+	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	  CURLOPT_CUSTOMREQUEST => "GET",
+	  CURLOPT_HTTPHEADER => array(
+	    $authHeader,
+	    "Customer-Ip: 5.5.5.5",
+	    "Accept: application/json",
+	    "Accept-Encoding: gzip"
+	  ),
+	));
+
+	// get response
+	$response = curl_exec($curl);
+	curl_close($curl);
+
+
+	// converts them to array
+	$results = json_decode($response);
+
+	//echo $idnum;
+
+	// Log call and check if there's an error to response
+	if (array_key_exists('type', $results)) {
+		//echo "Error:". current($results). "<br />" ;
+		echo "Error: $results->type Message: $results->message";
+		//echo current($results);
+
+
+		// add error code 
+
+		switch ($results->type) {
+		    case "invalid_input":
+		        $errcode = "400";
+		        break;
+		    case "version.required":
+		        $errcode = "400";
+		        break;
+		    case "version.unsupported":
+		        $errcode = "400";
+		        break;
+		    case "request_unauthenticated":
+		        $errcode = "401/403";
+		        break;
+		    case "resource.not_found":
+		        $errcode = "404";
+		        break;
+		    case "link.expired":
+		        $errcode = "410";
+		        break;
+		    case "upgrade_required":
+		        $errcode = "426";
+		        break;
+		    case "unknown_internal_error":
+		        $errcode = "500";
+		        break; 
+		    case "internal_error":
+		        $errcode = "500";
+		        break;
+		    case "service_unavailable":
+		        $errcode = "503";
+		        break;           
+		    default:
+		        $errcode = "Unknown";
+		}
+
+
+
+		// call
+		//Log::info('An API call was made');
+		// response
+		Log::error('EPS API call but with error:'.$errcode.'-'.$results->type.'-'. $results->message);
+	} else {
+		//echo "no error";
+		Log::info('EPS API call was made with ID:'. $idnum);
+		//print_r($results);
+	}
+
+} //endif
+
+}
+?>
+==
+<div class="container" style="margin-top:50px;">
+<h1>API test call with param</h1>
+<p> this should also log those calls to the log file {{ idnum }}</p>
+</div>

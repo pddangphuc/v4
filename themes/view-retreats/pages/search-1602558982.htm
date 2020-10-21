@@ -1,0 +1,606 @@
+title = "Search"
+url = "/search"
+layout = "search"
+is_hidden = 0
+enabled_in_sitemap = 0
+use_updated_at = 0
+changefreq = "always"
+priority = 0.1
+==
+<?php
+function onStart()
+{
+
+	if($_POST) {
+		
+		// Usage across all PHP versions
+        if (get_magic_quotes_gpc()) {
+           $searchString = stripslashes($_POST['txtsearch']);
+           //echo "magic on";
+        }
+        else {
+            $searchString = addslashes($_POST['txtsearch']);
+           // echo "magic off $searchString ";
+        }
+
+		//print_r($_POST);
+		// Get the keyword search or selected search
+		//$searchString = stripslashes($_POST['txtsearch']);
+		$this['searchString'] = $searchString;
+
+		// cut first word
+		//$searchString = preg_replace('/^([^,]*).*$/', '$1', $searchString);
+
+
+		// Initialize collection for availability
+		$collection = new October\Rain\Support\Collection();
+		
+		// EPS Region Search
+
+		//$search_region_id = Db::select("SELECT region_id FROM expedia_expediaimport_regions where region_name = '.$searchString.' ");
+		//$search_region_id = Db::table('expedia_expediaimport_regions')->where('region_name', $searchString)->value('region_id');
+		$search_region_id = Db::table('expedia_expediaimport_regions')->where('region_name_full', $searchString)->value('region_id');
+		$search_region_type = Db::table('expedia_expediaimport_regions')->where('region_name_full', $searchString)->value('region_type');
+		$search_country_code = Db::table('expedia_expediaimport_regions')->where('region_name_full', $searchString)->value('country_code');
+
+
+
+		// Get all pids under this region 
+
+		if(!empty($search_region_id)) {
+			$pids = Db::select("SELECT concat_ws(\"\",property_ids,property_ids_exp) as pids FROM expedia_expediaimport_region_pids where region_id = '$search_region_id' GROUP BY pids"); 
+		} else {
+
+
+			// assume keyword used
+			//$sqlSearchString = mysql_real_escape_string($searchString);
+			//$search_region_ids = Db::select("SELECT region_id FROM expedia_expediaimport_regions where region_name = '$searchString'");
+			
+			$search_region_ids = Db::select("SELECT region_id FROM expedia_expediaimport_regions where region_name = '$searchString' OR region_name_full='$searchString'");
+
+			//check for multiple ids
+			if(!empty($search_region_ids)) {
+				foreach ($search_region_ids as $srid) {
+		    		//echo $user->first_name;
+				$srids[] = $srid->region_id;
+				}
+
+
+				$pids = Db::select("SELECT property_ids_exp AS pids FROM expedia_expediaimport_region_pids where region_id IN (" . implode(',', $srids) . ") GROUP BY property_ids_exp Order by abs(property_ids_exp) ASC");
+
+				//echo "Got It";
+
+			}  else {
+
+			$pids = "";
+
+			}
+		}
+
+		if(!empty($pids)) {
+			
+			foreach ($pids as $pid) {
+				$string_ids[] = $pid->pids;
+			}
+			
+
+			// Property Search
+			$myarray = implode(',', array_map('intval', $string_ids));
+
+	        $properties = Db::select("SELECT *,
+			expedia_expediaimport_properties.id, 
+			expedia_expediaimport_properties.property_id,
+			expedia_expediaimport_properties.property_collect, 
+			expedia_expediaimport_properties.expedia_collect, 
+			expedia_expediaimport_properties.inc_all_rate_plans, 
+			expedia_expediaimport_properties.name, 
+			expedia_expediaimport_properties.address_1, 
+			expedia_expediaimport_properties.address_2, 
+			expedia_expediaimport_properties.city, 
+			expedia_expediaimport_properties.state, 
+			expedia_expediaimport_properties.country_code,
+			expedia_expediaimport_properties.active,
+			expedia_expediaimport_properties.statistics,
+			expedia_expediaimport_properties.accommodation_type,
+			expedia_expediaimport_ratings.guest_count AS reviews,
+			expedia_expediaimport_ratings.guest_overall AS ratings,
+			ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+			expedia_expediaimport_ratings.property_id AS property_id_rating,
+			rainlab_location_countries.name AS country_name 
+			FROM expedia_expediaimport_properties
+			JOIN expedia_expediaimport_ratings
+			ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+			JOIN rainlab_location_countries
+			ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+			WHERE expedia_expediaimport_properties.property_id IN ($myarray) AND expedia_expediaimport_properties.active = 1 ORDER BY expedia_expediaimport_properties.rank ASC");
+
+
+			// Check if date specified 
+
+             if(!empty($properties)) {
+			foreach ($properties as $property) {
+			    //echo $user->first_name;
+	    		$se_stats = $property->statistics;
+				if($property->accommodation_type == "Holiday Home or Private Villa") {
+					$statistics[] = unserialize($se_stats);
+				}
+			}
+
+			$this['properties'] = $properties;
+             }
+
+
+    	} else {
+
+
+    		// Check if its a COUNTRY 
+    		if($search_region_type == "country") {
+
+    			$properties = Db::select("SELECT *,
+				expedia_expediaimport_properties.id, 
+				expedia_expediaimport_properties.property_id, 
+				expedia_expediaimport_properties.name,
+				expedia_expediaimport_properties.property_collect, 
+				expedia_expediaimport_properties.expedia_collect,
+				expedia_expediaimport_properties.inc_all_rate_plans,   
+				expedia_expediaimport_properties.address_1, 
+				expedia_expediaimport_properties.address_2, 
+				expedia_expediaimport_properties.city, 
+				expedia_expediaimport_properties.state, 
+				expedia_expediaimport_properties.country_code,
+				expedia_expediaimport_properties.active,
+				expedia_expediaimport_properties.statistics,
+			    expedia_expediaimport_properties.accommodation_type,
+				expedia_expediaimport_ratings.guest_count AS reviews,
+				expedia_expediaimport_ratings.guest_overall AS ratings,
+				ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+				expedia_expediaimport_ratings.property_id AS property_id_rating,
+				rainlab_location_countries.name AS country_name 
+				FROM expedia_expediaimport_properties
+				JOIN expedia_expediaimport_ratings
+				ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+				JOIN rainlab_location_countries
+				ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+				WHERE expedia_expediaimport_properties.country_code = '$search_country_code'
+				AND expedia_expediaimport_properties.active = 1
+				ORDER BY expedia_expediaimport_properties.rank ASC");
+
+				if(!empty($properties)) {
+
+		    		foreach ($properties as $property) {
+				    //echo $user->first_name;
+					}
+
+					$this['properties'] = $properties;
+				} else {
+					//echo "no record found";
+				}
+
+
+
+
+
+    		} else {
+
+    			// Search by property 
+	    		$searchString = preg_replace('/^([^,]*).*$/', '$1', $searchString);
+
+	    		//$properties = Db::select("SELECT * FROM expedia_expediaimport_properties where name like '%$searchString%' ORDER BY expedia_expediaimport_properties.rank ASC");
+	    		
+
+	    		$properties = Db::select("SELECT *,
+				expedia_expediaimport_properties.id, 
+				expedia_expediaimport_properties.property_id, 
+				expedia_expediaimport_properties.name,
+				expedia_expediaimport_properties.property_collect, 
+				expedia_expediaimport_properties.expedia_collect,
+				expedia_expediaimport_properties.inc_all_rate_plans,   
+				expedia_expediaimport_properties.address_1, 
+				expedia_expediaimport_properties.address_2, 
+				expedia_expediaimport_properties.city, 
+				expedia_expediaimport_properties.state, 
+				expedia_expediaimport_properties.country_code,
+				expedia_expediaimport_properties.active,
+				expedia_expediaimport_properties.statistics,
+			    expedia_expediaimport_properties.accommodation_type,
+				expedia_expediaimport_ratings.guest_count AS reviews,
+				expedia_expediaimport_ratings.guest_overall AS ratings,
+				ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+				expedia_expediaimport_ratings.property_id AS property_id_rating,
+				rainlab_location_countries.name AS country_name 
+				FROM expedia_expediaimport_properties
+				JOIN expedia_expediaimport_ratings
+				ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+				JOIN rainlab_location_countries
+				ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+				WHERE expedia_expediaimport_properties.name LIKE '%$searchString%'
+				AND expedia_expediaimport_properties.active = 1
+				ORDER BY expedia_expediaimport_ratings.guest_overall DESC");
+
+                if(!empty($properties)) {
+	    		foreach ($properties as $property) {
+			    //echo $user->first_name;
+			        $se_stats = $property->statistics."-".$property->accommodation_type;
+				}
+                }
+				$this['properties'] = $properties;
+                
+
+
+    		}
+
+
+
+    		
+
+    	}
+
+
+		// initiate Dates
+		$dateString = !empty(stripslashes($_POST['txtcal-search-block'])) ? stripslashes($_POST['txtcal-search-block']) : "";
+		$this['dateString'] = $dateString;
+
+
+		// initiate occupancy 
+		//$totalguests = $_POST[];
+
+
+		// convert date readable to api
+		if(!empty($dateString)) {
+	        $sdates = explode("-", $dateString);
+
+	        $checkin = strtr($sdates[0], '/', '-');
+			$checkout = strtr($sdates[1], '/', '-');
+
+	        
+
+	        $dateCheckIn = date("Y-m-d",strtotime($checkin));
+    		$dateCheckOut = date("Y-m-d",strtotime($checkout));
+
+    		$this['checkIn'] = $dateCheckIn;
+	        $this['checkOut'] = $dateCheckOut;
+
+
+
+
+	        // OCCUPANCY check
+
+	        $total_rooms =  !empty($_POST['txtroom']) ? $_POST['txtroom'] : "1";
+	        $occupancy_final_str = "";
+
+	        if(!empty($total_rooms)) {
+
+	        	
+	        		
+	        	for($ctr = 1; $ctr <= $total_rooms; $ctr++) {
+	        		$occupancy_str = "&occupancy";
+	        		$adult_str = 'adults_item_'.$ctr;
+	        		$total_adults = !empty($_POST[$adult_str]) ? $_POST[$adult_str] : 0;
+
+	        		$array_adult[]  = $total_adults;
+
+	        		//$occupancy_str = $occupancy_str .'='. $total_adults;
+	        		$occupancy_final_str = $occupancy_final_str . $occupancy_str .'='. $total_adults;
+	        		//occupancy=2
+
+	        		$child_str = 'child_item_'.$ctr;
+	        		$total_child = !empty($_POST[$child_str]) ? $_POST[$child_str] : 0;
+	        		$child_item_sel = "";
+	        		if(!empty($total_child)) {
+	        			
+	        			for($child_ctr = 1; $child_ctr <= $total_child; $child_ctr++) {
+	        				$child_item_sel = $child_item_sel . $_POST['child_item_'.$ctr.'_sel_'.$child_ctr];
+
+	        				if($child_ctr < $total_child) {
+	        					$child_item_sel = $child_item_sel . ",";
+	        				}
+
+	        			}
+	        			$occupancy_final_str = $occupancy_final_str.'-'. $child_item_sel;
+	        		} 
+
+	        		//end if total child
+
+	        	} // end for
+
+	        }
+
+	        
+
+	      //  echo "the string: ".$occupancy_str;
+	       // echo "the string: ".$occupancy_final_str;
+
+	       // echo $checkin;
+
+	        //Formulate the url 
+
+	        $qrystring = "";
+	        foreach ($properties as $property_value) {
+	        	$qrystring = $qrystring . "&property_id=".$property_value->property_id;	 
+			}
+
+
+	        // Connect to API
+	        $apiKey = "1d99ilkinggvercocq9u21ki1p";
+			$secret = "bep3s64f1ou57";
+			$timestamp = time();
+			$authHeader = 'Authorization: EAN APIKey=' . $apiKey . ',Signature=' . hash("sha512", $apiKey.$secret.$timestamp) . ',timestamp=' . time();
+
+
+			// Initialize API connection
+	        $curl = curl_init();
+
+	        // make the call
+	        curl_setopt_array($curl, array(
+	          //CURLOPT_URL => "https://test.ean.com/2.4/properties/availability?checkin=".$dateCheckIn."&checkout=".$dateCheckOut."&currency=AUD&language=en-US&country_code=AU&occupancy=2&sales_channel=website&sales_environment=hotel_only&rate_plan_count=1&property_id=".$propertyid,
+	        CURLOPT_URL => "https://test.ean.com/2.4/properties/availability?checkin=".$dateCheckIn."&checkout=".$dateCheckOut."&currency=AUD&language=en-US&country_code=AU&sales_channel=website&sales_environment=hotel_only&rate_plan_count=1". $occupancy_final_str . $qrystring ,
+	          CURLOPT_RETURNTRANSFER => true,
+	          CURLOPT_ENCODING => "",
+	          CURLOPT_USERAGENT=> "PostmanRuntime/7.26.1",
+	          CURLOPT_MAXREDIRS => 10,
+	          CURLOPT_TIMEOUT => 0,
+	          CURLOPT_FOLLOWLOCATION => true,
+	          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	          CURLOPT_CUSTOMREQUEST => "GET",
+	          CURLOPT_HTTPHEADER => array(
+	            $authHeader,
+	            "Customer-Ip: 5.5.5.5",
+	            "Accept: application/json",
+	            "Accept-Encoding: gzip"
+	          ),
+	        ));
+
+       
+	        // get response
+	        $response = curl_exec($curl);
+	        curl_close($curl);
+
+
+	        // converts them to array
+	        $results = json_decode($response);
+
+	       // print_r($results);
+
+
+
+	        if (!empty($results)) {
+
+	            foreach ($results as $key => $value) { 
+	                $newresult = $value; 
+	            
+
+		            // print_r($results);
+
+		            
+
+		            // lets try to get the rates on rooms
+		            $rooms =  !empty($newresult->rooms) ? $newresult->rooms : "";
+		            $occupancy_total = 0;
+		            $total = 0;
+		            
+		            if(!empty($rooms)) {
+
+		            	// 1st layer
+		            	foreach($rooms as $rkey => $rvalue) {
+		            		$prop_values = $rvalue;
+		            	}
+
+		            	// get rates
+		            	//$rates =  $prop_values->rates;
+		            	$rates =  !empty($prop_values->rates) ? $prop_values->rates : "";
+
+		            	foreach($rates as $rate_key => $rate_value) {
+		            		$totals = $rate_value;
+		            	}
+
+		            	//print_r($totals);
+		            	//echo "my array";
+		            	if(!empty($array_adult)) {
+		            	//print_r($array_adult);
+		            	//echo 
+		            	}
+
+		            	for($counter = 0; $counter <= $total_rooms - 1; $counter++) {
+
+			            	$occupancy_index  = $array_adult[$counter];	
+
+			            	$occupancy_total = !empty($totals->occupancy_pricing->{$occupancy_index}->totals->inclusive->request_currency->value) ? $totals->occupancy_pricing->{$occupancy_index}->totals->inclusive->request_currency->value : "";
+
+			            	$total = $total + $occupancy_total;
+
+			            	$strike = !empty($totals->occupancy_pricing->{$occupancy_index}->totals->strikethrough->billable_currency->value) ? $totals->occupancy_pricing->{$occupancy_index}->totals->strikethrough->billable_currency->value : "";
+
+			            	$nightly = !empty($totals->occupancy_pricing->{$occupancy_index}->nightly) ? $totals->occupancy_pricing->{$occupancy_index}->nightly : "";
+			            	$base_rate = !empty($totals->occupancy_pricing->{$occupancy_index}->totals->exclusive->request_currency->value) ? $totals->occupancy_pricing->{$occupancy_index}->totals->exclusive->request_currency->value : 0;
+
+		            	}
+
+		            	// Pass to variables
+		            	//$total = !empty($totals->occupancy_pricing->{'2'}->totals->inclusive->request_currency->value) ? $totals->occupancy_pricing->{'2'}->totals->inclusive->request_currency->value : "";
+		            	//$strike = !empty($totals->occupancy_pricing->{'2'}->totals->strikethrough->billable_currency->value) ? $totals->occupancy_pricing->{'2'}->totals->strikethrough->billable_currency->value : "";
+
+		            	$cancellation = !empty($totals->refundable) ?  $totals->refundable : "false";
+
+		            	$room_status = !empty($totals->status) ?  $totals->status : "";
+
+		            	$deposit_required = !empty($totals->deposit_required) ?  $totals->deposit_required : "";
+
+		            	//$nightly = array();
+		            	//$nightly = !empty($totals->occupancy_pricing->{'2'}->nightly) ? $totals->occupancy_pricing->{'2'}->nightly : "";
+		            	//$base_rate = !empty($totals->occupancy_pricing->{'2'}->totals->exclusive->request_currency->value) ? $totals->occupancy_pricing->{'2'}->totals->exclusive->request_currency->value : 0;
+			            $tax_and_service_fee = 0;
+			            $cancellation = !empty($totals->cancel_penalties) ? $totals->cancel_penalties : "";
+			            $cancel_date = '';
+
+			            if(!empty($cancellation)) {
+			            	foreach ($cancellation as $key => $value) {
+			            		$cancel[] = $value;
+			            		$cancel_date = $value->start;
+			            	}
+
+			            	//$cancel_date = $cancel->start;
+			            	//print_r($cancel);
+			            }
+
+
+			          	//echo "Cancel Date: ". $cancel->start;
+			          	$num_nights = 0;	
+
+		            		if(!empty($nightly)) {
+
+			            		
+				            	foreach ($nightly as $nkey => $nvalue) {
+				            		$nightly_arrays[] = $nvalue;
+
+				            		foreach($nvalue as $newvalue) {
+				            			//echo $newvalue->type.'-'.$newvalue->value. '<br />';
+
+				            			//do the math
+				            			if($newvalue->type == 'base_rate') {
+				            				$num_nights++;
+				            			}
+
+				            			if($newvalue->type == 'tax_and_service_fee') {
+				            				$tax_and_service_fee = $tax_and_service_fee + $newvalue->value;
+				            			}
+
+				            		}	
+				            	}
+			            	} //endif nightly 
+
+			           // echo "Base Rate: $base_rate <br /> Tax:  $tax_and_service_fee"; 	
+			            	//$this['baseRate'] = $base_rate;
+			            	//$this['tax_and_service_fee'] = $tax_and_service_fee;
+
+		            	//print_r($nightly_arrays);
+
+		            	 
+		            	//echo "Property: $newresult->property_id - $newresult->property_id - $total \n";
+
+		            	 $this['propCollection'] = $collection->push(['property_id' => $newresult->property_id , 'total' => $total, 'strikethrough' => $strike, 'refundable' => $cancellation, 'room_status' => $room_status, 'deposit_required' => $deposit_required, 'baseRate' => $base_rate, 'tax_and_service_fee' => $tax_and_service_fee, 'cancel_date' => $cancel_date, 'num_nights' => $num_nights ]);
+
+
+
+		            } // end if rooms
+
+		           // echo $newresult->property_id. '-' . $total . '<br />';
+	         	} // end for each
+
+	        }
+
+	       //echo $qrystring;
+	       //$this['propCollection'] = $collection->all();
+
+	      /*  $mycollection = $collection->where('property_id', 8649130);
+
+	        $prices = $mycollection->first();
+
+	        echo $prices['property_id'];*/
+	       
+
+
+	    } // Date String 
+	
+	} else {
+
+		if(empty($_POST['txtsearch'])) {
+
+		$properties = Db::select("SELECT *,
+			expedia_expediaimport_properties.id, 
+			expedia_expediaimport_properties.property_id, 
+			expedia_expediaimport_properties.name,
+			expedia_expediaimport_properties.property_collect, 
+			expedia_expediaimport_properties.expedia_collect,
+			expedia_expediaimport_properties.inc_all_rate_plans,   
+			expedia_expediaimport_properties.address_1, 
+			expedia_expediaimport_properties.address_2, 
+			expedia_expediaimport_properties.city, 
+			expedia_expediaimport_properties.state, 
+			expedia_expediaimport_properties.country_code,
+			expedia_expediaimport_properties.active,
+			expedia_expediaimport_properties.statistics,
+			expedia_expediaimport_properties.accommodation_type,
+			expedia_expediaimport_ratings.guest_count AS reviews,
+			expedia_expediaimport_ratings.guest_overall AS ratings,
+			ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+			expedia_expediaimport_ratings.property_id AS property_id_rating,
+			rainlab_location_countries.name AS country_name 
+			FROM expedia_expediaimport_properties
+			JOIN expedia_expediaimport_ratings
+			ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+			JOIN rainlab_location_countries
+			ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+			WHERE expedia_expediaimport_properties.active = 1
+			ORDER BY expedia_expediaimport_properties.rank DESC LIMIT 20");
+
+			foreach ($properties as $property) {
+		    //echo $user->first_name;
+			}
+
+			$this['properties'] = $properties;
+		}	
+
+	}
+
+	
+	
+}
+?>
+==
+<div id="search-page">
+	<div class="box-search-result">
+	    <div class="container">
+	        <div class="row" id="search-results">
+		         {% partial 'site/search-results' sw=searchString %}
+    		</div>
+    		<div class="col-xs-12  col-md-12 col-lg-12 text-center">
+    			<p class="landing-loading"> <img class="icon-rotation" src="{{ 'assets/images/rotation.png'|theme }}" /></p>
+    		</div>
+	    </div>
+	</div>
+	<div class="display-none" id="search-localtion">
+		{% partial 'site/search-localtion'%}
+	</div>
+	
+    <div class="modal fade room-popup" id="RefineSearchModalCenter" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+        {% partial 'popup/popup-refine-search' %}
+    </div>
+</div>
+<script>
+	$(document).on('click', '#btn-filter', function() {
+	    $('.btn').removeClass('btn-active')
+	    $('#btn-filter').addClass('btn-active')
+	});
+
+	$(document).on('click', '#btn-map', function() {
+	    $('.btn').removeClass('btn-active');
+	    
+	    
+	    if ($('#search-localtion').hasClass('display-none')) {
+	        $('#search-localtion').removeClass('display-none');
+	        $('.box-search-result').addClass('display-none');
+	        $(this).addClass('btn-active');
+	    }else{
+	        $('#search-localtion').addClass('display-none');
+	        $('.box-search-result').removeClass('display-none');
+	        $(this).removeClass('btn-active');
+	    }
+	});
+
+	$(document).on('click', '#btn-menu', function() {
+	    $('.btn').removeClass('btn-active');
+	    $('#btn-menu').addClass('btn-active');
+	    $('#search-softby').addClass('display-none');
+	    
+	});
+
+	$(document).on('click', '#btn-softby', function() {
+	    $('.btn').removeClass('btn-active');
+	    $('#btn-softby').addClass('btn-active');
+	    if ($('#search-softby').hasClass('display-none')) {
+	        $('#search-softby').removeClass('display-none')
+	    }else{
+	        $('#search-softby').addClass('display-none')
+	    }
+	});
+</script>

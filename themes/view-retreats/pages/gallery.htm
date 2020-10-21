@@ -1,0 +1,30 @@
+title = "Gallery"
+url = "/gallery"
+layout = "gallery"
+is_hidden = 0
+
+[embeddedGallery]
+mediaFolder = "[1]"
+maxItems = 50
+galleryLayout = "gallery_tiles"
+tilesLayout = "gallery_tiles_nested"
+imageResizerWidth = 1500
+galleryWidth = "100%"
+==
+<link href="{{ [
+          'assets/css/gallery.css',
+        ]|theme }}" rel="stylesheet">
+<div class="container-fuild" class="body-gallery" style="background: #FFFFFF;">
+	<div class="container" style="margin-top: 70px; margin-bottom: 50px;">
+    	<div class="row">
+        	<div class="col" >
+        	    <div id="gallery" style="display:block;">
+        	
+                    {% component 'embeddedGallery' %} 
+                    
+            	</div>
+        	</div>
+        </div>
+
+    </div>
+</div>

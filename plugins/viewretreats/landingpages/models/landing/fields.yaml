@@ -1,0 +1,83 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    url_temp:
+        label: URL
+        span: auto
+        type: text
+    slug:
+        label: URL
+        span: auto
+        cssClass: myurl
+        readOnly: 1
+        hidden: 1
+        preset:
+            field: url_temp
+            type: slug
+        type: text
+    title_description:
+        label: Heading
+        span: full
+        type: text
+    description:
+        label: Description
+        size: ''
+        span: full
+        type: textarea
+    slider_id:
+        label: 'Slider ID'
+        span: auto
+        type: text
+    carousel_id:
+        label: 'Carousel Id'
+        span: auto
+        type: text
+    property_ids:
+        label: 'Property IDs'
+        span: auto
+        type: text
+        comment: 'Ex. 560677, 123456, etc.'
+    active:
+        label: Active
+        span: right
+        type: switch
+    prop_title:
+        label: 'Property title'
+        span: auto
+        type: text
+    meta_title:
+        label: 'Meta Title'
+        span: left
+        placeholder: ''
+        type: text
+    meta_desc:
+        label: 'Meta Description'
+        size: ''
+        span: full
+        type: textarea
+    more_link:
+        label: 'More Link'
+        span: full
+        type: text
+    section10:
+        label: Robots
+        span: full
+        type: section
+    robot_index:
+        label: 'Robot Index'
+        span: auto
+        default: 1
+        type: switch
+        comment: 'Specify if search engines should index this page'
+    robot_follow:
+        label: 'Robot Follow'
+        span: auto
+        type: switch
+        comment: 'Specify if search engines should follow the links on this page'
+    robot_advance:
+        label: 'Advanced robots (dynamic)'
+        span: full
+        type: text
+        comment: 'Add aditional directives to the robots meta tag separated by commas'

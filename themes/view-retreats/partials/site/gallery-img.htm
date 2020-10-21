@@ -1,0 +1,50 @@
+==
+<div class="property">
+	<div class="featcard">
+		<div id="featured" class="carousel slide carousel-fade" data-ride="carousel">
+			{% component 'imageGallery' %}
+		</div>
+	</div>
+</div>
+<script>
+    setTimeout(function() {
+      $('.lg-outer .lg div.lg-thumb-outer').addClass('lg-img');
+    }, 1000);
+	$('#imageGallery div:nth-child(5) a').each(function() {
+		$(this).after($('<div class="card-img-overlay d-flex linkfeat"> <a href="#" class="align-self-center align-content-center m-auto text-center"><img class="mr-room" src="{{ "assets/images/raster.png"|theme }}" /><h5 class="card-title text-uppercase m-0"> GALLERY</h5></a></div>'));
+	});
+	$('.lg-actions div after').each(function() {
+		$(this).before($('<img class="mr-room" src="{{ "assets/images/ellipse.png"|theme }}" />'));
+	});
+	$('#imageGallery div:nth-child(5)').addClass('card bg-dark text-white');
+    $('.lg-outer .lg div:nth-child(5)').addClass('lg-img');
+    setTimeout(function() {
+      $('.lg-outer').removeClass('lg-thumb-open');
+    }, 2000);
+    setTimeout(function() {
+        $('.lg').click(function(){
+            $('.lg-outer .lg div:nth-child(5)').removeClass('lg-img');
+            $('.lg-outer .lg-item .lg-img-wrap .lg-object').removeClass('lg-image-small');
+            $('.lg-actions div:nth-child(1)').removeClass('lg-prev-small');
+            $('.lg-actions div:nth-child(2)').removeClass('lg-next-small');
+            $('.lg-sub-html p').removeClass('p-small');
+            $('.lg-toolbar div').removeClass('lg-counter-small');
+            $('.lg-outer .lg div:nth-child(2).lg-toolbar').removeClass('toolbar-small');
+            var x = $('.lg-outer').hasClass('lg-thumb-open');
+            if(x = true) {
+                $('.lg-thumb-open .lg-item .lg-img-wrap .lg-object').addClass('lg-image-small');
+                $('.lg-thumb-open .lg-actions div:nth-child(1)').addClass('lg-prev-small');
+                $('.lg-thumb-open .lg-actions div:nth-child(2)').addClass('lg-next-small');
+                $('.lg-thumb-open .lg-sub-html p').addClass('p-small');
+                $('.lg-thumb-open .lg-toolbar div').addClass('lg-counter-small');
+                $('.lg-thumb-open .lg div:nth-child(2).lg-toolbar').addClass('toolbar-small');
+            }
+            setTimeout(function() {
+              $('.lg-thumb-open .lg-sub-html p').addClass('p-small');
+            }, 700);
+            setTimeout(function() {
+              $('.lg-thumb-open .lg-item .lg-img-wrap .lg-object').addClass('lg-image-small');
+            }, 800);
+         });
+    }, 2000);
+</script>

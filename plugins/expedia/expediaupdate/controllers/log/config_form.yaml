@@ -1,0 +1,10 @@
+name: Log
+form: $/expedia/expediaupdate/models/log/fields.yaml
+modelClass: Expedia\ExpediaUpdate\Models\Log
+defaultRedirect: expedia/expediaupdate/log
+create:
+    redirect: 'expedia/expediaupdate/log/update/:id'
+    redirectClose: expedia/expediaupdate/log
+update:
+    redirect: expedia/expediaupdate/log
+    redirectClose: expedia/expediaupdate/log

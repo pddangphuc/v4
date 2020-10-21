@@ -1,0 +1,3 @@
+title: Property
+modelClass: Expedia\ExpediaImport\Models\Property
+nameFrom: property_id

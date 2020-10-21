@@ -1,0 +1,22 @@
+title = "export-test"
+url = "/export-test"
+is_hidden = 0
+
+[ProductList]
+sorting = "new"
+
+==
+
+
+
+
+{% set arProductList = ProductList.make().active().search('test minimalist').take(10) %}
+{% if arProductList is not empty %}
+	<ul>
+    {% for obProduct in arProductList %}
+        <li>{{ obProduct.name }} - {{ obProduct.preview_text }}</li>
+    {% endfor %}
+	</ul>
+{% else %}
+     Products not found
+{% endif %}

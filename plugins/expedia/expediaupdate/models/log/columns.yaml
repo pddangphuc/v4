@@ -1,0 +1,36 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+        sortable: true
+    property_id:
+        label: 'Property ID'
+        type: text
+        searchable: true
+        sortable: true
+    property_name:
+        label: 'Property Name'
+        type: text
+        searchable: true
+        sortable: true
+    change_type:
+        label: Type
+        type: text
+        searchable: true
+        sortable: true
+    message:
+        label: Message
+        type: text
+        searchable: true
+        sortable: true
+    actioned:
+        label: Actioned
+        type: switch
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Date Checked'
+        type: timetense
+        searchable: true
+        sortable: true

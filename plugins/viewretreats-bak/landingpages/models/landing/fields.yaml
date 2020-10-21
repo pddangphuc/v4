@@ -1,0 +1,62 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    slug:
+        label: URL
+        span: auto
+        preset:
+            field: name
+            type: slug
+        type: text
+    title_description:
+        label: Heading
+        span: full
+        type: text
+    description:
+        label: Description
+        size: ''
+        span: full
+        type: textarea
+    slider_id:
+        label: 'Slider ID'
+        span: auto
+        type: text
+    carousel_id:
+        label: 'Carousel Id'
+        span: auto
+        type: text
+    property_ids:
+        label: 'Property IDs'
+        span: auto
+        type: text
+        comment: 'Ex. 560677, 123456, etc.'
+    active:
+        label: Active
+        span: right
+        type: switch
+    prop_title:
+        label: 'Property title'
+        span: auto
+        type: text
+    meta_title:
+        label: 'Meta Title'
+        span: left
+        placeholder: ''
+        type: text
+        comment: 'Character Count: 0 | recommended: 30 -60'
+    robot_index:
+        label: 'Robot Index'
+        span: auto
+        default: 1
+        type: switch
+    meta_desc:
+        label: 'Meta Description'
+        span: full
+        type: text
+        comment: 'Character Count: 0 | recommended: 100 - 160'
+    more_link:
+        label: 'More Link'
+        span: full
+        type: text

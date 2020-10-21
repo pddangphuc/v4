@@ -1,0 +1,12 @@
+plugin:
+    name: 'viewretreats.landingpages::lang.plugin.name'
+    description: 'viewretreats.landingpages::lang.plugin.description'
+    author: viewretreats
+    icon: oc-icon-file-powerpoint-o
+    homepage: ''
+navigation:
+    main-menu-landing:
+        label: Landing
+        url: viewretreats/landingpages/landing/
+        icon: icon-file-powerpoint-o
+        order: '141'

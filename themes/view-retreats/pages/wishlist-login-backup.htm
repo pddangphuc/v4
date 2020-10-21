@@ -1,0 +1,95 @@
+title = "Wishlist-backup-9-23-2020"
+url = "/wishlist-backup"
+layout = "login"
+is_hidden = 0
+
+[slider]
+slide_show_id = 1
+
+[session]
+security = "user"
+redirect = "wishlist-logout"
+==
+<div class="container-fluid p-0" id="wish-list-navbar">
+    <div class="container page-container">
+        <div class="wishlist-navbar">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active wishlist-a-tag" data-toggle="tab" href="#wishlist-favourites">MY FAVOURITES</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link wishlist-a-tag" id="btn-wishlist-bookin" data-toggle="tab" href="#wishlist-booking">MY BOOKINGS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link wishlist-a-tag" data-toggle="tab" href="#wishlist-profile">MY PROFILE</a>
+              </li>
+            </ul>
+            <p class="welcome-login d-none d-md-block">Welcome, <span>{{ user.name }}</span> <a data-request="onLogout" data-request-data="redirect: '/'">Logout</a></p>
+        </div>
+        
+    </div>
+</div>
+<div class="container-fuild wishlist-form-body">
+    <div class="container page-container">
+    <div class=" wishlist-form-body-row">
+        <!-- Tab panes -->
+        <div class="tab-content" >
+            <div class="tab-pane active" id="wishlist-favourites">
+                <section class="favourite-title d-flex flex-wrap justify-content-between align-items-center">
+                   <h4>My Favourites</h4>
+                   <div class="favourite-share-icon pull-right" >
+                      <a data-toggle="modal" href="#" data-target="#sharePoupModal" ><img src="{{ 'assets/images/share-icon.png'|theme }}" />SHARE</a>
+                    </div>
+               </section>
+               
+                <div class="row" id="search-results">
+                     {% partial 'site/search-wishlist' sw=searchString %}
+                </div>
+          </div>
+          <div class="tab-pane  " id="wishlist-booking">
+              <div class="box-detail-booking">
+                  <section class="favourite-title d-flex flex-row justify-content-between justify-content-sm-start align-items-center">
+                       <h4>Manage My Booking </h4>
+                       <a href="javascript:voild()" id="close-booking" class="ml-3">Close</a>
+                   </section>
+                   {% partial 'site/booking-detail' %}
+              </div>
+              <div class="box-bookings">
+                  <section class="favourite-title d-flex flex-wrap justify-content-between align-items-center">
+                       <h4>My Bookings</h4>
+                   </section>
+                   {% partial 'site/booking-list' %}
+                   
+                   <h5 class="mb-2 sub-title">PAST BOOKINGS</h5>
+                   {% partial 'site/booking-list-past' %}
+              </div>
+              
+          </div>
+          <div class="tab-pane c" id="wishlist-profile">
+               <section class="favourite-title d-flex flex-wrap justify-content-between align-items-center">
+                   <h4 class="pull-left">My Profile</h4>
+               </section>
+               {% partial 'site/form-profile' %}
+               
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+<div id="id-popup-share-wishlist">
+      {% partial 'popup/popup-share.htm' %}
+  </div>
+<script>
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var header = document.getElementById("wish-list-navbar");
+    if (window.pageYOffset > 56) {
+        header.classList.add("sticky-1");
+        $('#wishlist-enquiry-navbar .nav-tabs .nav-link').addClass('sticky-0');
+    } else {
+        header.classList.remove("sticky-1");
+        $('#wishlist-enquiry-navbar .nav-tabs .nav-link').removeClass('sticky-0');
+    }
+}
+  
+</script>

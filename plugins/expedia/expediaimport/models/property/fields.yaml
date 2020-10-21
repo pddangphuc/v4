@@ -1,0 +1,161 @@
+fields:
+    section2:
+        label: 'Edit Property'
+        span: full
+        type: section
+    property_id:
+        label: 'Property ID'
+        span: auto
+        readOnly: 1
+        type: text
+    active:
+        label: active
+        span: right
+        type: switch
+    name:
+        label: Name
+        span: left
+        readOnly: 1
+        type: text
+    slug:
+        label: URL
+        span: right
+        type: text
+    address_1:
+        label: Address
+        span: left
+        readOnly: 1
+        type: text
+    zoho_id:
+        label: 'Zoho ID'
+        span: right
+        type: text
+    city:
+        label: City
+        span: left
+        readOnly: 1
+        type: text
+    accommodation_type:
+        label: 'Accommodation Type'
+        options:
+            'Hotel, Resort or Guesthouse': 'Hotel, Resort or Guesthouse'
+            'Holiday Home or Private Villa': 'Holiday Home or Private Villa'
+        showSearch: true
+        span: right
+        emptyOption: 'Select here'
+        type: dropdown
+    state_province_code:
+        label: 'State Province Code'
+        span: left
+        readOnly: 1
+        type: text
+    collections:
+        label: Collections
+        span: auto
+        type: checkboxlist
+    country_code:
+        label: 'Country Code'
+        span: left
+        readOnly: 1
+        type: text
+    hthemes:
+        label: Themes
+        span: left
+        cssClass: disable-check
+        disabled: 0
+        readOnly: 0
+        type: checkboxlist
+    meta_title:
+        label: 'Meta Title'
+        span: auto
+        type: text
+    category_name:
+        label: Category
+        span: auto
+        disabled: 0
+        readOnly: 1
+        hidden: 1
+        type: text
+    meta_desc:
+        label: 'Meta Description'
+        size: small
+        span: auto
+        type: textarea
+    hstatistics:
+        label: Statistics
+        span: left
+        cssClass: disable-check
+        disabled: 0
+        readOnly: 0
+        type: checkboxlist
+    robot_index:
+        label: 'Robot Index'
+        span: auto
+        type: switch
+    created_at:
+        label: 'Date Created'
+        mode: date
+        span: right
+        disabled: 1
+        readOnly: 1
+        type: datepicker
+    hattributes_pets:
+        label: 'Attributes: Pets'
+        span: left
+        cssClass: disable-check
+        type: checkboxlist
+    updated_at:
+        label: 'Date Updated'
+        span: right
+        mode: date
+        disabled: 1
+        readOnly: 1
+        type: datepicker
+    hattributes_general:
+        label: 'Attributes: General'
+        span: left
+        readOnly: 0
+        cssClass: disable-check
+        type: checkboxlist
+    inc_details:
+        label: 'Inclusive Details'
+        size: ''
+        span: left
+        disabled: 1
+        hidden: 1
+        type: textarea
+    inc_all_rate_plans:
+        label: 'All Rate Plans'
+        span: left
+        disabled: 1
+        readOnly: 1
+        hidden: 1
+        type: switch
+    inc_some_rate_plans:
+        label: 'Some Rate Plans'
+        span: left
+        disabled: 1
+        readOnly: 1
+        hidden: 1
+        type: switch
+    sectionImages:
+        label: Images
+        span: full
+        type: section
+    test:
+        label: 'File upload'
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: auto
+            extension: auto
+        span: auto
+        disabled: 1
+        hidden: 1
+        type: fileupload
+    media:
+        label: 'Media finder'
+        mode: image
+        span: auto
+        hidden: 1
+        type: mediafinder

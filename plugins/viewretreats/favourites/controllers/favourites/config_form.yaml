@@ -1,0 +1,10 @@
+name: Favourites
+form: $/viewretreats/favourites/models/favourite/fields.yaml
+modelClass: ViewRetreats\Favourites\Models\Favourite
+defaultRedirect: viewretreats/favourites/favourites
+create:
+    redirect: 'viewretreats/favourites/favourites/update/:id'
+    redirectClose: viewretreats/favourites/favourites
+update:
+    redirect: viewretreats/favourites/favourites
+    redirectClose: viewretreats/favourites/favourites

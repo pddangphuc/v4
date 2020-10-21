@@ -1,0 +1,253 @@
+title = "Checkout"
+url = "/checkout"
+layout = "checkout"
+is_hidden = 0
+==
+<link href="{{ [
+          'assets/css/checkout.css',
+        ]|theme }}" rel="stylesheet">
+<div class="modal fade" id="popupBooking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {% partial 'popup/popup-booking' %}
+</div>
+<div class="container" >
+    <h3 class="text-hedding">Secure Booking Form</h3>
+    <p class="text-sub d-none d-lg-block"><img src="{{ 'assets/images/check_green.png'|theme }}" alt="We plant a native Australian tree for every confirmed booking!"> We plant a native Australian tree for every confirmed booking!</p>
+    <div class="row checkout">
+        
+        <div class="col-12 col-sm-12 col-lg-8 checkout-detail order-lg-1 order-2">
+            <p class="text-sub mt-4 mb-4 d-lg-none justify-content-start d-flex flex-row align-items-center"><img src="{{ 'assets/images/check_green.png'|theme }}" alt="We plant a native Australian tree for every confirmed booking!" class="mr-2"> We plant a native Australian tree for every confirmed booking!</p>
+            <form class="bg-form">
+                <div class="bg-form-checkout">
+                      <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                          <span class="title-img"><img src="{{ 'assets/images/User.png'|theme }}" /> </span>
+                          <h4>Room 1: <span class="ml-2"> 2 Adults, 1 Child</span></h4>
+                      </div>
+                    <div class="form-row">
+                      <div class="form-group col-12 col-sm-12 col-md-6">
+                        <input type="text" class="form-control input-checkout" id="inputFname" placeholder="Guest first name *">
+                      </div>
+                      <div class="form-group col-12 col-sm-12 col-md-6">
+                        <input type="text" class="form-control input-checkout" id="inputLname" placeholder="Guest last name *">
+                      </div>
+                      <div class="col-12">
+                           <a href="javascript:void(0)" class="link-showmore" id="show-special">Add special requests (optional) </a>
+                           
+                           <textarea  placeholder="Special requests (e.g. roll-away beds, late check-in & views) are not guaranteed. The property may charge a fee for certain special requests. (Limit 250 characters)." name="" rows="4" class="box-special"></textarea>
+                      </div>
+                      
+                    </div>
+                   
+                </div>
+                <div class="bg-form-checkout">
+                    <div class="d-flex align-content-start flex-row align-items-center mb-3 title-form">
+                          <span class="title-img"><img src="{{ 'assets/images/mail.png'|theme }}"  /> </span>
+                          <h4>Contact details</h4>
+                     </div>
+                    <div class="form-row">
+                          <div class="form-group col-6 col-sm-6 col-md-3">
+                            <select id="inputMonth" class="form-control input-checkout">
+                              <option selected>AUS +61</option>
+                              <option>AUS +61</option>
+                              <option>AUS +61</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-6 col-sm-6 col-md-3">
+                            <input type="text" class="form-control input-checkout" id="inputFname" placeholder="Area code *">
+                          </div>
+                          <div class="form-group col-12 col-sm-12 col-md-6">
+                            <input type="text" class="form-control input-checkout" id="inputLname" placeholder="Phone number *">
+                            <img src="{{ 'assets/images/info-ask.png'|theme }}" alt="Info" class="icon-info">
+                          </div>
+                          <div class="form-group col-12 col-sm-12">
+                            <input type="text" class="form-control input-checkout" id="inputLname" placeholder="Email *">
+                          </div>
+                          <div class="col-12">
+                              <label class="con">Receive updates, travel deals & exclusive special offers from View Retreats<input type="checkbox" ><span class="checkmark"></span></label>
+                          </div>
+                    </div>
+                </div>
+                <div class="bg-form-checkout"> 
+                    <div  class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-wrap align-content-start flex-row align-items-center title-form">
+                              <span class="title-img"><img src="{{ 'assets/images/Payment%20Methods.png'|theme }}"  /></span>
+                              <h4>Payment details</h4>
+                         </div>
+                          <img src="{{ 'assets/images/payment-method-1.png'|theme }}" class="img-payment" alt="">
+                    </div>
+                    
+                    <div class="form-row">
+                      <div class="form-group col-12 col-sm-12 col-md-6">
+                        <input type="text" class="form-control input-checkout" id="inputFitstNameCard" placeholder="Cardholder first name *">
+                      </div>
+                      <div class="form-group col-12 col-sm-12 col-md-6">
+                        <input type="text" class="form-control input-checkout" id="inputLastNameCard" placeholder="Cardholder last name *">
+                      </div>
+                        <div class="form-group col-12 col-sm-12 col-md-6">
+                        <input type="text" class="form-control input-checkout" id="inputCardNumber" placeholder="Card number *">
+                      </div>
+                      <div class="form-group col-6 col-sm-6 col-md-3">
+                        <select id="inputMonth" class="form-control input-checkout">
+                          <option selected>Month *</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                          <option>11</option>
+                          <option>12</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-6 col-sm-6 col-md-3">
+                        <select id="inputYear" class="form-control input-checkout">
+                          <option selected>Year *</option>
+                          <option>2020</option>
+                          <option>2021</option>
+                          <option>2022</option>
+                          <option>2023</option>
+                          <option>2024</option>
+                          <option>2025</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-6 col-sm-6 col-md-4">
+                        <input type="text" class="form-control input-checkout" id="inputCvv" placeholder="Security code *">
+                        <img src="{{ 'assets/images/info-ask.png'|theme }}" alt="Info" class="icon-info">
+                      </div>
+                      <div class="form-group col-6 col-sm-6 col-md-4">
+                        <input type="text" class="form-control input-checkout" id="inputCvv" placeholder="Zip/Postcode *">
+                        <img src="{{ 'assets/images/info-ask.png'|theme }}" alt="Info" class="icon-info">
+                      </div>
+                      <p class="checkout-text-no-payment justify-content-start d-flex flex-row align-items-center">
+                          <img class="checkout-icon-lock" src="{{ 'assets/images/iconlock.png'|theme }}" />
+                          <span>We use secure transmission & encrypted storage to protect your data. This payment will be processed in Australia.</span>
+                    </p>
+                    </div>
+                </div>
+                
+                <div class="bg-form-checkout">
+                    <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                          <span class="title-img"><img src="{{ 'assets/images/Terms%20(1).png'|theme }}" /> </span>
+                          <h4>Confirm & finalise</h4>
+                     </div>
+                    <div class="form-row">
+                      <div class="form-group col-12 col-sm-12">
+                          <p class="d-flex align-content-start flex-row align-items-center lh-sm-20">
+                              <img src="{{ 'assets/images/check_green.png'|theme }}" alt="Free cancellation before 09 March 2020" class="pr-2">
+                              <span>
+                                  <strong class="mr-1 d-block d-sm-inline-block"> Free cancellation </strong> before 09 March 2020
+                              </span>
+                          </p>
+                          <p class="d-flex align-content-start flex-row align-items-center lh-sm-20">
+                             <img src="{{ 'assets/images/warning.png'|theme }}" alt="Important booking information to know before you go" class="pr-2"> 
+                             <span><strong> Important booking information to</strong> <a href="javascript:void(0)" class="text-underline" data-target="#popupBooking" data-toggle="modal" class="pl-1"> know before you go</a></span>
+                          </p>
+                          <p class="d-flex flex-wrap align-content-start flex-row align-items-center ">
+                              <small>
+                                  By completing your booking you acknowledge that you have read and accept the website <a href="/about-us#terms-conditions" target="_blank"> terms & conditions</a> and have considered government travel advice for your destination.
+                              </small>
+                          </p>
+                          <div class="clearfix">
+                              <button type="button" class="btn" data-toggle="modal" id="checkout-btn-reverve-id" data-target="#reserveModal">Complete Booking</button>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-lg-4 checkout-item order-lg-2 order-1">
+            <div class="">
+                <div class="card-checkout-room">
+                    <div class="card body-card-checkout-room">
+                        <img class="card-img-top" src="{{ 'assets/images/Inspiration-On-Wedgetail.png'|theme }}" />
+                        <div class="card-body">
+                            <h5 class="card-title">Inspiration on Wedgetail</h5>
+                            <p class="card-text">Standard Room</p>
+                            <ul class="list-date list-unstyled">
+                                <li class="text-card">
+                                    <strong>Check-in:</strong>
+                                    <span>Sat 14 Dec 2020 from 2.00pm</span>
+                                </li>
+                                <li class="text-card">
+                                    <strong>Check-out:</strong>
+                                    <span>Mon 16 Dec 2020 before 12.00pm</span>
+                                </li>
+                            </ul>
+                            <hr class="hr-tag-border">
+                            <ul class="list-room list-unstyled">
+                                <li><strong>Room 1:</strong> 2 Adults, 1 Child</li>
+                            </ul>
+                            <ul class="list-price list-unstyled">
+                                <li>
+                                    <a href="#"  class="link-showmore" id="show-accommodation">Accommodation (2 nights) </a>
+                                    <span class="pull-right">AU$2,500.00</span>
+                                    
+                                    <div class="box-accommodation">
+                                        <div class="item-accommodation">
+                                            <span class="item-date">
+                                                Sat 14 Dec 2020
+                                            </span>
+                                            <span>
+                                                AU$1,250.00
+                                            </span>
+                                        </div>
+                                        <div class="item-accommodation">
+                                            <span class="item-date">
+                                                Tue 15 Dec 2020
+                                            </span>
+                                            <span>
+                                                AU$1,250.00
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" data-toggle="popover" class="btn-tax" title="Taxes & Fees" data-content="This charge includes the estimated amount we pay the hotel for the occupancy-related taxes owed by the hotel and any amounts charged to us for resort fees, cleaning fees, and other fees. The balance of the charge is a fee we, the hotel supplier and View Retreats, retain as part of the compensation for our and/or their services which varies based on factors such as location, the amount, and how you booked."><span class="d-none d-lg-inline-block">Tax recovery charges & service fees</span><span class="d-lg-none">Taxes & service fees</span></a>
+                                    <span class="pull-right">AU$200.00</span>
+                                </li>
+                                <li>
+                                    <span>Reservation Total</span>
+                                    <span class="pull-right total-price">AU$2,000.00</span>
+                                </li>
+                            </ul>
+                            
+                            <p class="d-flex justify-content-start align-items-center">
+                               <a href="javascript:void(0)" class="show-info-guest" data-toggle="popover" title="Extra Guest Fee" data-content="This fee is charged by the hotel when the number of guests in the room exceeds the room's base occupancy (generally 2 guests).">
+                                   <img width="20" src="{{ 'assets/images/info-icon.png'|theme }}" class="mr-1"/>
+                               </a>  
+                              <span>
+                                   Mandatory fee collected by property. 
+                               <a href="javascript:void(0)" class="btn-detail ml-1" data-toggle="popover" title="Property Fees" data-content="<p>You'll be required to pay the following charges at the property:</p> <p>Deposit: AUD 500 per accommodation, per stay</p>">Details</a>
+                              </span>
+                            </p>
+                            <p>
+                                <small>
+                                    Full payment will be charged in <strong>AUD</strong> when you book this property. Taxes or fees due at the property are payable in local currency.
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    $("#show-accommodation").click(
+        function(){
+            $(".box-accommodation").toggle();
+            $(this).toggleClass('more');
+        },
+      );
+      $("#show-special").click(
+        function(){
+            $(".box-special").toggle();
+            $(this).toggleClass('more');
+        },
+      );
+</script>

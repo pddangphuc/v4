@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+        sortable: true
+    collection_name:
+        label: Name
+        type: text
+        searchable: true
+        sortable: true
+    active:
+        label: Active
+        type: switch
+        searchable: true
+        sortable: true

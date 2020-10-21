@@ -1,0 +1,74 @@
+==
+<div class="container-fluid p-0 google-map-block" id="nav-location">
+    <div id="map" style="width:100%;height:533px;"></div>
+    <script>
+      var labelIndex = 0;
+      var image = {
+         url: "https://app.dev.viewretreats.net/themes/view-retreats/assets/images/search-popup-search.png", // url
+         scaledSize: new google.maps.Size(50, 50),
+      };
+      var hoverString = '<a href="/property-profile"> <div class="tooltipstext">'+
+            '<img width="100%" src="https://app.dev.viewretreats.net/storage/app/media/image%202.png" />'+
+            '<div class="sp-tooltip">'+
+            '<span>4 BEDROOM HOUSE</span>'+
+            '<p>Sky High Mt Franklin</p>'+
+            '</div> ' +
+            '</div></a>';
+
+      var infowindow = new google.maps.InfoWindow({
+        content: hoverString
+      });
+      function initialize() {
+        var darlinghurst = { lat: -33.878150, lng: 151.215960 };
+        var centennial = { lat: -33.895987, lng: 151.225234 };
+        var alexandria = { lat: -33.904659, lng: 151.184066 };
+        var BurrowsRd = { lat: -33.916708, lng: 151.185430 };
+        var newtown = { lat: -33.901323, lng: 151.177574 };
+        var camperdown = { lat: -33.893758, lng: 151.171825 };
+        var Leichhardt = { lat: -33.886119, lng: 151.162937 };
+        var SummerHill = { lat: -33.892901, lng: 151.132951 };
+        var Ashfield = { lat: -33.898563, lng: 151.126555 };
+        var CroydonPark = { lat: -33.898629, lng: 151.112900 };
+        var Croydon = { lat: -33.883052, lng: 151.109307 };
+        var north = { lat: -33.853302, lng: 151.083027 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: camperdown
+        });
+
+        // Add a marker at the center of the map.
+        addMarker(darlinghurst, map);
+        addMarker(centennial, map);
+        addMarker(alexandria, map);
+        addMarker(BurrowsRd, map);
+        addMarker(newtown, map);
+        addMarker(camperdown, map);
+        addMarker(Leichhardt, map);
+        addMarker(SummerHill, map);
+        addMarker(Ashfield, map);
+        addMarker(CroydonPark, map);
+        addMarker(Croydon, map);
+        addMarker(north, map);
+      }
+
+      // Adds a marker to the map.
+      function addMarker(location, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+        var marker = new google.maps.Marker({
+          position: location,
+          label: '',
+          map: map,
+          icon: image,
+        });
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+        infowindow.addListener('click', function() {
+            window.location.href = "/property-profile";
+        });
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</div>

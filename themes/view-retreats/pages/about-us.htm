@@ -1,0 +1,119 @@
+title = "About Us"
+url = "/about-us"
+layout = "about-us"
+is_hidden = 0
+meta_title = "About us"
+meta_description = "We offer a curated collection of the best luxury holiday homes, private villas, hotels and resorts around the world."
+enabled_in_sitemap = 1
+use_updated_at = 0
+changefreq = "always"
+priority = 0.1
+==
+<br>
+<div class="container-fuild" style="background-color: #ffffff;">
+	
+	<div class="container-fuild" id="about-us-navbar-main" style="background: #FCFCFC;">
+		<!-- Nav tabs -->
+		<div class="container">
+		    <div class="">
+		        <ul class="nav nav-tabs" id="about-us-navs-tab">
+    			  <li class="nav-item">
+    			    <a class="nav-link active about-us-link-tab" data-toggle="tab" href="#about-why-us">WHY US?</a>
+    			  </li>
+    			  <li class="nav-item">
+    			    <a class="nav-link about-us-link-tab" data-toggle="tab" href="#about-story">OUR STORY</a>
+    			  </li>
+    			  <li class="nav-item">
+    			    <a class="nav-link about-us-link-tab" data-toggle="tab" href="#list-with-us">LIST WITH US</a>
+    			  </li>
+    			  <li class="nav-item">
+    			    <a class="nav-link about-us-link-tab" data-toggle="tab" href="#faq">FAQ's</a>
+    			  </li>
+    			  <li class="nav-item">
+    			    <a class="nav-link about-us-link-tab" data-toggle="tab" href="#terms-conditions">TERMS <span>& PRIVACY</span></a>
+    			  </li>
+    			</ul>
+		    </div>
+			
+		</div>
+	</div>			
+	<div class="container-fuild">
+	    <div class="" id="about-us-main-content" >
+    		<div class="">
+    			<!-- Tab panes -->
+    			<div class="tab-content">
+    			  <div class="tab-pane active container-fuild" id="about-why-us">
+    					{% partial 'site/about-why-us'%}
+    			  </div>
+    			  <div class="tab-pane container-fuild" id="about-story">
+    			      {% partial 'site/about-us-story.htm'%}
+    			  </div>
+    			  <div class="tab-pane container-fuild" id="list-with-us" style="background: #fff">
+    			       {% partial 'site/about-us-list-with-us.htm'%}
+    			  </div>
+    			  <div class="tab-pane container-fuild about-us-FQA-body-box" id="faq">
+    			  		{% partial 'site/about-us-FQA'%}
+    			  </div>
+    			  <div class="tab-pane container-fuild" id="terms-conditions">
+    			      {% partial 'site/about-us-terms-privacy'%}
+    			  </div>
+    			</div>
+    		</div>
+    	</div>
+	</div>
+	
+</div>
+<script>
+
+//window.onscroll = function() {myFunction1()};
+function myFunction1() {
+    var header = document.getElementById("about-us-navs-tab");
+    var sticky = $("#about-us-navs-tab").offset().top;
+    var slide_philosophy = $("#slide-philosophy").offset().top - 56;
+    var slide_philosophy_bottom = $("#slide-philosophy").offset().top + $("#slide-philosophy").height();
+    var slide_properties = $("#slide-properties").offset().top - 56;
+    var slide_properties_bottom = $("#slide-properties").offset().top + $("#slide-properties").height();
+    var slide_service = $("#slide-service").offset().top - 56;
+    var slide_service_bottom = $("#slide-service").offset().top + $("#slide-service").height();
+    var slide_team = $("#slide-team").offset().top - 56;
+    var slide_team_bottom = $("#slide-team").offset().top + $("#slide-team").height();
+    var slide_contribution = $("#slide-contribution").offset().top - 56;
+    var slide_contribution_bottom = $("#slide-contribution").offset().top + $("#slide-contribution").height();
+    if (window.pageYOffset > 56) {
+        header.classList.add("sticky");
+        $('.slider-about-us-story .our-philosophy').addClass('sticky-0');
+        console.log('slide_properties: '+window.pageYOffset+' sticky: '+sticky);
+        if (window.pageYOffset > slide_philosophy && window.pageYOffset < slide_philosophy_bottom) {
+            $('.dot').removeClass('action');
+            $('.tab-pane #slide-philosophy-tab').addClass('action'); 
+        }
+        if (window.pageYOffset > slide_properties && window.pageYOffset < slide_properties_bottom) {
+            $('.dot').removeClass('action');
+            $('.tab-pane #slide-properties-tab').addClass('action');
+        }
+        if (window.pageYOffset > slide_service && window.pageYOffset < slide_service_bottom) {
+            $('.dot').removeClass('action');
+            $('.tab-pane #slide-service-tab').addClass('action'); 
+        }
+        if (window.pageYOffset > slide_team && window.pageYOffset < slide_team_bottom) {
+            $('.dot').removeClass('action');
+            $('.tab-pane #slide-team-tab').addClass('action'); 
+        }
+        if (window.pageYOffset > slide_contribution && window.pageYOffset < slide_contribution_bottom) {
+            $('.dot').removeClass('action');
+            $('.tab-pane #slide-contribution-tab').addClass('action');
+        }
+    } else {
+        header.classList.remove("sticky");
+        $('.slider-about-us-story .our-philosophy').removeClass('sticky-0');
+    }
+   
+    $('.line1').addClass('hidden1'); 
+    $('.line2').addClass('hidden2');
+    
+    if ($('#menu1-about-story').hasClass('active')) {
+        $('#about-us-main-content').css("overflow", "hidden");
+    }
+}
+
+</script>

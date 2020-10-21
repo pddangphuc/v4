@@ -1,0 +1,18 @@
+<div class="form form-code-login">
+
+    {{ form_ajax(__SELF__ ~ '::onCodesignin', {name: __SELF__}) }}
+
+        <div class="form-group">
+            <input type="{{ visible ? 'text' : 'password' }}"
+                   name="code"
+                   class="form-control form-control-password"
+                   placeholder="insert code"/>
+        </div>
+
+        <div class="submit">
+            <button class="btn" type="submit">{{ button }}</button>
+        </div>
+
+    {{ form_close() }}
+
+</div>

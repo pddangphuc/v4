@@ -1,0 +1,37 @@
+title = "Wishlist Logout"
+url = "/wishlist-logout"
+layout = "logout"
+is_hidden = 0
+
+[slider]
+slide_show_id = 1
+==
+<div class="container-fuild background-requied-login" >
+	<div class="container" id="requied-login">
+	     <div class="carousel-title"><h4>My Favourites</h4></div>
+		<div class="requied-login-favourite" >
+			<div class="img-left">
+		        <img src="{{ 'assets/images/icon-favorites.png'|theme }}" />
+		    </div>
+		    <div class="img-right">
+		    	<h5 class="mb-2">Save your favourites</h5>
+				<p class="text-requied-login-favourite mb-0">
+				    <a href="#login-modal" data-target="#login-modal" data-toggle="modal"> Sign in</a> or 
+				    <a href="#sign-up-modal" data-target="#sign-up-modal" data-toggle="modal">create a new account</a> 
+				    to save & view your favourite properties on any device
+				</p>
+			</div>
+			<div class="close-form"></div>
+		</div>
+		
+		
+		<div id="search-page" class="mt-4">
+        	<div class='row search-results-block'  id="search-results">
+        	    	 {% partial 'site/search-wishlist' sw=searchString %}
+        	</div>
+        	<div class="text-center pt-5 pb-5">
+    			<button class="btn btn-showmore">Show all</button>
+    		</div>
+        </div>
+	</div>
+</div>

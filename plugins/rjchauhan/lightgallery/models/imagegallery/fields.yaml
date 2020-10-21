@@ -1,0 +1,12 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: Name
+
+    images:
+        label: Images
+        type: fileupload
+        mode: image

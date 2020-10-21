@@ -1,0 +1,56 @@
+{% if user %}
+	<i user_id='{{ user.id }}' product_id='{{ favourites.id }}' class="user-bookmark fa fa-heart hover-fa-heart" style="z-index: 1;">
+	</i>
+{% else %}
+	<i  product_id='{{ obProduct.id }}' class="guest-bookmark fa fa-heart-o hover-fa-heart" style="z-index: 1;">
+	</i>
+{% endif %}
+	<i  product_id='{{ obProduct.id }}' class="guest-bookmark fa fa-heart hover-fa-heart" style="z-index: 1;">
+	</i>
+{% endif %}
+<script type="text/javascript">
+	$(".user-bookmark").click(function(e) {
+	    e.preventDefault();
+	    var self =  $(this);
+	    var user_id = $(this).attr( "user_id" );
+	    var product_id = $(this).attr( "product_id" );
+
+		$.request('onUserBookmark', {
+		    data: {
+		       user_id: user_id,
+		       product_id: product_id
+		    },
+		    success: function(data){
+		    	if (data.status == 'deleted') {
+						self.addClass('fa-heart-o');
+						self.removeClass('fa-heart');
+					}else if(data.status == 'added'){
+						self.addClass('fa-heart');
+						self.removeClass('fa-heart-o');
+					}
+		    }
+		})
+	});
+
+	$(".guest-bookmark").click(function(e) {
+	    e.preventDefault();
+	    var self =  $(this);
+	    var product_id = $(this).attr( "product_id" );
+
+		$.request('onGuestBookmark', {
+		    data: {
+		       product_id: product_id
+		    },
+		    success: function(data){
+					if (data.status == 'deleted') {
+						self.addClass('fa-heart-o');
+						self.removeClass('fa-heart');
+					}else if(data.status == 'added'){
+						self.addClass('fa-heart');
+						self.removeClass('fa-heart-o');
+					}
+		    }
+		})
+	});
+
+</script>
