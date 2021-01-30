@@ -1,0 +1,21 @@
+==
+<!-- Nav -->
+
+<div class="nav-bg-fix fixed-top">
+  <div class="container page-container">
+    <nav id="topnav" class="navbar navbar-expand-lg navbar-light navbar-search">
+      <a class="navbar-brand" href="{{ 'home'|page }}"><img src="{{ 'assets/images/logo.png'|theme }}"></a>
+      <div class="nav-menu-block">
+        <div class="nav-icons-block pull-right" style="width: auto;">
+          <div id="heart"></div>
+          <div id="cart"></div>
+          <div id="search" onclick="toggleSearch();"></div>
+          <div id="mobile-menu" onclick="openNav()"></div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div> <!-- nav bg -->
+
+
+{% partial 'site/search-bar' %}

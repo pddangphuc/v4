@@ -1,0 +1,72 @@
+==
+<?php 
+function onStart() {
+
+	$amenityKey = $this['amenityKey'];
+	$prop_id = $this['prop_id'];
+	//echo "hello ". $prop_id ;
+
+	// Query amenities 
+
+	/*$amenities_qry = Db::select("SELECT
+								expedia_expediaimport_amenities.amenities_id,
+								expedia_expediaimport_amenity_sets_link.amenity_set_id,
+								expedia_expediaimport_amenity_sets.description,
+								expedia_expediaimport_amenity_sets.sort_id,
+								expedia_expediaimport_amenity_sets.amenity_type,
+								expedia_expediaimport_amenities.amenities_name
+								FROM
+								expedia_expediaimport_amenities
+								JOIN expedia_expediaimport_amenity_sets_link
+								ON expedia_expediaimport_amenities.amenities_id = expedia_expediaimport_amenity_sets_link.amenity_id 
+								JOIN expedia_expediaimport_amenity_sets
+								ON expedia_expediaimport_amenity_sets_link.amenity_set_id = expedia_expediaimport_amenity_sets.id
+								WHERE
+								property_id = '$prop_id' AND  amenity_type = 'Property Amenities' AND description = '$amenityKey'
+								ORDER BY
+								expedia_expediaimport_amenity_sets.sort_id ASC");
+								*/
+
+
+$amenities_qry = Db::select("SELECT
+							expedia_expediaimport_amenities.amenities_id,
+							expedia_expediaimport_amenity_sets_link.amenity_set_id,
+							expedia_expediaimport_amenity_sets.description,
+							expedia_expediaimport_amenity_sets.sort_id,
+							expedia_expediaimport_amenity_sets.amenity_type,
+							expedia_expediaimport_amenities.amenities_name,
+							expedia_expediaimport_master_amenities.amenity_sort
+							FROM
+							expedia_expediaimport_amenities
+							JOIN expedia_expediaimport_amenity_sets_link
+							ON expedia_expediaimport_amenities.amenities_id = expedia_expediaimport_amenity_sets_link.amenity_id 
+							JOIN expedia_expediaimport_amenity_sets
+							ON expedia_expediaimport_amenity_sets_link.amenity_set_id = expedia_expediaimport_amenity_sets.id 
+							JOIN expedia_expediaimport_master_amenities
+							ON expedia_expediaimport_amenities.amenities_id COLLATE utf8mb4_unicode_ci = expedia_expediaimport_master_amenities.amenity_id
+							WHERE
+							property_id = '$prop_id' AND  expedia_expediaimport_amenity_sets.amenity_type = 'Property Amenities' AND expedia_expediaimport_amenity_sets.description = '$amenityKey'
+							ORDER BY
+							expedia_expediaimport_master_amenities.amenity_sort = 0, expedia_expediaimport_master_amenities.amenity_sort ASC");
+
+
+
+	 foreach ($amenities_qry as $amenityList) {
+        //echo $property->name;
+     }
+
+    $this['amenityList'] = $amenities_qry;
+
+
+}
+
+ ?>
+==
+
+{% set amenityLists = amenityList %}
+
+{% for aList in amenityLists %}
+
+<span class="card-content ">{{ aList.amenities_name }}</span>
+
+{% endfor %}

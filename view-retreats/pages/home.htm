@@ -1,0 +1,89 @@
+title = "Home"
+url = "/"
+layout = "home"
+is_hidden = 0
+meta_title = "View Retreats - Luxury Accommodation & Getaways"
+meta_description = "View Retreats offers a hand-picked collection of luxury accommodation around the world including boutique hotels, luxury lodges and exclusive private villas."
+robot_index = "index"
+robot_follow = "follow"
+enabled_in_sitemap = 1
+use_updated_at = 1
+changefreq = "weekly"
+priority = 1
+
+[siteSearchInclude]
+
+[slider]
+slide_show_id = 1
+==
+<div class="hero-block">
+    {% component 'slider' slide_show_id = 1 %}
+    <!-- form search bar -->
+    <div id="search-main" class="search-bar-main search-main header-search">
+        {% partial 'site/search-bar' %}
+    </div>
+    <div class="icon-down d-sm-none">
+        <img src="{{ 'assets/images/Right.png'|theme }}" alt="Icon check">
+    </div>
+</div>
+{# This is a comment as requested by VN team #}
+<div class="container page-container">
+	<div class="collection getaway-collections slider-images-links" >
+		<div class="carousel-title">
+			<h4 class="d-none d-sm-block">Popular getaway styles</h4>
+			<h4 class="d-sm-none">Getaway Styles</h4>
+		</div>
+		{% component 'slider' slide_show_id = 2 %}
+		
+	</div>
+	
+</div> 
+<hr  class="d-none d-sm-block"/>
+
+<div class="container page-container">
+	<div class="collection slider-images-links">
+		<div class="carousel-title">
+			<h4 class="d-none d-sm-block">Popular getaway destinations</h4>
+			<h4 class="d-sm-none">Popular Destinations</h4>
+		</div>
+		<div class="slider-slick">
+		    {% component 'slider' slide_show_id = 3 %}
+		</div>
+		
+	</div>
+</div>
+<div class="voucher-block ">
+    <div class="container">
+        <div class="voucher-text ">
+    	    <span class="d-none d-sm-block">Getaway Vouchers</span>
+    	    <div class="d-sm-none">Gift Vouchers</div>
+    	</div>
+    	<p>The perfect gift for any occasion.</p>
+    	<a href="#" class="btn">Learn more</a>
+    </div>
+</div>
+<!--original get inspiration slider
+    do not delete or edit this slider in here or in the slider menu, 
+    the home-slider is depending on this slider
+     -->
+<div class="block-popular" id="original-home-slider">
+    <div class="container page-container">
+        <div class="collection">
+            <div class="carousel-title">
+                <h4>Getaway inspiration</h4>
+            </div>
+            {% component 'slider' slide_show_id = 135 %}
+        </div>
+    </div>
+</div>
+<!-- this is the get inspiration slider, it depends on the template of original get inspiration slider -->
+<div class="block-popular">
+    <div class="container page-container slider-images-links">
+    	<div class="collection">
+    		<div class="carousel-title">
+    			<h4>Getaway inspiration</h4>
+    		</div>
+    		{% partial 'site/home-slider' %}
+    	</div>
+    </div>
+</div>

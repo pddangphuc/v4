@@ -1,0 +1,82 @@
+==
+{{ form_open({ url: '/search' }) }}
+<div class="search-bar search-main">
+  <div class="container page-container">
+    <div class="search-block">
+      <div class="search-left float-left pull-left">
+
+        <input type="search" rel=comments name="txtsearch" autocomplete="off" placeholder="Where do you want to go?" class="txtsearch-nav" id="txtsearch" />
+        <input type="text" id="txtcal-search-block" name="txtcal-search-block" autocomplete="off" placeholder="Dates" class="txtcal-search-block" />
+        <input type="text" rel=comments name="txtguests-search-block" class="txtguests" autocomplete="off" placeholder="Guests" id="txtguests-sub" >
+
+        <input type="hidden" name="txtadults" id="txtadults" value="2"/>
+        <input type="hidden" name="txtchildren" id="txtchildren" />
+        <input type="hidden" name="txtinfants" id="txtinfants" />
+        <input type="hidden" name="txtpets" id="txtpets" />
+        <input type="hidden" name="txtbeds" id="txtbeds" value="1"/>
+        <input type="hidden" name="txtbedrooms" id="txtbedrooms" value="1"/>
+        <input type="hidden" name="txtbathrooms" id="txtbathrooms" value="1"/>
+
+      </div>
+      <div class="search-right float-left pull-left">
+        <button id="btnsearch" name="btnsearch" class="btn btn-primary btn-search">SEARCH</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{ form_close() }}
+<div id="popover_template_search">
+        <div class="search_location">
+            <ul class="search_location_ul" id="location-list">
+                <li id='li_a1' class="search_location_li search_location_li_odd search_location_li_provin ">australia</li>
+                <li id='li_a2' class="search_location_li search_location_li_even search_location_li_provin">new south wales, australia</li>
+                <li id='li_a3' class="search_location_li search_location_li_odd search_location_li_provin">victoria, australia</li>
+                <li id='li_a4' class="search_location_li search_location_li_even search_location_li_provin">queensland, australia</li>
+                <li id='li_a5' class="search_location_li search_location_li_odd search_location_li_provin">tasmania, australia</li>
+                <li id='li_a6' class="search_location_li search_location_li_even search_location_li_provin">south australia, australia</li>
+                <li id='li_a7' class="search_location_li search_location_li_odd search_location_li_provin">western australia, australia</li>
+                <li id='li_a8' class="search_location_li search_location_li_even search_location_li_provin">northern territory, australia</li>
+                <li id='li_a9' class="search_location_li search_location_li_odd search_location_li_provin">australia capital territory, australia</li>
+                <li id='li_a10' class="search_location_li search_location_li_even search_location_li_provin">new zealand</li>
+                <li id='li_a11' class="search_location_li search_location_li_odd search_location_li_provin">south island, new zealand</li>
+                <li id='li_a12' class="search_location_li search_location_li_even search_location_li_provin">north island, new zealand</li>
+                <li id='li_a13' class="search_location_li search_location_li_odd search_location_li_provin">location name, state, country</li>
+                <li id='li_a14' class="search_location_li search_location_li_even search_location_li_provin">property name, town, state, country</li>
+            </ul>
+        </div>
+    </div>
+<div id="popover_template">
+    <div class='guests-popup'>
+      
+      <div class='text'>Adults</div>
+      <div class='btn-minus btn-minus-a'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+      <div class='total total-adult'>2</div>
+      <div class='btn-plus btn-plus-a'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+    </div>
+    
+    <div class='guests-popup pt-1'>
+      
+      <div class='text'>Children</div>
+      <div class='btn-minus btn-minus-c'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+      <div class='total total-children'>0</div>
+      <div class='btn-plus btn-plus-c'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+      
+    </div>
+    <div class='guests-popup pt-1'>
+      
+      <div class='text'>Infants</div>
+      <div class='btn-minus btn-minus-infant'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+      <div class='total total-infant'>0</div>
+      <div class='btn-plus btn-plus-infant'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+      
+    </div>
+    
+    <div class='guests-popup pt-1'>
+      
+      <div class='text'>Pets</div>
+      <div class='btn-minus btn-minus-pet'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+      <div class='total total-pet'>0</div>
+      <div class='btn-plus btn-plus-pet'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+      
+    </div>
+</div>

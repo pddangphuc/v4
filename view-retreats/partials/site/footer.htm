@@ -1,0 +1,65 @@
+[viewBag]
+
+[staticMenu]
+code = "footer"
+
+[staticMenu staticMenu2]
+code = "footer"
+==
+<div id="footer">
+    <div class="container page-container">
+        <div class="row">
+        	<div class="col">
+        	    <h4 class="d-none d-sm-block">Subscribe to receive updates & exclusive special offers!</h4>
+			    <h4 class="d-sm-none">Subscribe to receive our latest news & offers!</h4>
+        	</div>
+        </div>
+        <div id="footer-subscriber-message" style="text-align: center;">{% partial 'site/subscriber-success-message' %}</div>
+        <div class="subscribe-block">
+            {{ form_ajax('onSubscribe', { class: 'subscribe-form' }) }}
+    			<div class="d-sm-flex">
+                    <div class="subcribe-left">
+                        <input type="text" class="form-control" id="txtfname" name="name" placeholder="First Name">
+                        <input type="text" class="form-control" id="txtlname" name="surname" placeholder="Last Name">
+                        <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email Address">
+                        <input type="password" class="form-control"  name="password" value="123456789" style="display: none;">
+                        <input type="password" class="form-control"  name="password_confirmation" value="123456789" style="display: none;">
+                    </div>
+                    <div class="search-right">
+                        <input type="submit" class="btn btn-primary btn-email" value="Subscribe">
+                    </div>           
+                </div> 
+			{{ form_close() }}
+		</div>
+
+        <div class="footer-bottom">
+            <div class="row ">
+            	<div class="col-12 col-md-8 d-none d-sm-block">
+            		<div class="footer-links">
+    	        	    {% component 'staticMenu' %}
+            		</div>
+            	</div>
+            	<div class="col-12 col-md-4 text-right">
+            		<div class="footer-social">
+                		<ul>
+                			<li class="li-res-mobile"><a href="#"><img src="{{ 'assets/images/fb1.png'|theme }}" /></a></li>
+                			<li class="li-res-mobile"><a href="#"><img src="{{ 'assets/images/twitter.png'|theme }}" /></a></li>
+                			<li class="li-res-mobile"><a href="#"><img src="{{ 'assets/images/youtube.png'|theme }}" /></a></li>
+                			<li class="li-res-mobile"><a href="#"><img src="{{ 'assets/images/ig.png'|theme }}" /></a></li>
+                			<li class="li-res-mobile"><a href="#"><img src="{{ 'assets/images/pi.png'|theme }}" /></a></li>
+                		</ul>
+            		</div>
+            	</div>
+            </div>
+        </div>
+        <div class="d-sm-none">
+            <div class="footer-links">
+            	{% component 'staticMenu2' %}
+    		</div>
+        </div>
+        
+    </div>
+    <p class="copyright text-center">© View Retreats Pty. Ltd. ABN. 56 219 876 466</p>
+    <!-- <p class="muted credit">&copy; 2013 - {{ "now"|date("Y") }} Alexey Bobkov &amp; Samuel Georges.</p> -->
+
+</div>

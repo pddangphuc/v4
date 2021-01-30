@@ -1,0 +1,141 @@
+==
+<?php
+function onStart() {
+
+    $property_id = $this['property_id'];
+    $amenities_heading = Db::select("SELECT
+                                    DISTINCT expedia_expediaimport_amenity_sets_link.amenity_set_id,
+                                    expedia_expediaimport_amenity_sets.description,
+                                    expedia_expediaimport_amenity_sets.class_name,
+                                    expedia_expediaimport_amenity_sets.sort_id
+                                    FROM
+                                    expedia_expediaimport_amenities
+                                    JOIN expedia_expediaimport_amenity_sets_link
+                                    ON expedia_expediaimport_amenities.amenities_id = expedia_expediaimport_amenity_sets_link.amenity_id
+                                    JOIN expedia_expediaimport_amenity_sets
+                                    ON expedia_expediaimport_amenity_sets_link.amenity_set_id = expedia_expediaimport_amenity_sets.id
+                                    WHERE
+                                    property_id = '$property_id' AND  amenity_type = 'Property Amenities'
+                                    ORDER BY
+                                    expedia_expediaimport_amenity_sets.sort_id ASC");
+
+    foreach ($amenities_heading as $amenityHeading) {
+        //echo $property->name;
+    }
+
+    $this['amenityHeading'] = $amenities_heading;
+
+
+    // spoken languages
+    $spokenQry = Db::select("SELECT spoken_languages from expedia_expediaimport_properties where property_id = $property_id");
+
+    //$prop_array = $this['prop_array'];
+    //print_r($prop_array);
+
+    if ($spokenQry) {
+
+            foreach ($spokenQry as $language) {
+                //echo $key. '=' . $value . '<br />';
+                $splang = $language->spoken_languages;
+            }
+
+            $splang = unserialize($splang);
+
+            if(!empty($splang)) {
+                foreach ($splang as $skey => $svalue) {
+                   // echo $nvalue->id . "<br />";
+
+                    //$mkey[] = $svalue->id;
+                    //$mvalue[] = $svalue->name;
+                    $larray[] = $svalue->name;
+
+                }
+            } else {
+                $larray[] = '';
+            }
+
+                $this['langarray']  = $larray;
+     } //endif 
+}
+
+?>
+==
+
+ {% set amenityHeadings = amenityHeading %}
+ {% set languages = langarray %}
+ {% set ctr = 1 %}
+
+<div class="note-detail property-amenities">
+    <h4 class="title-property d-sm-none" >Property Amenities</h4>
+    <div class="row">
+        
+                {% for aHeading in amenityHeadings %}
+
+                {% if ctr == 1 %}
+                <div class="col-md-4">
+                    <ul class="list-unstyled list-item-feature">
+                {% endif %}
+
+                {% if aHeading.description == 'More' %}
+                    {% if languages is not empty %}
+                    <li>
+                        <div class="note-img">                        
+                         <img srcset = '{{ "assets/images/amenity-icons/Language@2x.png 2x"|theme }} ' class="icon" />
+                        </div>
+                        <div class="card-note">
+                            <div class="card-title">Languages Spoken</div>
+                            <span class="card-content ">
+                                {% for spoken in languages %}
+                                    <span class="card-content ">{{ spoken }}</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                    </li>
+                    {% endif %}
+                {% endif %}
+                 <li>
+                     <div class="note-img">
+                         <!-- <img src="{{ 'assets/images/icon-profile/iconfinder_WIFI_379659.svg'|theme }}" class="icon" /> -->
+                         <!-- <img src='{{ "assets/images/amenity-icons/#{aHeading.class_name}.png"|theme }}' srcset = '{{ "assets/images/amenity-icons/#{aHeading.class_name}@2x.png 2x"|theme }} ' class="icon" /> -->
+                         <img srcset = '{{ "assets/images/amenity-icons/#{aHeading.class_name}@2x.png 2x"|theme }} ' class="icon" />
+                     </div>
+                     <div class="card-note">
+                         <div class="card-title">{{ aHeading.description }}</div>
+                          <span class="card-content ">{% partial 'site/property-amenity-list' amenityKey=aHeading.description prop_id=property_id %}</span>
+                     </div>
+                 </li>
+
+                 {% if ctr == 4 %}
+                  </ul>
+                </div>
+                    {% set ctr = 0 %}
+                 {% endif %}
+
+                 {% set ctr = ctr + 1 %}
+                 {% endfor %}   
+
+                 {# close the column for items less than 4 #}
+                 {% if ctr != 0 %}
+                    <!-- <li>
+                        <div class="note-img">
+                         
+                         <img src='{{ "assets/images/amenity-icons/Language.png"|theme }}' srcset = '{{ "assets/images/amenity-icons/Language@2x.png 2x"|theme }} ' class="icon" />
+                        </div>
+                        <div class="card-note">
+                            <div class="card-title">Languages Spoken</div>
+                            <span class="card-content ">
+                                {% for spoken in languages %}
+                                    <span class="card-content ">{{ spoken }}</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                    </li> -->
+                  </ul><!-- 2 ul -->
+                </div><!-- 2 -->
+                 {% endif %}
+
+    </div> <!-- end row -->
+    <!-- <div class="text-right d-sm-none">
+        <a href="javascript:void(0)" class="card-link " id="show-more-property">See all<img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+    </div> -->
+</div> <!-- note detail -->

@@ -1,0 +1,325 @@
+title = "contact responsive"
+url = "/contact-responsive"
+layout = "default"
+is_hidden = 1
+enabled_in_sitemap = 0
+use_updated_at = 0
+changefreq = "always"
+priority = 0.1
+
+[slider]
+slide_show_id = 1
+
+[ genericForm]
+==
+<div id="contact-slider">
+    {% component 'slider' slide_show_id = 10 %}
+</div>
+<div class="row" id="form-size" style="background-color: #ffffff; padding-top: 5px;">
+    <div class="col-12 col-md-8 contact-body-box-form">
+         <div class="container mt-md-3 row" id="contact-body">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs col-md-12 pr-0">
+                <li class="nav-item col-4 px-0 mr-1 mr-md-0">
+                  <a class="nav-link active background-a-tag" data-toggle="tab" href="#home-booking">BOOKING ENQUIRY</a>
+                </li>
+                <li class="nav-item col-4 px-0 mr-1 mx-md-1">
+                  <a class="nav-link background-a-tag" data-toggle="tab" href="#menu1-group">GROUP ENQUIRY</a>
+                </li>
+                <li class="nav-item col-4 px-0 mr-1 mr-md-0">
+                  <a class="nav-link background-a-tag" data-toggle="tab" href="#menu2-general">GENERAL ENQUIRY</a>
+                </li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content  col-md-12 px-0">
+                <div id="home-booking" class="container tab-pane fade active form-body-box-enquiry px-md-0"><br>
+                  <div id="form-booking-enquiry">
+                       {% partial 'site/contact-frmbooking'%}
+                    </div>
+                </div>
+                <div id="menu1-group" class="container tab-pane fade form-body-box-enquiry px-md-0"><br>
+                   <div id="form-group-enquiry">
+                       {% partial 'site/contact-frmgroup'%}
+                    </div>
+                </div>
+                <div id="menu2-general" class="container tab-pane fade form-body-box-enquiry-general px-md-0"><br>
+                   <div id="form-general-enquiry">
+                       {% partial 'site/contact-frmgeneral'%}
+                    </div>
+                </div>
+              </div>
+            </div>
+    </div>
+    <div class="col-12 col-md-4 mt-3">
+    	<div class="contact-info col-12 mb-5">
+    		<div class="row mt-2">
+    			<div class="col-2">
+    			    <img src="{{ 'assets/images/contact-phone.png'|theme }}" />
+    			</div>
+    			<div class="col-10">
+    			    <p class="p1">1300 368 337</p>
+                    <p class="p2">+61 3 9013 4858</p>
+    			</div>
+    		</div>
+    		<div class="row mt-2">
+    			<div class="col-2">
+    			    <img src="{{ 'assets/images/contact-email.png'|theme }}" />
+    			</div>
+    			<div class="col-10">
+    			    <p>info@viewretreats.com</p>
+                    <p>bookings@viewretreats.com</p>
+                    <p>accounts@viewretreats.com</p>
+                    <p>partners@viewretreats.com</p>
+                    <p>media@viewretreats.com</p>
+    			</div>
+    		</div>
+    		<div class="row mt-2">
+    			<div class="col-2">
+    			    <img src="{{ 'assets/images/contact-home.png'|theme }}" />
+    			</div>
+    			<div class="col-10">
+    			    <p>Box 915</p>
+                    <p>585 Little Collins Street</p>
+                    <p>Melbourne VIC 3000</p>
+                    <p>Australia</p>
+    			</div>
+    		</div>
+    		<div class="row mt-2">
+    			<div class="col-2">
+    			    <img src="{{ 'assets/images/contact-fb.png'|theme }}" />
+    			</div>
+    			<div class="col-10 contact-info-link-web">
+    			    <a href="#">ViewRetreats</a>
+    			</div>
+    		</div>
+    		<div class="row mt-2">
+    			<div class="col-2">
+    			    <img src="{{ 'assets/images/contact-instagram.png'|theme }}" />
+    			</div>
+    			<div class="col-10 contact-info-link-web">
+    			    <a href="#">ViewRetreats</a>
+    			</div>
+    		</div>
+    		<div class="row mt-2">
+    			<div class="col-2">
+    			    <img src="{{ 'assets/images/contact-twiter.png'|theme }}" />
+    			</div>
+    			<div class="col-10 contact-info-link-web">
+    			    <a href="#">ViewRetreats</a>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+<style type="text/css">
+#form-size{
+    padding: 0 13%;
+    margin:0;
+}
+#contact-body .nav-item {
+    margin-right: 0;
+}
+li.nav-item.col-4.px-0.mr-1 {
+    max-width: 32.86%;
+}
+#form-booking-enquiry #contact-booking-last-name,
+#form-booking-enquiry #contact-booking-phone, 
+#form-booking-enquiry #contact-booking-guest,
+#form-group-enquiry #contact-group-last-name, 
+#form-group-enquiry #contact-group-phone, 
+#form-group-enquiry #contact-group-guest,
+#form-general-enquiry #contact-general-last-name{
+    margin-left: 0px;
+    width:100%;
+}
+input#contact-general-email,
+textarea#contact-general-help{
+    width:100%!important;
+}
+input#contact-group-first-name, 
+input#contact-group-email, 
+input#contact-group-date,
+#form-booking-enquiry #contact-booking-first-name, 
+#form-booking-enquiry #contact-booking-last-name, 
+#form-booking-enquiry #contact-booking-email, 
+#form-booking-enquiry #contact-booking-phone, 
+#form-booking-enquiry #contact-booking-date, 
+#form-booking-enquiry #contact-booking-guest,
+input#contact-general-first-name,
+input#contact-general-last-name,
+#form-booking-enquiry #contact-booking-property,
+#form-booking-enquiry #contact-booking-help,
+#form-group-enquiry #contact-group-property, 
+#form-group-enquiry #contact-group-event,
+#form-group-enquiry #contact-group-help{
+    width:100%!important;
+}
+.form-group-checkbox {
+    margin-bottom: 0px;
+}
+button#contact-booking-button-enquiry,
+button#contact-general-button-enquiry{
+    margin-top: 20px;
+}
+.contact-info-link-web a{
+    color: #38B1EA;
+    font-weight: 300;
+}
+.contact-info.col-12 .row.mt-2 p {
+    font-weight: 300;
+}
+.col-10.contact-info-link-web {
+    line-height: 35px;
+}
+.row.mt-2 .col-2 img {
+    margin-left: 50%;
+    transform: translate(-50%, 0%);
+}
+/*Fix 01*/
+#contact-body {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+#contact-body ul {
+    margin-left: 0px;
+}
+.form-body-box-enquiry,
+.form-body-box-enquiry-general{
+    width:100%;
+    margin-left:0;
+}
+#form-general-enquiry #contact-general-button-enquiry,
+#form-booking-enquiry #contact-booking-button-enquiry,
+#form-group-enquiry #contact-group-button-enquiry{
+    width:100%;
+    margin-left:0px;
+}
+div#form-booking-enquiry,
+div#form-group-enquiry,
+div#form-general-enquiry{
+    padding: 0 15px;
+}
+#contact-body .background-a-tag{
+    background: #E0E0E0;
+}
+@media (max-width: 575.98px) {
+    div#heart,
+    div#cart{
+        display:none;
+    }
+    #form-size{
+        padding: 0!important;
+        margin:0;
+    }
+    .col-12.col-md-8.contact-body-box-form {
+        padding: 0;
+    }
+    #contact-body {
+        margin: 0;
+        padding:0;
+    }
+    
+    #contact-body ul {
+        margin-left: 0px;
+    }
+    #contact-body ul li {
+        height: auto;
+        width: 100%;
+    }
+    li.nav-item.col-4.px-0.mr-1 {
+        max-width: 33.1%;
+        margin: 0!important;
+    }
+    #contact-body > ul > li.nav-item.col-4.px-0.mr-1:nth-child(2) {
+        margin: 0 1px!important;
+    }
+    .form-body-box-enquiry,
+    .form-body-box-enquiry-general{
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+    #contact-body .background-a-tag {
+        height: auto;
+        padding: 16px;
+    }
+    .tab-content,
+    #form-booking-enquiry #contact-booking-first-name,
+    #form-booking-enquiry #contact-booking-last-name,
+    #form-booking-enquiry #contact-booking-email,
+    #form-booking-enquiry #contact-booking-phone,
+    #form-booking-enquiry #contact-booking-date,
+    #form-booking-enquiry #contact-booking-guest,
+    #form-group-enquiry #contact-group-first-name,
+    #form-group-enquiry #contact-group-last-name,
+    #form-group-enquiry #contact-group-email,
+    #form-group-enquiry #contact-group-phone,
+    #form-group-enquiry #contact-group-date,
+    #form-group-enquiry #contact-group-guest,
+    #form-general-enquiry #contact-general-email,
+    #form-general-enquiry #contact-general-help{
+        width: 100%;
+    }
+    .form-group.col-md-6 {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #contact-booking-property,
+    #contact-group-event,
+    #contact-group-property,
+    #contact-group-help,
+    #contact-booking-help,
+    #contact-group-property, 
+    #contact-group-event,
+    #contact-group-help,
+    #contact-booking-help{
+        width:100%!important;
+        height:auto;
+    }
+    textarea#contact-booking-help,
+    textarea#contact-group-help,
+    textarea#contact-general-help{
+        height:auto!important;
+    }
+    .form-group.form-group-checkbox, #form-group-enquiry .contact-group-receive {
+        margin: 0;
+    }
+    div#form-booking-enquiry, 
+    div#form-group-enquiry, 
+    div#form-general-enquiry {
+        padding: 0 0px;
+    }
+    button#contact-booking-button-enquiry, 
+    #form-group-enquiry #contact-group-button-enquiry,
+    #form-general-enquiry #contact-general-button-enquiry{
+        margin-top: 15px;
+        margin-left: 0!important;
+        width: 100%!important;
+    }
+    .btn-enquiry{
+        margin: 0 15px;
+    }
+    #form-booking-enquiry #contact-booking-last-name,
+    #form-booking-enquiry #contact-booking-phone,
+    #form-booking-enquiry #contact-booking-guest,
+    #form-group-enquiry #contact-group-last-name,
+    #form-group-enquiry #contact-group-phone,
+    #form-group-enquiry #contact-group-guest
+    {
+        margin-left: 0px;
+    }
+    .row.mt-2 .col-2 img {
+        transform: translate(-50%, -5%);
+    }
+    a.navbar-brand {
+        margin-right: 0;
+    }
+    nav#topnav {
+        padding: 0px 15px;
+    }
+    .sidenav .closebtn {
+        margin-left: 90%;
+    }
+}
+</style>

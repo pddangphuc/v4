@@ -1,0 +1,97 @@
+==
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+       <div class="modal-header">
+           <button type="button" class="btn-back" id="back-signup"></button>
+            <h5 class="modal-title">Create account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >  
+     
+         {% if not user %}
+            {% if canRegister %}
+            {{ form_ajax('onRegister', { class: 'onRegister-form'}) }}
+                            
+                    <div class="form-email-login form-signup"  id="form-signup-email">
+                         <h3 class="social-login-text">Sign up</h3>
+                         <p>Create an account to manage your details & access exclusive member-only offers.</p>
+                         <div class="form-group">
+                           <input type="email" id="signup-by-email" name="email"  class="form-control" placeholder="Email">
+                         </div>
+                         <div class="form-group">
+                             <button type="button" class="login-button" id="signup-button">Next</button>
+                         </div>
+                        <div class="login-social">
+                            <h5 class="title-social"><span>or sign in with one click</span></h5>
+                            <div class="box-social d-flex justify-content-between align-items-center flex-row">
+                                {% for name, link in social_login_links %}
+                                    
+                                    {% if name == 'Google' %}
+                                       <div class="item-social text-center mr-2">
+                                            <a href="{{ link }}?s={{ 'wishlist-login'|page }}&f={{ 'wishlist-logout'|page }}">
+                                                <img src="{{ '/assets/images/gg1.png'|theme }}" alt="{{ name }}">
+                                                <span>Google</span>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if name == 'Facebook' %}
+                                       <div class="item-social text-center ml-2">
+                                            <a href="{{ link }}?s={{ 'wishlist-login'|page }}&f={{ 'wishlist-logout'|page }}">
+                                                <img src="{{ '/assets/images/fb.png'|theme }}" alt="{{ name }}">
+                                                <span>Facebook</span>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                
+                            </div>
+                            <p class="text-center">Already have an account? <a href="#" id="id-signup-popup" data-target="#login-modal" data-dismiss="modal" data-toggle="modal">Sign in</a></p>
+                        </div>
+                    </div>
+                    <div class="form-email-login form-signup" id="form-signup-password">
+                         <h3 class="social-login-text">Enter your details</h3>
+                         <p>Please enter your full name & password for <strong class="email-show-register"></strong></p>
+  
+                        <div class="form-group">
+                           <input type="text" class="form-control first_name" name="name" placeholder="First Name">
+                        </div>
+                        <div class="form-group">
+                           <input type="text" class="form-control last_name" name="surname" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                           <input type="password" name="password" class="signup-password form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                           <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                        </div>
+                         <div class="form-group">
+                             <button type="submit" class="login-button" >Create account</button>
+                         </div>
+                    </div>
+                {{ form_close() }}
+
+                
+            {% else %}
+                <!-- Registration is disabled. -->
+            {% endif %}
+        
+        {% else %}
+                <a data-request="onLogout" data-request-data="redirect: '/'">Sign out</a>
+            {% partial account ~ '::activation_check' %}
+        
+            {% partial account ~ '::update' %}
+        
+            {% partial account ~ '::deactivate_link' %}
+        
+        {% endif %}
+
+      </div>
+     <p class="modal-bottom"> By submitting your details you agree that you have read and accept our <a href="/terms#privacy-policy" target="_blank">privacy policy</a> & <a href="{{ 'terms'|page }}" target="_blank" >terms of service</a></p>
+    </div>
+  </div>
+  
+  <script>
+  </script>

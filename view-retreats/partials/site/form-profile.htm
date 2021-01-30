@@ -1,0 +1,196 @@
+==
+<?php
+use RainLab\Location\Models\Country;
+function onStart()
+{
+    if($this['user']->iu_email_newsletter){
+      $this["subscription"] = 'checked';
+    }else{
+      $this["subscription"] = '';
+    }
+
+    $this['countries'] = Country::getNameList();
+    //$pos = array_search($this['user']->iu_country, $this['countries']);
+    //dd(function_exists('unset'));
+    //dd($this['user']->iu_email_newsletter);
+    
+}
+?>
+==
+{{ form_ajax('onUpdate', { class: 'onUpdateProfile-form'}) }}
+    <div class="row">
+        <input type="hidden" name="iu_email_newsletter" value="">
+        <input type="hidden" name="iu_tel_code" value="">
+        <input type="hidden" name="iu_country_code" value="">
+        <input type="hidden" name="iu_telephone_full" value="">
+        <div class="col-md-8">
+        
+            <div class="bg-form-checkout">
+                <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                  <span class="title-img"><img src="{{ 'assets/images/User.png'|theme }}" /> </span>
+                  <h4>Contact Details</h4>
+             </div>
+              <div class="form-row">
+                  <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-first-name" name="name" value="{{ user.name }}" class="form-control" placeholder="First Name *">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-last-name" name="surname" value="{{ user.surname }}" class="form-control" placeholder="Last Name *">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-12">
+                            <div class="form-group">
+                                <input type="tel" id="phone_code" class="form-control" value="{{ user.iu_telephone }}" name="iu_telephone" placeholder="Mobile phone">
+                              </div>
+                        </div>
+                        <!-- <div class="col-sm-3 col-3">
+                            <div class="form-group">
+                                <input type="tel" id="phone_code" class="form-control" value="{{ user.iu_tel_code }}" name="iu_tel_code">
+                              </div>
+                        </div>
+                        <div class="col-sm-9 col-9">
+                            <div class="form-group">
+                                <input type="tel" id="phone_number" class="form-control" value="{{ user.iu_telephone }}" name="iu_telephone" placeholder="Mobile Number">
+                              </div>
+                        </div> -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-address" class="form-control" placeholder="Address" name="iu_address" value="{{ user.iu_address }}">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" id="wishlist-profile-city" class="form-control" placeholder="City / Town" name="iu_city" value="{{ user.iu_city }}">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                    <select id="wishlist-profile-country" name="iu_country">
+                                        {% if user.iu_country != '' %}
+                                            <option selected>{{ user.iu_country }}</option>
+                                        {% endif %}
+
+                                        {% for country in countries %}
+                                            <option value="{{ country }}">{{ country }}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <input type="text" id="wishlist-profile-state" class="form-control" placeholder="State" name="iu_state" value="{{ user.iu_state }}">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <input type="text" id="wishlist-profile-postcode" class="form-control" name="iu_postcode" placeholder="Postcode" value="{{ user.iu_postcode }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+              </div>
+                
+            </div>  
+            <div class="bg-form-checkout">
+                <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                  <span class="title-img"><img src="{{ 'assets/images/iconlock1.png'|theme }}" /> </span>
+                  <h4>Login Details</h4>
+             </div>
+                <div class="form-row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" value="{{ user.email }}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="update-password" name="password" placeholder="New Password">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="update-confirm-password" name="password_confirmation" placeholder="Confirm New Password">
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="bg-form-checkout pb-3">
+                <div class="d-flex flex-wrap align-content-start flex-row align-items-center mb-3 title-form">
+                      <span class="title-img"><img src="{{ 'assets/images/email1.png'|theme }}" /> </span>
+                      <h4>Subscriptions</h4>
+                 </div>
+                 <div class="form-row">
+                    <label class="con">Receive regular email updates on excusive deals & special offers<input class="checkbox-subscription" type="checkbox" {{ subscription }}><span class="checkmark"></span></label>
+                </div>
+            
+            </div>
+            <div class="clearfix mt-4 mt-sm-3">
+                <button type="submit" class="btn form-control" >Update</button>
+            </div>
+        
+        </div>
+    </div>
+{{ form_close() }}
+
+<link rel="stylesheet" href="{{ 'assets/vendor/intl-tel-input/build/css/intlTelInput.min.css'|theme }}">
+<script src="{{ 'assets/vendor/intl-tel-input/build/js/intlTelInput.min.js'|theme }}"></script>
+
+<script>
+  var input = document.querySelector("#phone_code");
+  var iti = window.intlTelInput(input, {
+    preferredCountries: ['AU', 'NZ'],
+    nationalMode: true,
+    utilsScript: "{{ 'assets/vendor/intl-tel-input/build/js/utils.js?1590403638580'|theme }}",
+    autoPlaceholder: 'off',
+    hiddenInput: "full_phone",    
+    separateDialCode: true,
+  });
+
+  
+  // window.intlTelInputGlobals.loadUtils("build/js/utils.js");
+  
+  iti.promise.then(function() {
+    if ('{{ user.iu_country_code }}' != '') {
+      iti.setCountry("{{ user.iu_country_code }}");
+    }
+  });
+
+  input.addEventListener("countrychange", function() {
+      // var iti = intlTelInput(input);
+      
+      //if ($('#phone_code').val() == '') {
+      
+        //$('input[name="iu_tel_code"]').val('test');
+        //iti.setNumber("+447733123456");
+      //}
+
+      $('input[name="iu_tel_code"]').val('+' + iti.getSelectedCountryData().dialCode);
+      $('input[name="iu_country_code"]').val(iti.getSelectedCountryData().iso2);
+      console.log(iti.getNumber());
+      console.log($('input[name="iu_country_code"]').val());
+    });
+  // window.intlTelInputGlobals.loadUtils("<bu></bu>ild/js/utils.js");
+  
+  // input.addEventListener("countrychange", function() {
+  //     var iti = intlTelInput(input);
+      
+  //     if ($('#phone').val() == '') {
+  //       $('#phone').val('+'+ iti.getSelectedCountryData().dialCode);
+  //     }
+
+  //     $('input[name="iu_tel_code"]').val(iti.getSelectedCountryData().dialCode);
+  //     $('input[name="iu_country_code"]').val(iti.getSelectedCountryData().iso2);
+  //     console.log();
+  //   });
+</script>

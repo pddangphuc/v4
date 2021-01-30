@@ -1,0 +1,45 @@
+==
+<div id="mysideUser" class="sidenav" >
+	<div class="nav-block">
+        <div class="sn-login-links"> 
+            <div class="nav-icons-block">
+                <div class="nav-icon"> <span>My Account</span></div> 
+            </div>
+          	<a href="javascript:void(0)" class="closebtn" onclick="closeUser()">&times;</a>
+          </div>
+		  <a class="sidenav-links" style="margin-top: -1px;" href="{{ 'favourites'|page }}">Saved Favourites</a>
+		  {% if not user %}
+		  	<a href="javascript:void(0)" data-target="#forgot-modal" data-toggle="modal"  class="sidenav-links" > Manage Bookings</a>
+		  {% else %}
+		  	<a href="{{ 'bookings'|page }}" class="sidenav-links" > Manage Bookings</a>
+		  {% endif %}
+
+		  {% if not user %}
+		  	<a class="sidenav-links" href="javascript:void(0)" data-target="#login-modal" data-toggle="modal"">Update Profile</a>
+		  {% else %}
+		  	<a class="sidenav-links" href="{{ 'update-profile'|page }}">Update Profile</a>
+		  {% endif %}
+		  <a class="sidenav-links" href="http://support.viewretreats.com/portal/en-gb/home">Customer Support</a>
+		  <div class="text-center form-btn-login" >
+		      {% if not user %}
+    		      <a href="javascript:void(0)" data-target="#login-modal" data-toggle="modal"  class="form-control btn btn-login">Sign in</a>
+        		  <a href="javascript:void(0)" data-target="#sign-up-modal" data-toggle="modal"  class="">Create a free account</a>
+              {% else %}
+                  <a data-request="onLogout" data-request-redirect="/" class="form-control btn">Logout</a>
+		      {% endif %}
+		  </div>
+		</div>
+		<!-- <div class="footer-social text-left change-dollar">
+             <span>AUD $</span> <span class="change">Change <img src="{{ 'assets//images/icon-next.png'|theme }}" alt="Change Dollar"></span>
+        </div> -->
+	</div>
+  <!-- modal login -->
+	<div class="modal fade" id="forgot-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  {% partial 'popup/popup-forgot.htm'%}
+	</div>
+
+<div class="modal fade" id="popupMap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{% partial 'popup/popup-map-search' %}
+</div>
+</div>
+ <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

@@ -1,0 +1,50 @@
+[viewBag]
+==
+<?php
+function onStart() {
+    switch($this['style']) {
+        case "2": // Removes the lined border at the bottom
+            $this['style_class'] = "d-none";
+            break;
+        default:
+            $this['style_class'] = "";
+            break;
+    }
+}
+?>
+==
+<div class="covid-message-and-sales-points">
+    <div class="container-fluid covid-message">
+        <div class="container">
+            <a href="https://support.viewretreats.com/portal/en-gb/kb/articles/covid-19" target="_blank">Covid-19 travel information<img class="icon-blue" src="{{ 'assets/images/arrow-right-small-blue.png'|theme }}" /></a>
+        </div>
+    </div>
+    <div class="container page-container sales-points">
+         <div class="row">
+            <div class="sales-points-col col-sm">
+                <div class="card-img">
+                    <img src="{{ 'assets/images/sales-points-star@2x.png'|theme }}" class="icon icon-star">
+                </div>
+                <div class="card-title">Best accommodation</div>
+                <div class="card-content">
+                    <span>We handpick only the best luxury hotels, lodges, resorts & private villas.</span>
+                </div>
+            </div>
+            <div class="sales-points-col col-sm">
+                <div class="card-img card-img-instant">
+                    <img src="{{ 'assets/images/sales-points-instant@2x.png'|theme }}" class="icon icon-instant">
+                </div>
+	        	<div class="card-title">Instant confirmation</div>
+                <span class="card-content">No more waiting around - receive instant confirmation on all bookings.</span>
+            </div>
+            <div class="sales-points-col col-sm">
+                <div class="card-img card-img-user">
+                    <img src="{{ 'assets/images/sales-points-user@2x.png'|theme }}" class="icon icon-user">
+                </div>
+	        	<div class="card-title">24/7 booking support</div>
+	        	<span class="card-content">Our team is available 24/7 for booking questions, changes & cancellations.</span>
+             </div>
+         </div>
+    </div>
+</div>
+<div class="container page-container {{style_class}}"><hr class="d-none d-sm-block m-0"></div>

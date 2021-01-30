@@ -1,0 +1,149 @@
+[CategoryList]
+
+[ProductList]
+sorting = "new"
+
+[ProductData]
+==
+<?php
+function onStart()
+{
+    $this["myVar"] = "<div>
+    	<div class='info-popup'>
+    		<b>Additional Fees</b>
+    		<br />
+    		 This property charges additional fees that will be added to the nightly rate total once you select your room type (if applicable).  
+    		<br />
+    		<span>Fees: $600 Cleaning Fee, $114 Accidental Damage Levy, 1.5% Visa/Mastercard & Amex   </span>
+    		<br />
+    		<b>Refundable Security Bond</b> 
+    		<br />
+    		This property charges a refundable security bond. The bond is separate from the nightly rate and is paid directly to the property owner prior to check-in. Payment details will be provided by the host after confirmation.  
+    		<br />
+    		<span>Bond amount: $2,000  </span>
+    		<br />
+    		<b>Price Guarantee</b>
+    		<br />
+    		 We always offer the best available prices. If you find a better price that includes all applicable fees, let us know and we’ll match it!
+    	</div>
+    </div>";
+}
+?>
+==
+{# Apply sorting, filter by "active" flag, filter by category ID #}
+{% set obProductList = ProductList.make().sort(ProductList.getSorting()).active() %}
+
+{# Let's check that the list of products is not empty #}
+{% if obProductList.isNotEmpty() %}
+
+	
+	{# Render product list #}
+    {% for obProduct in obProductList %}
+    {% set dbProduct = ProductData.get(obProduct.id) %}
+    {% set pbProduct = ProductPage.get() %}
+	<div class="sr-card">
+		<div class="image-block">
+		<div class="gallery owl-carousel" >
+		 {# if obProduct.images.isNotEmpty() #}
+
+            {% for obProductImages in obProduct.images %}
+               <div class="img-block" style="background: url('{{ obProductImages.path }}');">
+               	
+               </div>
+            {% endfor %}
+
+          {# endif #}			
+		</div>
+		<div class="fav-link"><img src="{{ 'assets/images/fav@2x.png'|theme }}" /></div>
+		</div>
+		{% set pbPropertyList = obProduct.property %}
+		<div class="details" data-id="{{ obProduct.id }}">
+
+			{# get details #}
+			{% if pbPropertyList.isNotEmpty() == true %}
+			{% set beds = "text" %}
+			{% set guest = "text" %}
+			{% set region = "text" %}
+			{% set state = "text" %}
+			{% set country = "text" %}
+			{% set minaverage = "text" %}
+			{% set addfees = "text" %}
+			{% set addfeesnotes = "text" %}
+			{% set bond = "text" %}
+			{% set bondnotes = "text" %}
+			        <ul style="display: none;">
+			            {% for pbProperty in pbPropertyList if pbProperty.hasValue() %}
+			                <li data-id="{{ pbProperty.slug }} - {{ pbProperty.property_value.getValueString() }}">{{ pbProperty.name }}: {{ pbProperty.property_value.getValueString() }}</li>
+
+			                {% if pbProperty.slug == 'totalbedrooms' %}
+			                	{%  set beds = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'maximumguests' %}
+			                	{%  set guest = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'region' %}
+			                	{%  set region = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'state' %}
+			                	{%  set state = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'country' %}
+			                	{%  set country = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			          		{% if pbProperty.slug == 'minimumaveragerate' %}
+			                	{%  set minaverage = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'additionalfees' %}
+			                	{%  set addfees = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'additionalfeenotes' %}
+			                	{%  set addfeesnotes = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'securitybondrequired' %}
+			                	{%  set bond = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                {% if pbProperty.slug == 'securitybondnotes' %}
+			                	{%  set bondnotes = pbProperty.property_value.getValueString() %}
+			                {% endif %}
+
+			                
+			                
+
+
+			            {% endfor %}
+			        </ul>
+			   {% endif %}
+
+			   
+			
+			<div class="prop-info"><p>{{ dbProduct.category.name }} <span>.</span> {{ beds}} Bedroom <span>.</span> {{ guest }} Guests</p></div>
+			<div class="prop-title"><h4>{{ obProduct.name }}</h4></div>
+			<div class="prop-address"><a href="#">{{ region }}, {{ state }}, {{ country }}</a></div>
+
+			<div class="short-desc">
+				{#obProduct.preview_text #} 
+				{{ obProduct.preview_text|length > 110 ? obProduct.preview_text|slice(0, 110) ~ '...' : obProduct.preview_text  }}
+
+				 
+			</div>
+			<div class="prop-rate">
+				<div class="rate-text">Nightly Rate Total</div>
+				<div class="price">From AUD ${{ minaverage|number_format }} <span>plus fees</span><div class="info"><img src="{{ 'assets/images/info@2x.png'|theme }}" data-toggle="popover" data-content="{% partial 'site/info' fees=addfees feesnotes=addfeesnotes bonds=bond bondsnotes=bondnotes%}" class="btn-popup" />
+
+				<!-- <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> --></div></div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+{% endif %}
+

@@ -1,0 +1,273 @@
+==
+<?php
+function onStart()  {
+
+    // get property id passed from twig call
+    $propertyid = $this->propid;
+    $newcollection = $this['propCollection'];
+    $all_inclusive = $this->all_inclusive;
+
+    $checkin = date("d F", strtotime($this['checkIn']));
+    //date("Y-m-d",strtotime($checkin));
+
+    //print_r($newcollection);
+    $baseRate = "";
+    $tax_and_service_fee = "";
+    $total = "";
+    $refundable ="";
+    $nights="";
+    $cancel_date = "";
+
+    if(!empty($newcollection)) {
+        $mycollection = $newcollection->where('property_id', $propertyid);
+
+        $prices = $mycollection->first();
+
+        $this['total'] = $prices['total'];
+        $this['nights'] = $prices['num_nights'];
+        $nights = $prices['num_nights'];
+        $total = $prices['total'];
+        $this['strikethrough'] = $prices['strikethrough'];
+        $this['cancellation'] = $prices['refundable'];
+        $refundable = $prices['refundable'];
+        $this['cancel_date'] =  $prices['cancel_date'];
+        $cancel_date = date("d M", strtotime($prices['cancel_date']));
+        $this['roomStatus'] = $prices['room_status'];
+        $this['deposit_required'] = $prices['deposit_required'];
+        $this['all_inclusive'] = $all_inclusive;
+        $this['baseRate'] = $prices['baseRate'];
+        $baseRate = round($prices['baseRate']);
+        //$baseRate = !empty(round($prices['baseRate'])) ? round($prices['baseRate']) : "";
+        $this['tax_and_service_fee'] = $prices['tax_and_service_fee'];
+        $tax_and_service_fee = round($prices['tax_and_service_fee']); 
+        //$tax_and_service_fee = !empty(round($prices['tax_and_service_fee'])) ? round($prices['tax_and_service_fee']) : "";
+
+    //print_r($prices);
+    }
+
+
+    // FOR POPUP
+    //$this["myVar"]
+    $popupString = "<div>
+        <div class='info-popup'>
+            
+            <div class='info-details'>
+                <div class='col-6'>
+                    <div class='title'><b>Price Details</b></div>
+                </div>
+                <div class='col-6 close text-right'><img src='themes/view-retreats/assets/images/close_popup.png' /></div>                
+                <br />
+                <div class='col-6'>1 room x ". $nights ." nights</div>
+                <div class='col-6 text-right'>AU$".$baseRate."</div>
+                <br />
+                <div class='col-6'>Taxes</div>
+                <div class='col-6 text-right'>AU$".$tax_and_service_fee."</div>
+                <br />
+                <div class='col-6'>Property Fee</div>
+                <div class='col-6 text-right'>AU$0</div>
+                <br />
+                <div class='col-6 total'><b>Total</b></div>
+                <div class='col-6 total-amt text-right'><b>AU$".round($total)."</b></div>
+            </div>
+            <div class='info-details-bottom'>";
+            if ($refundable) {
+               $popupString = $popupString ."<div>
+                    <span><img src='themes/view-retreats/assets/images/check-green.png' alt=''></span>Free cancellation before ".$cancel_date."
+                </div>";
+            }
+            $popupString = $popupString ."<div class='link-btn'>
+                    <a href='#' class='btn btn-block'>Reserve</a>
+                </div>
+            </div>
+        </div>
+    </div>";
+
+    $this["myVar"] = $popupString;
+  
+
+}
+?>
+==
+<div class="ladding-info d-flex justify-content-between align-items-center">
+    <div class="pull-left d-none d-lg-block">
+    {% if dateString is not empty %}
+     <ul class="list-landing">
+            {% if cancellation == true %}
+    	        <li><span><img src="{{ 'assets/images/check-green.png'|theme }}" alt=""></span>Free cancellation</li>
+            {% endif %}
+    
+            {% if roomStatus == "available" %}
+                {% if prop_collect == 1 %}
+                    <li><span><img src="{{ 'assets/images/check-green.png'|theme }}" alt=""></span>Book now, pay later</li>
+                    {% set bnow = 1 %}
+                {% endif %}
+            {% endif %}
+    
+            {% if bnow != 1 %}
+                {% if deposit_required == true %}
+                    <li><span><img src="{{ 'assets/images/check-green.png'|theme }}" alt=""></span>Book now, pay deposit</li>
+                {% endif %}
+            {% endif %}
+    
+            {% if roomStatus == "available" %}
+                {% if all_inclusive == 1 %}
+                    <li><span><img src="{{ 'assets/images/check-green.png'|theme }}" alt=""></span>All-inclusive</li>
+                {% endif %}
+            {% endif %}
+    	</ul>
+    {% endif %}
+    </div>
+
+        <!-- VN Cheat Part -->
+
+     <div class="d-lg-none pull-left">
+      <div class="info-left ">
+         {% if property.overall > 0 %}
+         <div class="d-flex justify-content-start align-items-center">
+             <div class="rate-count"><strong>{{property.ratings}}</strong> </div>
+
+            <div class="rate-star mb-1 ml-1">
+              
+                {% if property.ratings >= 1.0 and property.ratings <= 1.3 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    {% for i in 1..4 %}
+                         <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                    {% endfor %}
+                {% elseif property.ratings >= 1.4 and property.ratings <= 1.8 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                    {% for i in 1..3 %}
+                         <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                    {% endfor %}
+                {% elseif property.ratings >= 1.9 and property.ratings <= 2.3 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    {% for i in 1..3 %}
+                         <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                    {% endfor %}
+                {% elseif property.ratings >= 2.4 and property.ratings <= 2.8 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                    {% for i in 1..2 %}
+                         <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                    {% endfor %}
+                {% elseif property.ratings >= 2.9 and property.ratings <= 3.3 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    {% for i in 1..2 %}
+                         <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                    {% endfor %}
+                {% elseif property.ratings >= 3.4 and property.ratings <= 3.8 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+                    
+                {% elseif property.ratings >= 3.9 and property.ratings <= 4.3 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+
+                {% elseif property.ratings >= 4.4 and property.ratings <= 4.8 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-half.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star.png'|theme }}"></span>
+
+                {% elseif property.ratings >= 4.9 and property.ratings <= 5.0 %}
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+                    <span class="item-star"><img src="{{ 'assets/images/star-active.png'|theme }}"></span>
+
+                {% endif %}
+
+
+            </div>
+         </div>
+        <div class="box-count-review">
+            {% if property.ratings > 4.6 and property.ratings < 5.1 %}
+                <span>Exceptional</span>
+            {% elseif property.ratings > 4.4 and property.ratings < 4.7 %}
+                <span>Wonderful</span>
+            {% elseif property.ratings > 4.2 and property.ratings < 4.5 %}
+                <span>Excellent</span>
+            {% elseif property.ratings > 4.1 and property.ratings < 4.3 %}
+                <span>Very Good</span>
+            {% else %}
+                <span>Good</span>
+            {% endif %}
+            <small class="count-review">({{property.reviews}} reviews)</small>
+        </div>
+        
+            
+        {% else %}
+        <div class="rate-count" style="visibility: hidden;">No ratings</div>
+        <div class="rate-star" style="visibility: hidden;"></div>
+        <p style="visibility: hidden;">No rating</p>
+        {% endif %}
+    </div>
+  </div>
+
+
+    <!-- End cheat Part -->
+    
+    
+
+	<div class="text-right d-none d-lg-block">
+	    <!-- div price  -->
+        {% if dateString is not empty %}
+    	    <div class="lang_price">
+                {% if total is not empty %}
+    	        <p class=" d-none d-lg-block">
+                for {{ nights }} 
+                {% if nights > 1 %}
+                nights
+                {% else %}
+                night
+                {% endif %}
+                </p>
+                {% else %}
+                <p class="d-none d-lg-block text-danger">Choose another date</p>
+                {% endif %}
+    	        
+    	         <p class="landing_cost">
+                    {% if strikethrough is not empty %}
+                        <span style="display: none;" class="info" data-toggle="popover" data-content="{% partial 'site/info' fees=addfees feesnotes=addfeesnotes bonds=bond bondsnotes=bondnotes%}"><img src="{{ 'assets/images/info.png'|theme }}"  class="btn-popup" /> </span><span style="display: none;" class="price-cost"> AU${{ strikethrough|number_format }} </span> 
+                    {% endif %} 
+                    {% if total is not empty %}
+                        <span class="price">AUD ${{ total|number_format }}</span> </p>
+                        <div class="pull-left d-lg-none">
+                                         <ul class="list-landing">
+                                            <li><span><img src="{{ 'assets/images/check-green.png'|theme }}" alt=""></span>Free cancellation</li>
+                                         </ul>
+                                      </div>
+    	                <span class="landing_deposit"><div class="price-details btn-popup" data-toggle="popover" data-content="{{ myVar }}">Price Detail </div></span>
+                    {% else %}
+
+                        <span class="price text-danger">Unavailable</span></p>
+                    {% endif %}
+
+    	    </div>
+        {% else %}
+
+        <!-- div button  -->
+        <div class="clearfix">
+            <button class="btn">Enter dates</button>
+        </div>
+        <!-- div Choose another date  -->
+        <!-- <div class="clearfix">
+            <p>Choose another date</p>
+            <p class="landing_cost">Unavailable</p>
+        </div> -->
+        {% endif %}
+    </div>
+</div>

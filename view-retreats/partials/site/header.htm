@@ -1,0 +1,32 @@
+==
+<?php
+function onStart()
+{
+    $this["myGuest"] = "<div>
+      <div class='guests-popup'>        
+        <div><span>10</span> Adults <span><img src=" . "{{'assets/images/minus-guest.png'|theme }}" . "/></span></div>
+        <div></div>
+    </div>";
+}
+?>
+==
+<!-- Nav -->
+<div class="nav-bg fixed-top">
+  <div class="container page-container">
+    <nav id="topnav" class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="{{ 'home'|page }}"><img src="{{ 'assets/images/logo.png'|theme }}"></a>
+      <div class="nav-menu-block">
+        <div class="nav-icons-block">
+          {% if not user %}
+            <div id="user" onclick="openUer()" > <img src="{{ 'assets/images/user-profile.png'|theme }}"/></div>
+          {% else %}
+            <div id="user" onclick="openUer()" > <img src="{{ 'assets/images/user-profile-logged-in.png'|theme }}"/></div>
+          {% endif %}
+          
+          <div id="mobile-menu" onclick="openNav()"></div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div> <!-- nav bg -->
+<!-- form search bar -->

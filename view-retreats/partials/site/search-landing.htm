@@ -1,0 +1,121 @@
+==
+<?php
+function onStart()
+{
+    $myproperties = $this['properties'];
+
+    $this['properties'] =  $myproperties;
+
+    $recID = $this['recid'];
+
+    $landing_array = DB::select("SELECT property_ids FROM viewretreats_landingpages_ WHERE id = $recID");
+
+    foreach($landing_array as $key => $value) {
+    	$pids_array = $value->property_ids;
+	}
+
+    //print_r($pids_array);
+    $pids = trim($pids_array, '[]');
+   // echo $pids;
+
+
+	//$pids = Db::select("SELECT property_ids_exp AS pids FROM expedia_expediaimport_region_pids where region_id IN (" . implode(',', $srids) . ") GROUP BY property_ids_exp Order by abs(property_ids_exp) ASC");
+
+
+    if(!empty($pids)) {
+	$properties = Db::select("SELECT *,
+        expedia_expediaimport_properties.id, 
+        expedia_expediaimport_properties.property_id, 
+        expedia_expediaimport_properties.name,
+        expedia_expediaimport_properties.property_collect, 
+        expedia_expediaimport_properties.expedia_collect,
+        expedia_expediaimport_properties.inc_all_rate_plans,   
+        expedia_expediaimport_properties.address_1, 
+        expedia_expediaimport_properties.address_2, 
+        expedia_expediaimport_properties.city, 
+        expedia_expediaimport_properties.state, 
+        expedia_expediaimport_properties.country_code,
+        expedia_expediaimport_properties.active,
+        expedia_expediaimport_properties.statistics,
+        expedia_expediaimport_properties.accommodation_type,
+        expedia_expediaimport_ratings.guest_count AS reviews,
+        expedia_expediaimport_ratings.guest_overall AS ratings,
+        ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+        expedia_expediaimport_ratings.property_id AS property_id_rating,
+        rainlab_location_countries.name AS country_name 
+        FROM expedia_expediaimport_properties
+        JOIN expedia_expediaimport_ratings
+        ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+        JOIN rainlab_location_countries
+        ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+        WHERE expedia_expediaimport_properties.active = 1
+        AND expedia_expediaimport_properties.property_id IN (" . $pids . ")
+        ORDER BY FIELD(expedia_expediaimport_properties.property_id,". $pids . ")");
+
+
+        foreach ($properties as $property) {
+        //echo $user->first_name;
+        }
+
+        $this['properties'] = $properties;
+    }
+
+
+}
+?>
+==
+<h1 style="display: none;">record id = {{ recid }}</h1>
+
+<div style="display: none;">
+ {% set listProperties = properties %}
+
+
+
+</div> 
+
+
+
+
+
+
+
+{# Let's check that the list of products is not empty #}
+{% if listProperties is not empty %}
+
+	{# Render product list #}
+    {% for property in listProperties %}
+
+          
+            
+        
+          
+          	<div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 hotel">
+          
+			
+    				  <div class="card card-height-landing" >
+    				   
+                       {# Gallery part #}
+                       {% partial 'site/search-gallery-block' propid=property.property_id %}
+    				    
+    				    
+    				    <div class="card-body" data-id="{{ property.property_id }}">
+    				    	{# Info details #}
+                            {% partial 'site/search-details-block' property=property stats=property.statistics accom_type=property.accommodation_type %}
+
+                            {# Rates Details#}					   
+    					  	{% partial 'site/search-info-block' sw=searchString propid=property.property_id prop_collect=property.property_collect exp_collect=property.expedia_collect all_inclusive=property.inc_all_rate_plans %}
+    					  		
+    				    </div>
+                        
+    				 </div>
+    		</div>
+        
+
+	{% endfor %}
+
+
+
+{% endif %}
+<div class="modal fade room-popup" id="mapSearch" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+        {% partial 'popup/popup-map-search' %}
+</div>

@@ -1,0 +1,59 @@
+[viewBag]
+
+[staticMenu]
+code = "main-menu"
+==
+<div id="mySidenav" class="sidenav" >
+	<div class="nav-block">
+        <div class="sn-login-links"> 
+            <div class="nav-icons-block">
+                <div class="nav-icon"> <span>Main Menu</span> </div> 
+            </div>
+          	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        </div>
+		  
+		  
+		<div id="accordion" class="nav-accordion" style="margin-left: 0px;">
+            <div class="main-menu-container">
+            	{% if staticMenu.menuItems %}
+	                <ul>
+	                    {% partial 'site/sidenav-main-menu' items=staticMenu.menuItems %}
+	                </ul>
+	            {% endif %}
+            </div>
+            
+		</div>
+		<div class="footer-social">
+			<ul>
+				<li><a href="https://www.facebook.com/ViewRetreats/"><img src="{{ 'assets/images/fb@2x.png'|theme }}" width="30" /></a></li>
+				<li><a href="https://twitter.com/viewretreats"><img src="{{ 'assets/images/twitter.png'|theme }}" /></a></li>
+				<li><a href="https://www.youtube.com/viewretreats"><img src="{{ 'assets/images/youtube.png'|theme }}" /></a></li>
+				<li><a href="https://www.instagram.com/viewretreats/"><img src="{{ 'assets/images/ig.png'|theme }}" /></a></li>
+				<li><a href="https://www.pinterest.com.au/viewretreats/"><img src="{{ 'assets/images/pi.png'|theme }}" /></a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+<!-- modal login -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  {% partial 'popup/popup-login'%}
+</div>
+
+<!-- modal sign up -->
+<div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	{% partial 'popup/popup-signup'%}
+</div>
+
+<!-- modal forgot-password -->
+<div class="modal fade" id="forgot-password-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  {% partial 'popup/popup-forgot-password'%}
+</div>
+
+
+<!-- modal retrieve-itenerary -->
+<div class="modal fade" id="retrieve-itenerary-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  {% partial 'popup/popup-retrieve-itinerary'%}
+</div>
+
+ <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>

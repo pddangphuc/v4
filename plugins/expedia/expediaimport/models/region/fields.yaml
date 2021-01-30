@@ -1,6 +1,0 @@
-fields:
-    region_name:
-        label: Region
-        span: left
-        required: 1
-        type: text

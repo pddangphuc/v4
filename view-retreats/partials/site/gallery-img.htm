@@ -1,0 +1,204 @@
+==
+<?php 
+function onStart() {
+
+     $prop_id = $this['prop_id'];
+
+      // get the Images for this property 
+
+      $imgQuery = Db::select( "SELECT * FROM expedia_expediaimport_images WHERE property_id = $prop_id AND poster = 1 AND links_large_sort_id <> 0 ORDER BY links_large_sort_id ASC LIMIT 5");
+
+      $fullimgQuery = Db::select( "SELECT * FROM expedia_expediaimport_images WHERE property_id = $prop_id  ORDER BY -links_large_sort_id DESC");
+
+      // Program to display URL of current page. 
+  
+      if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') 
+          $link = "https"; 
+      else
+          $link = "http"; 
+        
+      // Here append the common URL characters. 
+      $link .= "://"; 
+        
+      // Append the host(domain name, ip) to the URL. 
+      $link .= $_SERVER['HTTP_HOST']; 
+        
+      // Append the requested resource location to the URL 
+      $link .= $_SERVER['REQUEST_URI']; 
+
+
+      
+
+      foreach ($imgQuery as $pImages) {
+        //echo $property->name;
+      }
+
+      $this['propertyImages'] = $imgQuery;
+
+      $this['fullpropertyImages'] = $fullimgQuery;
+
+      //print_r($imgQuery);
+
+}
+?>
+==
+
+  {% set dataPropertyImages = propertyImages %}
+  {% set fulldataPropertyImages = fullpropertyImages %}
+
+
+
+<div class="property">
+	<!-- <div class="featcard">
+		<div id="featured" class="carousel slide carousel-fade" data-ride="carousel">
+			{# component 'imageGallery' #}
+		</div>
+	</div> -->
+    <!-- dynamic part -->
+    <div class="container-fluid p-0">
+        <div class="row">
+           {% if dataPropertyImages is not empty %}
+           {% for propImage in dataPropertyImages %}
+           {% if loop.first %}
+            <div class="col-6 left_tile mygal" data-value="0" style="padding: 0px;overflow: hidden; background-image: url('https://expedia-properties.s3-ap-southeast-2.amazonaws.com/media/properties/{{ prop_id }}/{{ propImage.newname }}');">
+               
+            </div>
+            <div class="col-6" style="padding: 0px;overflow: hidden;">
+                <div class="row" style="margin:0; height: 514px">
+           {% else %}
+
+                    <div class="col-6 tile mygal" data-value="{{ loop.index0 }}" style="padding: 0px; background-image: url('https://expedia-properties.s3-ap-southeast-2.amazonaws.com/media/properties/{{ prop_id }}/{{ propImage.newname }}'); ">
+
+                         {% if loop.last %}
+
+                         <div class="gallery-link">
+                            <div class="align-self-center align-content-center m-auto text-center"><img class="mr-room" src="{{ 'assets/images/raster.png'|theme }}"><h5 class="card-title text-uppercase m-0"> GALLERY</h5></div>
+                        </div>
+
+                         {% endif %}
+                   
+                    </div>
+                    
+                    <!-- <div class="col-6 tile" style="padding: 0px; background-image: url('https://expedia-properties.s3-ap-southeast-2.amazonaws.com/media/properties/17096727/spicers-sangoma-retreat_bfa06785_z.jpg'); ">
+
+                        <div class="gallery-link">
+                        <a href="#" class="align-self-center align-content-center m-auto text-center"><img class="mr-room" src="https://app.viewretreats.net/themes/view-retreats/assets/images/raster.png"><h5 class="card-title text-uppercase m-0"> GALLERY</h5></a>
+                        </div>
+                    
+                    </div>-->
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+                </div>
+            </div> 
+
+             
+        </div>
+    </div>
+</div>
+
+<style>
+.tile {
+    max-height: 257px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.left_tile {
+    max-height: 514px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+</style>
+<script>
+    setTimeout(function() {
+      $('.lg-outer .lg div.lg-thumb-outer').addClass('lg-img');
+    }, 1000);
+	$('#imageGallery div:nth-child(5) a').each(function() {
+		$(this).after($('<div class="card-img-overlay d-flex linkfeat"> <a href="#" class="align-self-center align-content-center m-auto text-center"><img class="mr-room" src="{{ "assets/images/raster.png"|theme }}" /><h5 class="card-title text-uppercase m-0"> GALLERY</h5></a></div>'));
+	});
+	$('.lg-actions div after').each(function() {
+		$(this).before($('<img class="mr-room" src="{{ "assets/images/ellipse.png"|theme }}" />'));
+	});
+	$('#imageGallery div:nth-child(5)').addClass('card bg-dark text-white');
+    $('.lg-outer .lg div:nth-child(5)').addClass('lg-img');
+    setTimeout(function() {
+      $('.lg-outer').removeClass('lg-thumb-open');
+    }, 2000);
+    setTimeout(function() {
+        $('.lg').click(function(){
+            $('.lg-outer .lg div:nth-child(5)').removeClass('lg-img');
+            $('.lg-outer .lg-item .lg-img-wrap .lg-object').removeClass('lg-image-small');
+            $('.lg-actions div:nth-child(1)').removeClass('lg-prev-small');
+            $('.lg-actions div:nth-child(2)').removeClass('lg-next-small');
+            $('.lg-sub-html p').removeClass('p-small');
+            $('.lg-toolbar div').removeClass('lg-counter-small');
+            $('.lg-outer .lg div:nth-child(2).lg-toolbar').removeClass('toolbar-small');
+            var x = $('.lg-outer').hasClass('lg-thumb-open');
+            if(x = true) {
+                $('.lg-thumb-open .lg-item .lg-img-wrap .lg-object').addClass('lg-image-small');
+                $('.lg-thumb-open .lg-actions div:nth-child(1)').addClass('lg-prev-small');
+                $('.lg-thumb-open .lg-actions div:nth-child(2)').addClass('lg-next-small');
+                $('.lg-thumb-open .lg-sub-html p').addClass('p-small');
+                $('.lg-thumb-open .lg-toolbar div').addClass('lg-counter-small');
+                $('.lg-thumb-open .lg div:nth-child(2).lg-toolbar').addClass('toolbar-small');
+            }
+            setTimeout(function() {
+              $('.lg-thumb-open .lg-sub-html p').addClass('p-small');
+            }, 700);
+            setTimeout(function() {
+              $('.lg-thumb-open .lg-item .lg-img-wrap .lg-object').addClass('lg-image-small');
+            }, 800);
+         });
+    }, 2000);
+
+
+    $('.mygal').on('click', function() {
+
+       var ctrindex = $(this).data("value");
+ 
+    $(this).lightGallery({
+        mode: 'lg-fade',
+        index: ctrindex,
+        dynamic: true,
+        thumbnail: true,
+        showThumbByDefault: false,
+        preload: 10,
+        download: false,
+        hash: false,
+        counter: false,
+        fullScreen: false,
+        zoom: false,
+        autoplayControls: false,
+        autoplay: false,
+        dynamicEl: [
+
+        {% for fullpropImage in fulldataPropertyImages %}
+        {% if loop.last %}
+
+        {
+            "src": '{{ fullpropImage.links_large }}',
+            'thumb': '{{ fullpropImage.links_thumb }}'
+            
+        }
+
+        {% else %}
+
+        {
+            "src": '{{ fullpropImage.links_large }}',
+            'thumb': '{{ fullpropImage.links_thumb }}'
+        },
+
+        {% endif %}
+
+        {% endfor %}
+
+        ]
+    })
+ 
+    });
+
+</script>

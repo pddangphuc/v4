@@ -1,0 +1,23 @@
+title = "Retrieve Booking"
+url = "/user/retrieve-booking"
+layout = "login"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+enabled_in_sitemap = 1
+use_updated_at = 1
+changefreq = "always"
+priority = 0.1
+==
+<?php
+function onStart(){
+    $user = $this->account->user();
+    if($user){
+        return Redirect::to('/404');
+    }
+}
+?>
+==
+<div class="retrieve-booking-main-container" id="retrieve-booking-notpopup-page">
+	{% partial 'site/retrieve-booking'%}
+</div>

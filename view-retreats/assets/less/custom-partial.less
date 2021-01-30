@@ -1,0 +1,108 @@
+
+.covid-message-and-sales-points{
+    .covid-message{
+        background: rgba(29,191,216,0.1);
+        height: 47px;
+        div{
+            padding: 10px 5px;
+        }
+        a{
+            color: #323A45;
+            font-size: 16px;
+            line-height: 24px;
+            text-decoration-line: underline;
+            margin-left: 2.5px;
+            .icon-blue{
+                margin-left: 8px;
+                margin-top: -3px;
+            }
+        }
+        @media(max-width: 575px){
+            a{
+                margin-left: -5px;
+            }
+        }
+    }
+    .sales-points{
+        .row{
+            padding: 50px 0;
+            .sales-points-col{
+                padding: 0 25px;
+                &:first-child{
+                    padding-left: 5px;
+                }
+                &:last-child{
+                    padding-right: 5px;
+                }
+                .card-img{
+                    text-align: center;
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-right: 5px;
+                    width: 28px;
+                    .icon{
+                        width: 25px;
+                        margin-top: -2.5px;
+                    }
+                    .icon.icon-star{
+                        width: 28px;
+                    }
+                    .icon.icon-user{
+                        width: 22px;
+                        margin-top: 0px;
+                    }
+                }
+                .card-title{
+                    display: inline-block;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 25px;
+                    margin-left: 0;
+                    width: calc(100% - 35px);
+                }
+                .card-content{
+                    color: #323A45;
+                    display: block;
+                    font-size: 14px;
+                    line-height: 26px;
+                    opacity: 0.6;
+                    padding: 0 2.5px;                    
+                }
+            }
+            @media(max-width: 1199px) {
+                    .sales-points-col{
+                        .card-title{
+                            margin-top: -15px;
+                        }
+                    }
+            }
+        }
+        @media(max-width: 575px){
+            .row{
+                padding: 35px 0 0 0;
+                .sales-points-col{
+                    padding: 20px 18px;
+                    &:first-child{
+                        padding-left: 18px;
+                    }
+                    &:last-child{
+                        padding-bottom: 5px;
+                    }
+                    .card-content{
+                        margin-left: 32.5px;
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width: 575px){
+        .sales-points{
+            border-bottom: none;
+        }
+    }
+}
+@media(max-width: 575px){
+    .carousel-container-empty{
+        padding-bottom: 50px;
+    }
+}

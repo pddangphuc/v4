@@ -1,0 +1,37 @@
+[viewBag]
+==
+{% for item in items if not item.viewBag.isHidden %}
+        {% if item.url %}
+            {% if item.title == 'Destinations' or item.title == 'Destination' %}
+                <a class="sidenav-links destinations_id" id="destinations_id" data-toggle="collapse" data-target="#collapseDestination" role="button" aria-expanded="false" aria-controls="collapseDestination">{{ item.title }}
+                  <div class="image-icon-arrow-down-des"></div>
+                  <div class="image-icon-arrow-up-des"></div>
+                </a>
+            {% elseif item.title == 'Collections' or item.title == 'Collection' %}
+                <a class="sidenav-links collections_id" id="collections_id" style="margin-top: -1px;"  data-toggle="collapse" data-target="#collapseCollections" role="button" aria-expanded="false" aria-controls="collapseCollections">{{ item.title }}
+                    <div class="image-icon-arrow-down-col"></div>
+                    <div class="image-icon-arrow-up-col"></div>
+                </a>
+
+            {% else %}
+                <a class="sidenav-links" style="margin-top: -1px;" href="{{ item.url }}" {{ item.viewBag.isExternal ? 'target="_blank"' }}">{{ item.title }}</a>
+            {% endif %}
+        {% else %}
+            <span>{{ item.title }}</span>
+        {% endif %}
+
+
+        {% if item.title == 'Destinations' or item.title == 'Destination' %}
+            {% if item.items %}
+                <div class="sub-links collapse" id="collapseDestination" style="padding: 5px 0 30px;">                
+                    {% partial 'site/main-menu-destinations' items=item.items %}                 
+                </div>
+            {% endif %}
+        {% elseif item.title == 'Collections' or item.title == 'Collection' %}
+           {% if item.items %}
+                <div class="sub-links collapse" id="collapseCollections" style="padding: 5px 0 30px;">
+                    <ul class="region">{% partial 'site/main-menu-default-lists' items=item.items %}</ul>
+                </div>
+            {% endif %}
+        {% endif %} 
+{% endfor %}    

@@ -1,0 +1,23 @@
+[viewBag]
+==
+{% for item in items if not item.viewBag.isHidden %}
+    <div class="country" style="padding-bottom: 10px;">
+        {% if item.url %}
+            
+                <span>
+                    <a href="{{ item.url }}" {{ item.viewBag.isExternal ? 'target="_blank"' }}>
+                    {{ item.title }}
+                    </a>
+                </span>
+            
+        {% else %}
+            <span>{{ item.title }}</span>
+        {% endif %}
+
+        {% if item.items %}
+            <ul class="region">
+                {% partial 'site/main-menu-default-lists' items=item.items %}
+            </ul>
+        {% endif %}
+    </div>
+{% endfor %}

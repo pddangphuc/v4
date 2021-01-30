@@ -1,0 +1,457 @@
+title = "property-responsive"
+url = "/property-responsive"
+layout = "default"
+is_hidden = 0
+
+[slider]
+slide_show_id = 8
+
+[googleMap]
+latitude = 51.506767
+longitude = -0.122205
+zoom = 12
+width = "100%"
+height = "487px"
+mapTypeId = "ROADMAP"
+showMarker = "true"
+
+[imageGallery]
+galleryId = 1
+mainThumbHeight = 487
+mainThumbWidth = 683
+resizer = "exact"
+mode = "lg-fade"
+speed = 600
+height = "100%"
+width = "100%"
+startClass = "lg-start-zoom"
+backdropDuration = 150
+hideBarsDelay = 6000
+closable = 1
+loop = 1
+escKey = 1
+keyPress = 1
+controls = 1
+slideEndAnimation = 1
+hideControlOnEnd = 0
+mousewheel = 0
+preload = 1
+showAfterLoad = 1
+download = 0
+counter = 1
+swipeThreshold = 50
+enableDrag = 1
+enableTouch = 1
+thumbnail = 1
+animateThumb = 1
+currentPagerPosition = "right"
+thumbWidth = 112
+thumbContHeight = 90
+thumbMargin = 5
+toogleThumb = 1
+enableThumbDrag = 1
+enableThumbSwipe = 1
+thumbSwipeThreshold = 50
+autoplay = 0
+pause = 5000
+progressBar = 0
+forceAutoplay = 0
+autoplayControls = 0
+fullScreen = 0
+pager = 0
+zoom = 0
+scale = 1
+==
+<link href="{{ [
+          'assets/css/property-profile.css',
+        ]|theme }}" rel="stylesheet">
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
+<style type="text/css">
+
+.profile-activity .btn-reserve {
+    padding: 12px 30px;
+    width: 100%;
+}
+.profile-save {
+    padding-top: 1px;
+}
+.profile-save, .profile-share {
+    margin-right: 0px;
+}
+a.room-more{
+    display:inline;
+}
+.row.faq {
+    margin: 0;
+    padding: 0 4.5%;
+}
+.row.info-section, 
+.row.overview,
+.row.check-rooms,
+.row.info-room{
+    margin:0;
+}
+@media (max-width: 575.98px) { 
+    .row.content-title,
+    .row.col-icon,
+    .row.col-btn,
+    .row.info-section,
+    .row.check-rooms{
+        margin: auto;
+    }
+    .row.faq {
+        padding: 0;
+    }
+    .profile-title h4 {
+        font-size: 26px;
+        line-height: 32px;
+        max-height: 64px;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+    }
+    .row.col-icon {
+        position: absolute;
+        top: -220px;
+        right: 0;
+    }
+    i.fa.fa-heart-o.hover-fa-heart {
+        color: white;
+    }
+    /*#imageGallery div:nth-child(1) {
+        width: 100%;
+        display: block;
+    }*/
+    .only_show{
+        width: 100%!important;
+        display: block!important;
+    }
+    .only_hide{
+        display:none!important;
+    }
+    .container.page-container.p-0 {
+        width: auto;
+    }
+    .note-block {
+        padding-top: 0px!important;
+    }
+    #imageGallery div,
+    div#heart,
+    div#cart{
+        display: none;
+    }
+    .col-btn{
+        position: absolute;
+        width: 100%;
+        color: white;
+        padding: 0 10px;
+        top:50%;
+        z-index:1;
+        transform: translate(0, -50%);
+    }
+    div#nav-tab {
+        padding: 0 15px!important;
+    }
+    div#nav-tab a {
+        display: inline-block;
+        margin-right: 6px;
+        font-size: 12px;
+    }
+    .property-tab nav {
+        height: 56px;
+    }
+    .property-tab .nav-tabs .nav-link.active {
+        padding-bottom: 15px;
+    }
+    div#nav-overview {
+        padding: 0 15px!important;
+    }
+    .carousel-title {
+        padding-top: 17px!important;
+        padding-bottom: 13px!important;
+    }
+    li.w-50.list-group-item-action {
+        width: 100%!important;
+    }
+    p.text-justify.d-flex.flex-row.flex-wrap.pr-about {
+        text-align: left!important;
+    }
+    /*Form Search*/
+    .search-block .search-left{
+        display: inline-block!important;
+        text-align:left;
+        border-radius: 0.25rem;
+    }
+    input.txtsearch, input#txtcal, input#txtguests{
+        width:100%;
+        border-right: 0!important;
+    }
+    .search-left.float-left {
+        line-height: 0px;
+        width:100%!important;
+        background-color:#fcfcfc!important;
+    }
+    .search-box, .date-box, .guests-box {
+        padding: 0px;
+        width: 100%!important;
+    }
+    .date-box, .guests-box {
+        border-top: 1px solid #e0e1e3;
+    }
+    .search-bar-main{
+        height:280px;
+        padding: 0 15px;
+    }
+    input.txtsearch {
+        background-image: url(../themes/view-retreats/assets/images/map-small-grey.png);
+    }
+    /*Button search*/
+    .search-right.float-left {
+        width: 100%;
+    }
+    button.btn.btn-primary.btn-search {
+        width: 100%!important;
+        margin-top: 0;
+    }
+    .check-show {
+        position: absolute;
+        top: 225px;
+        left:0;
+    }
+    input#txtsearch{
+        display:none;
+    }
+    input.txtcal,
+    input#txtguests{
+        max-width: 100%!important;
+        padding: 25px 0px 25px 45px;
+        background-position-y: center!important;
+        background-size: 20px;
+        font-size: 16px!important;
+        font-weight: normal!important;
+        line-height: 22px!important;
+    }
+    .date-box {
+        border-top: 0px;
+    }
+    .date-box, .guests-box {
+        background-color:white;
+    }
+    .collection .carousel-title h4 {
+        padding: 0 15px;
+    }
+    button.btn.btn-primary.btn-search {
+        border-radius: 0px 0 4px 4px!important;
+    }
+    .info_law{
+        display:none;
+    }
+    .list-rooms{
+        padding:0 15px;
+    }
+    .room-detail.row {
+        padding: 0px;
+    }
+    img.card-img.img-fluid {
+        width: 100%;
+        border-radius: 4px 4px 0 0;
+    }
+    a.room-more {
+        text-align: right;
+        display: block;
+        margin-top: -30px;
+    }
+    .room-info {
+        padding: 15px 0px 0px 0px;
+    }
+    button.btn.btn-primary.btn-reserve.mt-1.mb-0.w-100 {
+        border-radius: 0px 0px 3px 3px;
+    }
+    .search-box {
+        display: none;
+    }
+    .search-bar-main.search-main {
+        top: 64px;
+        background: none;
+        width: 100%;
+        left: 0;
+    }
+    a.btn-show {
+        font-size: 14px;
+    }
+    span.arrow-down svg {
+        vertical-align: sub;
+        margin-left: 5px;
+        margin-bottom: 1px;
+    }
+    .col-12.d-flex.d-md-none {
+        margin-bottom: 25px;
+    }
+    .row.info-room {
+        margin-top: 15px;
+    }
+    .row.info-room .col-12.col-md-6 {
+        padding: 0;
+    }
+    p.title-faq {
+        font-size: 20px!important;
+        line-height: 27px!important;
+    }
+}
+@media (min-width: 768px) { 
+    .col-12.total-price {
+        top: -35%;
+        position: absolute;
+        right: 51%;
+        transform: translate(60%, 0px);
+    }
+    .col-12.total-note {
+        margin-top: 23%;
+        text-align: center;
+    }
+    .room-detail{
+        position: relative;
+    }
+    .reserve-btn {
+        position: absolute;
+        width: 18%;
+        right: 5px;
+        top: 50%;
+        transform: translate(0px, -55%);
+    }
+    .search-bar-main .search-block .search-left {
+        max-width: 83%;
+        margin-left:15px;
+    }
+    .search-bar-main .search-block .search-right .btn-search{
+        width:181px;
+    }
+    .search-room .container {
+        margin-top: 0px;
+    }
+    .col-3.pl-md-0,
+    .col-9.price-total{
+        transform: translate(0, -50%)!important;
+        margin-top: 35%;
+    }
+    .col-9.price-total {
+        position: relative;
+        padding-right:0;
+    }
+    .row.col-12.col-md-2.px-0.mx-0.pt-4.pt-md-0 {
+        position: relative;
+    }
+    .col-12.col-md-6.px-md-0.d-md-flex.flex-wrap.align-content-center {
+        margin-left: -45px;
+        margin-right:45px;
+    }
+    p.card-des.mb-0 {
+        width: 600px;
+    }
+    .total-note-text {
+        position: absolute;
+        top:10%;
+        line-height: 16px;
+    }
+    section.accordion-section.clearfix.mt-3 {
+        padding: 0 15px;
+    }
+}
+</style>
+<div class="hero-block-property position-relative">
+    <div class="row d-flex d-md-none col-btn">
+        <div class="col-1 px-0">
+            <svg id="i-chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="pull-right" onclick="arrow_left()">
+                <path d="M20 30 L8 16 20 2" />
+            </svg>
+        </div>
+        <div class="col-1 px-0 offset-10">
+            <svg id="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="pull-left" onclick="arrow_right()">
+                <path d="M12 30 L24 16 12 2" />
+            </svg>
+        </div>
+    </div>
+{% partial 'site/gallery-img' %}
+</div>
+
+<div class="container-fluid pt-4">
+	<div class="collection container">
+        <div class="row content-title">
+            <div class="profile-info text-uppercase pt-1 pb-2 col-12 px-md-0">RESORT <img style="width:3px;" src="{{ 'assets/images/ellipse.png'|theme }}" /> 56 ROOMs <img style="width:3px;" src="{{ 'assets/images/ellipse.png'|theme }}" /> 112 GUESTS</div>
+    		
+    		<div class="profile-title col-12 m-0 px-md-0">
+                <div class="row title-property">
+                    <div class="col-12 col-md-8">
+        			    <h4>InterContinental Hayman Island Resort</h4>
+                        <a href="#" class="pr-location">Hayman Island, Whitsundays, Queensland, Australia</a>
+                    </div>
+                    <div class="profile-activity col-12 col-md-4 align-items-center justify-content-end">
+                        <div class="row">
+                            <div class="col-12 col-md-4 offset-md-1">
+                                <div class="row col-icon">
+                                    <div class="col-6">
+                                        <div class="profile-save text-center">
+                                            <!-- <img class="icon-love" src="{{ 'assets/images/heart.png'|theme }}" /> -->
+                                            <i class="fa fa-heart-o hover-fa-heart" ></i>
+                                            <span class="label-love text-uppercase d-none d-md-block">Save</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <a href data-toggle="modal" data-target="#sharePoupModal" class="profile-share text-white">
+                                            <img class="icon-share d-none d-md-inline" src="{{ 'assets/images/Share.png'|theme }}" />
+                                            <img class="icon-share d-inline d-md-none" src="{{ 'assets/images/share-boxed-white.png'|theme }}" />
+                                            <span class="label-share text-uppercase d-none d-md-block">Share</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-0 offset-md-1">
+                                <div class="search-right">
+                                    <button name="btnsearch" class="btn btn-primary btn-reserve">RESERVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    		</div>
+        </div>
+	</div>
+</div>
+<div class="container-fluid property-details">
+    {% partial 'site/property-detail' %}
+</div>
+<div class="container-fluid  pr-available-block position-relative" id="nav-rooms">
+    <div class="row check-rooms">
+        <div class="collection container ">
+            <div class="row carousel-title">
+                <div class="col-12 col-md-8">
+                    <h4><span class="d-none d-md-inline">Check Available </span>Rooms & Rates</h4>
+                </div>
+                <div class="col-12 col-md-4 row pr-0 pt-2 check-show">
+                    <div class="ml-auto mr-3 show-unavail-room">Show Unavailable Rooms</div>
+                    <!-- Material switch -->
+                    <div class="switch">
+                        <label class="switch">
+                              <input type="checkbox" class="default" checked="checked">
+                              <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% partial 'site/property-block-responsive' %}
+</div>
+
+<div class="container-fluid note-block" id="nav-details">
+    {% partial 'site/booking-note-responsive' %}
+</div>
+
+{% partial 'popup/popup-share.htm' %}
+<script >
+    
+</script>

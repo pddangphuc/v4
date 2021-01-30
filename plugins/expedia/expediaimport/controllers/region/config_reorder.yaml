@@ -1,5 +1,0 @@
-title: Region
-modelClass: Expedia\ExpediaImport\Models\Region
-nameFrom: region_name
-toolbar:
-    buttons: reorder_toolbar

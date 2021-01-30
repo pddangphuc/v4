@@ -1,0 +1,318 @@
+title = "Favourites"
+url = "/favourites"
+layout = "login"
+is_hidden = 0
+meta_title = "Your Favourites List - View Retreats"
+meta_description = "Sign up or login to save your short-listed properties to your very own favourites list, allowing you to easily plan and compare accommodation."
+robot_index = "index"
+robot_follow = "follow"
+enabled_in_sitemap = 1
+use_updated_at = 1
+changefreq = "weekly"
+priority = 0.7
+
+[session]
+security = "all"
+
+[bookmarkfavorite]
+==
+<?php
+use ViewRetreats\Favourites\Models\Favourite;
+use Expedia\ExpediaImport\Models\Property;
+
+function onStart()
+{
+  //search favourites
+    $user = $this->account->user();
+    if ($user) {
+        $favourites = Favourite::where('user_id', '=', $this['user']->id)
+                  ->leftJoin('expedia_expediaimport_properties' , 'expedia_expediaimport_properties.property_id', '=', 'viewretreats_favourites_list.product_id')
+                  ->get();
+        $favourites_id = [];
+        if(!empty($favourites)){
+        	foreach ($favourites as $key => $favourite) {
+	          $favourites_id[] = $favourite->property_id;
+	        }
+    	}else{
+    		$favourites_id = '';
+    	}
+    }else{
+    	 $saved_favourites = Session::get('guestFavourites', function() { return 'Not found'; });
+	}
+   
+
+//original search page query
+
+ $properties_data = Db::select("SELECT *,
+      expedia_expediaimport_properties.id, 
+      expedia_expediaimport_properties.property_id, 
+      expedia_expediaimport_properties.name,
+      expedia_expediaimport_properties.property_collect, 
+      expedia_expediaimport_properties.expedia_collect,
+      expedia_expediaimport_properties.inc_all_rate_plans,   
+      expedia_expediaimport_properties.address_1, 
+      expedia_expediaimport_properties.address_2, 
+      expedia_expediaimport_properties.city, 
+      expedia_expediaimport_properties.state, 
+      expedia_expediaimport_properties.country_code,
+      expedia_expediaimport_properties.active,
+      expedia_expediaimport_properties.statistics,
+      expedia_expediaimport_properties.accommodation_type,
+      expedia_expediaimport_ratings.guest_count AS reviews,
+      expedia_expediaimport_ratings.guest_overall AS ratings,
+      ROUND(expedia_expediaimport_ratings.guest_overall)  AS overall,
+      expedia_expediaimport_ratings.property_id AS property_id_rating,
+      rainlab_location_countries.name AS country_name 
+      FROM expedia_expediaimport_properties
+      JOIN expedia_expediaimport_ratings
+      ON expedia_expediaimport_properties.property_id = expedia_expediaimport_ratings.property_id
+      JOIN rainlab_location_countries
+      ON expedia_expediaimport_properties.country_code = rainlab_location_countries.code
+      WHERE expedia_expediaimport_properties.active = 1");
+
+
+$properties = [];
+
+if($user){
+	if(!empty($favourites_id)){
+		foreach ($favourites_id as $favourite) {
+		  foreach ($properties_data as $data) {
+		        if($data->property_id == $favourite){
+		          $properties[] = $data;
+		      }
+		    }
+		}
+	}
+	else{
+		$properties = '';
+	}
+}
+else{
+	if($saved_favourites != 'Not found'){
+		foreach ($saved_favourites as $favourite) {
+		  foreach ($properties_data as $data) {
+		        if($data->property_id == $favourite){
+		          $properties[] = $data;
+		      }
+		    }
+		}
+	}
+	else{
+		$properties = '';
+	}
+}
+
+$this['properties'] = $properties;
+
+
+}
+?>
+==
+{% if properties is empty %}
+  {% if user%}
+    <div class="container-fluid p-0" id="wish-list-navbar">
+      <div class="container page-container">
+        <div class="wishlist-navbar">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active wishlist-a-tag" href="{{ 'favourites'|page }}">MY FAVOURITES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wishlist-a-tag" id="btn-wishlist-bookin" href="{{ 'bookings'|page }}">MY BOOKINGS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wishlist-a-tag" href="{{ 'update-profile'|page }}">MY PROFILE</a>
+            </li>
+          </ul>
+          <p class="welcome-login d-none d-md-block">Welcome, <span>{{ user.name }}</span> <a data-request="onLogout" data-request-redirect="/">Logout</a></p>
+        </div>    
+      </div>
+    </div>
+    <div class="container-fuild background-requied-login" style="padding-bottom: 35px;">
+      <div class="container" >
+        <div class="carousel-title " style="padding-top: 10px;"><h4>My Favourites</h4></div>
+        <div id="requied-login">
+          <div class="requied-login-favourite mb-4" >
+            <div class="img-left mr-4 ml-2">
+              <img src="{{ 'assets/images/wishlist.png'|theme }}" />
+            </div>
+            <div class="img-right">
+              <h5 class="mb-2">Save your favourites</h5>
+              <p class="text-requied-login-favourite mb-0">
+                  Use the heart icon to save your favourite properties and then you can find them here again later
+              </p>
+            </div>
+            <div class="close-form"></div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="mb-5">
+              <a href="{{ 'search'|page }}"><button type="button" class="btn form-control" >Add properties</button></a>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+  {% else %}
+    <div class="container-fuild background-requied-login" style="padding-bottom:41px;">
+      <div class="container" >
+        <div class="carousel-title" style="padding-top:60px;"><h4>My Favourites</h4></div>
+        <div id="requied-login">
+           <div class="requied-login-favourite mb-4" >
+            <div class="img-left mr-4 ml-2">
+                <img src="{{ 'assets/images/wishlist.png'|theme }}" />
+            </div>
+            <div class="img-right">
+              <h5 class="mb-2">Save your favourites</h5>
+              <p class="text-requied-login-favourite mb-0">
+                  Use the heart icon to save your favourite properties and then you can find them here again later.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="mb-5">
+              <a href="{{ 'search'|page }}"><button type="button" class="btn form-control" >Add properties</button></a>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+
+  {% endif %}
+{% else %}    
+	{% if user %}
+    <div class="container-fluid p-0" id="wish-list-navbar">
+      <div class="container page-container">
+        <div class="wishlist-navbar">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active wishlist-a-tag" href="{{ 'favourites'|page }}">MY FAVOURITES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wishlist-a-tag" id="btn-wishlist-bookin" href="{{ 'bookings'|page }}">MY BOOKINGS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wishlist-a-tag" href="{{ 'update-profile'|page }}">MY PROFILE</a>
+            </li>
+          </ul>
+          <p class="welcome-login d-none d-md-block">Welcome, <span>{{ user.name }}</span> <a data-request="onLogout" data-request-redirect="/">Logout</a></p>
+        </div>         
+      </div>
+    </div>
+    <div class="container-fuild wishlist-form-body">
+      <div class="container page-container">
+        <div class=" wishlist-form-body-row">
+        <!-- Tab panes -->
+          <div class="tab-content" >
+            <div class="tab-pane active" id="wishlist-favourites">
+              <section class="favourite-title d-flex flex-wrap justify-content-between align-items-center">
+                <h4>My Favourites</h4>
+              </section>
+              <div id="search-page">
+                <div class="box-search-result">
+                  <div class="container">
+                    <div class="row" id="search-results">
+                      {% partial 'site/search-results' sw=searchString %}
+                    </div>
+                    <div class="col-xs-12  col-md-12 col-lg-12 text-center">
+                      <p class="landing-loading"> <img class="icon-rotation" src="{{ 'assets/images/rotation.png'|theme }}" /></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="display-none" id="search-localtion">
+                        {% partial 'site/search-localtion'%}
+                </div>
+                <div class="modal fade room-popup" id="RefineSearchModalCenter" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+                          {% partial 'popup/popup-refine-search' %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+	{% else %}
+    <div class="container-fuild background-requied-login" >
+      <div class="container" >
+        <div class="carousel-title" style="padding-top:60px;"><h4>My Favourites</h4></div>
+        <div id="requied-login">
+          <div class="requied-login-favourite mb-4" >
+            <div class="img-left">
+              <img src="{{ 'assets/images/icon-favorites.png'|theme }}" />
+            </div>
+            <div class="img-right">
+              <h5 class="mb-2">Save your favourites</h5>
+              <p class="text-requied-login-favourite mb-0">
+                <a href="#login-modal" data-target="#login-modal" data-toggle="modal"> Sign in</a> or 
+                <a href="#sign-up-modal" data-target="#sign-up-modal" data-toggle="modal">create a new account</a> 
+                  to save & view your favourite properties on any device
+              </p>
+            </div>
+            <div class="close-form"></div>
+          </div>
+        </div>
+        <div id="search-page">
+          <div class="box-search-result">
+            <div class="container">
+              <div class="row" id="search-results">
+                {% partial 'site/search-results' sw=searchString %}
+              </div>
+              <div class="col-xs-12  col-md-12 col-lg-12 text-center">
+                <p class="landing-loading"> <img class="icon-rotation" src="{{ 'assets/images/rotation.png'|theme }}" /></p>
+              </div>
+            </div>
+          </div>
+          <div class="display-none" id="search-localtion">
+                  {% partial 'site/search-localtion'%}
+          </div>
+          <div class="modal fade room-popup" id="RefineSearchModalCenter" tabindex="-1" role="dialog" aria-labelledby="RefineSearchModalCenterTitle" aria-hidden="true">
+                    {% partial 'popup/popup-refine-search' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}  
+
+
+  <script>
+  $(document).on('click', '#btn-filter', function() {
+      $('.btn').removeClass('btn-active')
+      $('#btn-filter').addClass('btn-active')
+  });
+
+  $(document).on('click', '#btn-map', function() {
+      $('.btn').removeClass('btn-active');
+      
+      
+      if ($('#search-localtion').hasClass('display-none')) {
+          $('#search-localtion').removeClass('display-none');
+          $('.box-search-result').addClass('display-none');
+          $(this).addClass('btn-active');
+      }else{
+          $('#search-localtion').addClass('display-none');
+          $('.box-search-result').removeClass('display-none');
+          $(this).removeClass('btn-active');
+      }
+  });
+
+  $(document).on('click', '#btn-menu', function() {
+      $('.btn').removeClass('btn-active');
+      $('#btn-menu').addClass('btn-active');
+      $('#search-softby').addClass('display-none');
+      
+  });
+
+  $(document).on('click', '#btn-softby', function() {
+      $('.btn').removeClass('btn-active');
+      $('#btn-softby').addClass('btn-active');
+      if ($('#search-softby').hasClass('display-none')) {
+          $('#search-softby').removeClass('display-none')
+      }else{
+          $('#search-softby').addClass('display-none')
+      }
+  });
+</script>

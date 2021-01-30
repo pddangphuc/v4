@@ -1,0 +1,557 @@
+==
+<div class="search-room container p-0">
+        {% partial 'site/search-block' %}
+</div>
+
+<div class="container p-0">
+    <div class="note row">
+        <div class="col-auto mr-auto d-flex align-items-center">
+            <img src="{{ 'assets/images/ico-notifi.png'|theme }}" />
+        </div>
+        <div class="col-sm pl-0 text-justify text-note">
+            This property offers <b>INSTANT CONFIRMATION</b>. Upon booking, your payment details will be securely provided to your host who will process your full or partial payment within 24 hours according to their own booking <a href="#" class="term-condition"  data-toggle="modal" data-target="#termModalCenter">terms & conditions</a>.
+        </div>
+    </div>
+</div>
+
+    <div class="list-rooms container">
+        <div class="room-detail row">
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center">
+                    <img class="card-img img-fluid" src="https://app.dev.viewretreats.net/storage/app/media/property/banner/image%209.png" alt="">
+                
+            </div>
+            <div class="col p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body flex-wrap align-content-center room-info">
+                    <h4 class="card-title">Ocean Suite</h4>
+                    <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                    <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                    <p class="card-des mb-0">Welcome to Cactus Rose Villa - a recently renovated, uniquely styled and thoughtfully finished villa with 4... <a href="#" class="room-more"  data-toggle="modal" data-target="#room1ModalCenter">Read More</a></p>
+                </div>
+            </div>
+            <div class="col-1 p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body d-flex flex-wrap align-content-center">
+                    <select class="form-room" name="search-form[room]" id="search-form_room">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center pl-3">
+                <div class="card-body d-flex flex-wrap align-content-center resever-blo">
+                    <div class="d-table" style="width:100%">
+                        <div class="d-table-row" style="width:100%">
+                            <div class="float-right">
+                                <span><b style="font-size: 16px;">AUD $1,250 </b><span style="font-size: 12px;">plus fees</span></span>
+                                    <img class="notification-sm" src="{{ 'assets/images/ico-notifi-sm.png'|theme }}" />
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell float-right">
+                                <button name="btnreserve" class="btn btn-primary btn-reserve mt-1 mb-1" data-toggle="modal" data-target="#reservationDetailsModalCenter">RESERVE</button>
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell d-flex flex-wrap align-content-center">
+                                <span class="m-auto pt-1" style="font-size: 12px;">No payment required</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade room-popup" id="reservationDetailsModalCenter" tabindex="-1" role="dialog" aria-labelledby="reservationDetailsModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                    <h5 class="modal-title" id="room1ModalLongTitle">Reservation Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="card-body flex-wrap align-content-center room-info carousel-title">
+                            <h4 class="card-title mb-3">Swiss Mt Villa 5 Baleno</h4>
+                            <h6 class="card-subtitle mb-2">1 Bedroom House</h6>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="noteReservationDetails row">
+                            <div class="col-auto mr-auto d-flex align-items-center">
+                                <img src="{{ 'assets/images/ico-notifi.png'|theme }}" />
+                            </div>
+                            <div class="col-sm pl-0 text-justify text-note">
+                                You are booking directly with Swiss Mt Villa 5 Baleno. Your booking will be instantly confirmed and your partial or full payment will be processed by the property directly within 24 hours according to their own terms.
+                            </div>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="row row-reservation-details" style="padding-top: 23px">
+                            <div class="col-md-6 fl-title">
+                                <span>Check In Date</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>24/11/2019</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details">
+                            <div class="col-md-6 fl-title">
+                                <span>Check Out Date</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>26/11/2019</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details">
+                            <div class="col-md-6 fl-title">
+                                <span>Number Of Rooms</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>1</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details">
+                            <div class="col-md-6 fl-title">
+                                <span>Adults</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>2</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details">
+                            <div class="col-md-6 fl-title">
+                                <span>Children</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>0</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details">
+                            <div class="col-md-6 fl-title">
+                                <span>Nightly Rate Total</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>$420</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details">
+                            <div class="col-md-6 fl-title">
+                                <span>Cleaning Fee</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>$80</span>
+                            </div>
+                        </div>  
+                        <div class="row row-reservation-details" style="margin-bottom: 23px">
+                            <div class="col-md-6 fl-title">
+                                <span>Accidental Damage Levy</span>
+                            </div>
+                            <div class="col-md-6 fl-detail">
+                                <span>$50</span>
+                            </div>
+                        </div>
+                        <hr class="m-0"/>
+                        <form style="margin-top: 23px">
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>What is your partner’s name?*</span>
+                                </div>
+                                <div class="">
+                                    <input type="text" class="form-control input-reservation-details">
+                                </div>
+                            </div>
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>Do you have any dietary requirements?*</span>
+                                </div>
+                                <div class="">
+                                    <input type="text" class="form-control input-reservation-details">
+                                </div>
+                            </div>
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>Check-in time is 3.00pm. Do you have an approximate time of arrival?*</span>
+                                </div>
+                                <div class="">
+                                    <input type="text" class="form-control input-reservation-details">
+                                </div>
+                            </div>
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>How did you hear about us?*</span>
+                                </div>
+                                <div class="">
+                                    <input type="text" class="form-control input-reservation-details">
+                                </div>
+                            </div>
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>Type of bread preferred</span>
+                                </div>
+                                <div class="row" style="padding-top: 20px;">
+                                    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">White</label>
+                        		    </div>
+                        		    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">Wholegrain</label>
+                        		    </div>
+                        		    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">Wholemeal</label>
+                        		    </div>
+                                </div>
+                            </div>
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>Type of milk preferred</span>
+                                </div>
+                                <div class="row" style="padding-top: 20px;">
+                                    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">Full Cream</label>
+                        		    </div>
+                        		    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">Skim Milk</label>
+                        		    </div>
+                        		    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">Soy Milk</label>
+                        		    </div>
+                        		    <div class="col-md-4">
+                        		    	<input type="checkbox" class="form-checkbox" aria-label="Checkbox for following text input">
+                        		    	<label class="form-label">Almond Milk</label>
+                        		    </div>
+                                </div>
+                            </div>
+                            <div class="row-reservation-details mr-input">
+                                <div class="fl-title">
+                                    <span>Would you like to join our mailing list?</span>
+                                </div>
+                                <div class="">
+                                    <input type="text" class="form-control input-reservation-details">
+                                </div>
+                            </div>
+                            <button data-dismiss="modal" aria-label="Close" type="submit" class="btn-finalise">FINALISE</button>
+                        </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade room-popup" id="room1ModalCenter" tabindex="-1" role="dialog" aria-labelledby="room1ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                    <h5 class="modal-title" id="room1ModalLongTitle">Room Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                  </div>
+                  <div class="img-room">
+                      <img class="card-img img-fluid" src="{{ 'assets/images/resort1.png'|theme }}" alt="">
+                  </div>
+                  <div class="modal-body">
+                      <div class="card-body flex-wrap align-content-center room-info carousel-title">
+                            <h4 class="card-title mb-3">Ocean Suite</h4>
+                            <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                            <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                            <p class="card-des mb-0">Designed to accommodate one or two couples, Collage sets new standards for shared ultra-luxury experiences. Unlike traditional accommodation, both bedrooms are identical - in size, amenities, the ensuite bathrooms and the views. Both bedrooms feature king-size electric beds, which include a tilt function and a variety of massage options. Separating the bedrooms and ensuites is a spacious wet area featuring a 6-person indoor hydro-therapy spa and Smart TV.</p>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2"><b>Room Amenities</b></h6>
+                            <div class="row m-0">
+                                <div class="col-4 p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Wireless Internet</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Mini Bar</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Air Conditioning</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Ironing Board</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Bathrobes</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Cable TV</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Fridge</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Telephone</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Haridryer</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Heating</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Alarm Clock</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Celing Fans</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />DVD Player</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Movies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="room-detail row">
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center">
+                    <img class="card-img img-fluid" src="https://app.dev.viewretreats.net/storage/app/media/property/banner/image3.png" alt="">
+                
+            </div>
+            <div class="col p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body flex-wrap align-content-center room-info">
+                    <h4 class="card-title">Garden Suite</h4>
+                    <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                    <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                    <p class="card-des mb-0">Welcome to Cactus Rose Villa - a recently renovated, uniquely styled and thoughtfully finished villa with 4... <a href="#" class="room-more"  data-toggle="modal" data-target="#room2ModalCenter">Read More</a></p>
+                </div>
+            </div>
+            <div class="col-1 p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body d-flex flex-wrap align-content-center">
+                    <select class="form-room" name="search-form[room]" id="search-form_room">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center pl-3">
+                <div class="card-body d-flex flex-wrap align-content-center resever-blo">
+                    <div class="d-table" style="width:100%">
+                        <div class="d-table-row" style="width:100%">
+                            <div class="float-right">
+                                <span><b style="font-size: 16px;">AUD $1,250 </b><span style="font-size: 12px;">total</span></span>
+                                    <img class="notification-sm" src="{{ 'assets/images/ico-notifi-sm.png'|theme }}" />
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell float-right">
+                                <button name="btnreserve" class="btn btn-primary btn-reserve mt-1 mb-1" data-toggle="modal" data-target="#reservationDetailsModalCenter">RESERVE</button>
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell d-flex flex-wrap align-content-center">
+                                <span class="m-auto pt-1" style="font-size: 12px;">Instant Confirmation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade room-popup" id="room2ModalCenter" tabindex="-1" role="dialog" aria-labelledby="room2ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                    <h5 class="modal-title" id="room2ModalLongTitle">Room Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                  </div>
+                  <div class="img-room">
+                      <img class="card-img img-fluid" src="https://app.dev.viewretreats.net/storage/app/media/property/banner/image3.png" alt="">
+                  </div>
+                  <div class="modal-body">
+                      <div class="card-body flex-wrap align-content-center room-info carousel-title">
+                            <h4 class="card-title mb-3">Garden Suite</h4>
+                            <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                            <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                            <p class="card-des mb-0">Designed to accommodate one or two couples, Collage sets new standards for shared ultra-luxury experiences. Unlike traditional accommodation, both bedrooms are identical - in size, amenities, the ensuite bathrooms and the views. Both bedrooms feature king-size electric beds, which include a tilt function and a variety of massage options. Separating the bedrooms and ensuites is a spacious wet area featuring a 6-person indoor hydro-therapy spa and Smart TV.</p>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2"><b>Room Amenities</b></h6>
+                            <div class="row m-0">
+                                <div class="col-4 p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Wireless Internet</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Mini Bar</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Air Conditioning</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Ironing Board</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Bathrobes</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Cable TV</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Fridge</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Telephone</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Haridryer</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Heating</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Alarm Clock</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Celing Fans</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />DVD Player</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Movies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="room-detail row">
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center">
+                    <img class="card-img img-fluid" src="https://app.dev.viewretreats.net/storage/app/media/property/banner/image%208.png" alt="">
+                
+            </div>
+            <div class="col p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body flex-wrap align-content-center room-info">
+                    <h4 class="card-title">Premier Suite</h4>
+                    <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                    <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                    <p class="card-des mb-0">Welcome to Cactus Rose Villa - a recently renovated, uniquely styled and thoughtfully finished villa with 4... <a href="#" class="room-more"  data-toggle="modal" data-target="#room3ModalCenter">Read More</a></p>
+                </div>
+            </div>
+            <div class="col-1 p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body d-flex flex-wrap align-content-center">
+                    <select class="form-room" name="search-form[room]" id="search-form_room">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center pl-3">
+                <div class="card-body d-flex flex-wrap align-content-center pr-0 pl-0 min-night">
+                    <div class="d-table" style="width:100%">
+                        <div class="d-table-row" style="width:100%">
+                            <div class="row">
+                                <div class="col-sm pr-0 text-justify d-flex flex-wrap align-content-right float-right">
+                                    <span><b style="font-size: 15px;"></b><span style="font-size: 12px;">&#32;&#32;&#32;</span></span>
+                                </div>
+                                <div class="col-auto mr-auto">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell float-right">
+                                <button name="btnminnight" class="btn btn-primary btn-minnight">MIN 3 NIGHT</button>
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell d-flex flex-wrap align-content-center">
+                                <span class="m-auto pt-1" style="font-size: 12px;text-align: center; width:172px;">A 3 night booking restriction applies to this period</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade room-popup" id="room3ModalCenter" tabindex="-1" role="dialog" aria-labelledby="room3ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                    <h5 class="modal-title" id="room3ModalLongTitle">Room Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                  </div>
+                  <div class="img-room">
+                      <img class="card-img img-fluid" src="https://app.dev.viewretreats.net/storage/app/media/property/banner/image%208.png" alt="">
+                  </div>
+                  <div class="modal-body">
+                      <div class="card-body flex-wrap align-content-center room-info carousel-title">
+                            <h4 class="card-title mb-3">Premier Suite</h4>
+                            <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                            <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                            <p class="card-des mb-0">Designed to accommodate one or two couples, Collage sets new standards for shared ultra-luxury experiences. Unlike traditional accommodation, both bedrooms are identical - in size, amenities, the ensuite bathrooms and the views. Both bedrooms feature king-size electric beds, which include a tilt function and a variety of massage options. Separating the bedrooms and ensuites is a spacious wet area featuring a 6-person indoor hydro-therapy spa and Smart TV.</p>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2"><b>Room Amenities</b></h6>
+                            <div class="row m-0">
+                                <div class="col-4 p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Wireless Internet</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Mini Bar</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Air Conditioning</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Ironing Board</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Bathrobes</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Cable TV</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Fridge</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Telephone</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Haridryer</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Heating</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Alarm Clock</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Celing Fans</li>
+                                    </ul>
+                                </div>
+                                <div class="col p-0">
+                                    <ul>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />DVD Player</li>
+                                        <li><img src="{{ 'assets/images/ellipse.png'|theme }}" />Movies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="room-detail row">
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center">
+                    <img class="card-img img-fluid" src="https://app.dev.viewretreats.net/storage/app/media/property/banner/image%208.png" alt="">
+                
+            </div>
+            <div class="col p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body flex-wrap align-content-center room-info">
+                    <h4 class="card-title">Premier Suite</h4>
+                    <h6 class="card-subtitle mb-2"><b>Room Configuration:</b> 4 Bedroom</h6>
+                    <h6 class="card-subtitle mb-2"><b>Maximum Guests:</b> 3</h6>
+                    <p class="card-des mb-0">Welcome to Cactus Rose Villa - a recently renovated, uniquely styled and thoughtfully finished villa with 4... <a href="#" class="room-more"  data-toggle="modal" data-target="#room3ModalCenter">Read More</a></p>
+                </div>
+            </div>
+            <div class="col-1 p-0 d-flex flex-wrap align-content-center">
+                <div class="card-body d-flex flex-wrap align-content-center">
+                    <select class="form-room" name="search-form[room]" id="search-form_room">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-auto p-0 d-flex flex-wrap align-content-center pl-3">
+                <div class="card-body d-flex flex-wrap align-content-center pr-0 pl-0 change-date">
+                    <div class="d-table" style="width:100%">
+                        <div class="d-table-row" style="width:100%">
+                            <div class="row">
+                                <div class="col-sm pr-0 text-justify d-flex flex-wrap align-content-right float-right">
+                                    <span><b style="font-size: 15px;"></b><span style="font-size: 12px;">&#32;&#32;&#32;</span></span>
+                                </div>
+                                <div class="col-auto mr-auto">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell">
+                                <button name="btnminnight" class="btn btn-primary btn-minnight">CHANGE DATES</button>
+                            </div>
+                        </div>
+                        <div class="d-table-row" style="width:100%">
+                            <div class="d-table-cell d-flex flex-wrap align-content-center">
+                                <span class="m-auto pt-1" style="font-size: 12px;">Unavailable for your dates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

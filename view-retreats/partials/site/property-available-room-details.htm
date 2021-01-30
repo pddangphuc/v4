@@ -1,0 +1,181 @@
+==
+<?php
+function onStart() {
+
+        // Get room ID 
+        $roomid = $this['room_id'];
+
+		// get max allowed
+		$max_allowed = $this['room_occupancy'];
+		$max_allowed_array = unserialize($max_allowed);
+
+		if(!empty($max_allowed_array)){
+	        foreach($max_allowed_array as $ma_key => $ma_value) {
+	            $max_allow_array[$ma_key] = $ma_value;
+	        }
+       
+        	$this['occupancy_array'] = $max_allow_array;
+    	}
+
+        $property_id = $this['property_id'];
+
+    	// get room size 
+
+    	$room_area_size = $this['room_area'];
+		$room_area_array = unserialize($room_area_size);
+
+		/*if(!empty($room_area_array)){
+	        foreach($room_area_array as $area_key => $area_value) {
+	            $room_area_array[$area_key] = $area_value;
+	        }
+       
+        	$this['area_array'] = $room_area_array;
+    	}*/
+    	 //echo $room_area_size;
+
+        // Get bed group id 
+        $bg_qry = Db::Select("SELECT * FROM expedia_expediaimport_room_bed_groups where property_id = '$property_id'");
+
+        foreach($bg_qry as $bg_value) {
+            $bed_group_id = $bg_value->bed_groups_id;
+            $bed_description = $bg_value->description;
+        }
+
+    	$this['area_array'] = $room_area_array;
+    	//print_r($bed_group_id);
+
+
+
+
+            // Live call for Hero Image (room)
+            // Connect to API
+            $apiKey = "1d99ilkinggvercocq9u21ki1p";
+            $secret = "bep3s64f1ou57";
+            $timestamp = time();
+            $authHeader = 'Authorization: EAN APIKey=' . $apiKey . ',Signature=' . hash("sha512", $apiKey.$secret.$timestamp) . ',timestamp=' . time();
+
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => "https://test.ean.com/2.4/properties/content?property_id=".$property_id."&language=en-US",
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => "",
+              CURLOPT_USERAGENT=> "PostmanRuntime/7.26.1",
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => "GET",
+              CURLOPT_HTTPHEADER => array(
+              $authHeader,
+              "Customer-Ip: 5.5.5.5",
+              "Accept: application/json",
+              "Accept-Encoding: gzip"
+              ),
+            ));
+
+            $response = curl_exec($curl);
+            curl_close($curl);
+
+            // converts them to array
+            $rresults = json_decode($response);
+
+            if (!empty($rresults)) {
+
+              foreach ($rresults as $rmkey => $rmvalue) { 
+                  $room_result = $rmvalue;
+              }
+
+               if (isset($room_result)) {
+                    $rooms_img = !empty($room_result->rooms) ? $room_result->rooms : "";
+                    
+
+                    if(!empty($rooms_img)) {
+                         
+                            foreach($rooms_img as $rikey => $rivalue) {
+                                // get room Images
+                                $room_images = $rivalue->images;
+                                $bed_group[] = $rivalue->bed_groups;
+                            }
+
+                            //$bed_desc = !empty($bed_group->{$bed_group_id}->description) ? $bed_group->{$bed_group_id}->description : "no desc $roomid ";
+
+                            // get the correct bed description
+                            $bed_desc = $rooms_img->$roomid->bed_groups;
+
+                            if(!empty($bed_desc)) {
+                                foreach ($bed_desc as $bdvalue) {
+                                    $bed_description = $bdvalue->description;
+                                }
+                            }
+
+                            // get the correct hero image per room 
+                            $room_img_array = $rooms_img->$roomid->images;
+
+                            if(!empty($room_img_array)) {
+                                foreach($room_img_array as $ria_value) {
+                                    $room_hero = $ria_value->hero_image;
+                                    if($room_hero == 'true') {
+                                        $room_hero_image = $ria_value->links->{'350px'}->href;
+                                    }
+
+                                }
+                            }
+
+                            //print_r($room_img_array);
+                            //print_r($bed_desc);
+                            //echo $room_hero_image;
+
+
+                           /* if(!empty($room_images)) {
+
+                                 foreach($room_images as $imgkey => $imgvalue) {
+                                   
+                                    $rooms_img_array[$imgkey]['links'] = !empty($imgvalue->links->{'350px'}->href) ? $imgvalue->links->{'350px'}->href : "";
+                                    $rooms_img_array[$imgkey]['hero_image'] = !empty($imgvalue->hero_image) ? $imgvalue->hero_image : "0";
+
+                                    if (  $rooms_img_array[$imgkey]['hero_image'] == '1' ) {
+                                         $main_img = !empty($imgvalue->links->{'350px'}->href) ? $imgvalue->links->{'350px'}->href : "";
+                                    }
+                                    
+                                 } 
+
+                            }*/
+
+                        // main or first image
+                            $this['main_img'] = $room_hero_image; 
+                    }
+
+                    $this['bed_desc'] =  $bed_description;
+               }
+
+              // print_r($rooms_img_array);
+               //echo "Bed Desc $bed_desc";
+            }
+
+
+}
+
+?>
+==
+
+{% set occupancy = occupancy_array %}
+{% set room_area = area_array %}
+{% set main_image = main_img %}
+{% set beddesc = bed_desc %}
+
+<div class="col-lg-6 d-flex flex-wrap align-content-center align-items-center">
+    <img class="card-img img-fluid" src="{{ main_image }}" alt="">
+    <div class="card-body d-flex d-sm-block align-content-center room-info justify-content-between">
+        <h5 style="max-width: 230px;" data-id="{{ room_id }}">{{ room_name }}</h5>
+        <ul class="d-none d-sm-block">
+            <li>Sleeps {{ occupancy.total }}</li>
+            {% if room_area.square_meters is not empty %}
+            <li>{{ room_area.square_meters }} sq m</li>
+            {% endif %}
+            <li>{{ bed_desc }} </li>
+        </ul>
+        <a href="#" class="room-more" data-toggle="modal" data-target="#room1ModalCenter">Room details <img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+    </div>
+</div>

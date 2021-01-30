@@ -1,0 +1,78 @@
+==
+<?php 
+function onStart() {
+
+    $property_id = $this['property_id'];
+    $property = $this['prop_array'];
+
+
+    $safety_array = unserialize($property->attributes_general);
+
+    if(!empty($safety_array)){
+        foreach($safety_array as $safety_key => $safety_value) {
+            $sb_array[] = $safety_value;
+        }
+       
+        $this['sb_array'] = $sb_array;
+    }
+
+}
+?>
+==
+{% set listsb = sb_array %}
+<div class="note-detail">
+    <ul class="list-unstyled list-item-feature">
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Clean@2x.png'|theme }} 2x" class="icon"/></div>
+         
+         <div class="card-note">
+             <div class="card-title ">Enhanced cleaning procedures</div>
+    	     <ul class="list-unstyled">
+                 {% for sb_item in sb_array  %}
+                    {% if (sb_item.id == '1073744990') or (sb_item.id == '1073744992') or (sb_item.id == '1073745008') or (sb_item.id == '1073745010') or (sb_item.id == '1073745049') or (sb_item.id == '1073745051') %}
+                         <li><span class="card-content ">{{ sb_item.name }}</span></li>
+                    {% endif %}
+                 {% endfor %}
+    	     </ul>
+         </div>
+     </li>
+     <li>
+         <div class="note-img"> 
+           <!--  <img src="{{ 'assets/images/icon-profile/iconfinder__property_care_1929371.svg'|theme }}" class="icon" /> -->
+           <img srcset="{{ 'assets/images/amenity-icons/Distancing@2x.png'|theme }} 2x" class="icon"/>
+        </div>
+         <div class="card-note">
+             <div class="card-title ">Social distancing</div>
+             <ul class="list-unstyled">
+    	         {% for sb_item in sb_array  %}
+                    {% if (sb_item.id == '1073745000') or (sb_item.id == '1073745004') or (sb_item.id == '1073745006') or (sb_item.id == '1073745055') %}
+                         <li><span class="card-content ">{{ sb_item.name }}</span></li>
+                    {% endif %}
+                 {% endfor %}
+    	     </ul>
+         </div>
+     </li>
+     
+    
+    
+     <li>
+         <div class="note-img">
+            <img srcset="{{ 'assets/images/amenity-icons/Tick@2x.png'|theme }} 2x" class="icon"/>
+         </div>
+         
+    	<div class="card-note">
+    	    <span class="card-title ">Additional safety measures</span>
+    	    <!-- <span class="card-content">The following fees and deposits are charged by the property at time of service, check-in, or check-out.</span> -->
+    	    <ul class="list-unstyled">
+    	         {% for sb_item in sb_array  %}
+                    {% if (sb_item.id == '1073744973') or (sb_item.id == '1073744994') or (sb_item.id == '1073744996') or (sb_item.id == '1073744997') or (sb_item.id == '1073744998') or (sb_item.id == '1073745002') or (sb_item.id == '1073745013') or (sb_item.id == '1073745015') or (sb_item.id == '1073745016') or (sb_item.id == '1073745017') or (sb_item.id == '1073745018') or (sb_item.id == '1073745019') or (sb_item.id == '1073745021') or (sb_item.id == '1073745045') or (sb_item.id == '1073745047') or (sb_item.id == '1073745053') %}
+                         <li><span class="card-content ">{{ sb_item.name }}</span></li>
+                    {% endif %}
+                 {% endfor %}
+    	      </ul>
+    	     <!--  <span class="card-content">The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change.</span> -->
+         </div>
+     </li>
+    
+    </ul>
+</div>

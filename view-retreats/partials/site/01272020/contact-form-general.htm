@@ -1,0 +1,49 @@
+==
+<form data-request="{{ __SELF__ }}::onFormSubmit">
+
+{{ form_token() }}
+    <table>
+        <tr>
+            <td>
+                 <div class="form-group">
+                    <input type="text" id="contact-general-first-name" name="contact-general-first-name" class="form-control" placeholder="First Name*">
+                </div>
+            </td>
+            <td>
+                 <div class="form-group">
+                    <input type="text" id="contact-general-last-name" name="contact-general-last-name" class="form-control" placeholder="Last Name*">
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="2">
+                 <div class="form-group">
+                    <input type="text" id="contact-general-email" name="contact-general-email" class="form-control" placeholder="Email*">
+                </div>
+            </td>
+           
+        </tr>
+         <tr>
+            <td colspan="2">
+                 <div class="form-group">
+                    
+                    <textarea class="form-control" id="contact-general-help" name="contact-general-help" placeholder="How can we help you?*"></textarea>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="custom-control custom-checkbox mb-3 contact-general-receive">
+                  <input type="checkbox" class="custom-control-input" class="contact-general-receive" id="contact-general-receive" name="example1">
+                  <label class="custom-control-label" for="contact-general-receive">Receive update from View Retreats</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="button" id="contact-general-button-enquiry">ENQUIRE</button>
+            </td>
+        </tr>
+    </table>
+</form>

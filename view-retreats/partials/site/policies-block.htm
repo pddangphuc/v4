@@ -1,0 +1,268 @@
+==
+<?php
+function onStart() {
+
+    $property_id = $this['property_id'];
+
+
+    $property = $this['prop_array'];
+
+    /*foreach($property as $pvalue) {
+        $pname[] = $pvalue['name'];
+    }*/
+
+    //echo $property->name;
+    //attributes General / Child and extra bed  "attributes": "general": 2544, 2545, 2791, 2940, 3357, 5052
+    //Pets & Service Animals  "attributes": "pets": 1073742807, 2050, 2644, 2646, 2808, 2809, 2810, 2811, 5058, 5059, 51
+    $extra_array = unserialize($property->attributes_general);
+    $pets_array = unserialize($property->attributes_pets);
+
+    if(!empty($extra_array)){
+        foreach($extra_array as $extra_key => $extra_value) {
+            $xb_array[] = $extra_value;
+        }
+       
+        $this['xb_array'] = $xb_array;
+    }
+
+    if(!empty($pets_array)){
+        foreach($pets_array as $pets_key => $pets_value) {
+            $pb_array[] = $pets_value;
+        }
+       
+        $this['pb_array'] = $pb_array;
+    }
+}
+
+?>
+==
+
+{% set listxb = xb_array %}
+{% set listpb = pb_array %}
+<div class="note-detail">
+    <ul class="list-unstyled list-item-feature">
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Keys@2x.png'|theme }} 2x" class="icon"/></div>
+         
+         <div class="card-note">
+             <div class="card-title "> Check-in</div>
+    	     <ul class="list-unstyled">
+    	         <li><span class="card-content ">Check-in from {{ prop_array.chkin_begin_time }} - {{ prop_array.chkin_end_time }}</span></li>
+    	         <li><span class="card-content ">Minimum check-in age - {{ prop_array.chkin_min_age }}</span></li>
+    	     </ul>
+         </div>
+     </li>
+     <li>
+         <div class="note-img"> <img srcset="{{ 'assets/images/amenity-icons/Checkout@2x.png'|theme }} 2x" class="icon" /></div>
+         <div class="card-note">
+             <div class="card-title ">Check-out</div>
+             <ul class="list-unstyled">
+    	         <li><span class="card-content ">Check-out before {{ prop_array.chkout_time }}</span></li>
+    	     </ul>
+         </div>
+     </li>
+     {% if prop_array.chkin_special_instructions is not empty %}
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Arrival@2x.png'|theme }} 2x" class="icon"/></div>
+         <div class="card-note">
+             <div class="card-title ">Arrival Information</div>
+             <!-- <ul class="list-unstyled"> -->
+
+                     <div class="card-content " style="line-height: 24px !important;">{{ prop_array.chkin_special_instructions }}</div>
+    	        <!--  <li><span class="card-content card-content-line24">There is no front desk at this property. The check-in location differs from the property location. To check in, go to 14 Vincent St Daylesford. To make arrangements for check-in, please contact the property ahead of time using the information on the booking confirmation. Guests will receive an email with special check-in instructions. For more details, please contact the property using the information on the booking confirmation.</span></li>
+    	         <li><span class="card-content card-content-line24">Guests will receive an email with instructions for check-in and advance authorization refundable security deposit after booking.</span></li> -->
+    	     <!-- </ul> -->
+         </div>
+     </li>
+     {% endif %}
+
+     {% if xb_array is not empty  %}
+     <li>
+         <div class="note-img"><img  srcset="{{ 'assets/images/amenity-icons/Baby@2x.png'|theme }} 2x" class="icon" width="24" /></div>
+         
+         <div class="card-note">
+             <span class="card-title ">Children & Extra Beds</span>
+    	     <ul class="list-unstyled">
+
+                {% for xb_item in xb_array  %}
+
+                    {% if xb_item.id == '2544' %}
+                         <li><span class="card-content ">{{ xb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if xb_item.id ==  '2545' %}
+                         <li><span class="card-content ">{{ xb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if xb_item.id ==  '2791' %}
+                         <li><span class="card-content ">{{ xb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if xb_item.id == '2940' %}
+                         <li><span class="card-content ">{{ xb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if xb_item.id == '3357' %}
+                         <li><span class="card-content ">{{ xb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if xb_item.id == '5052' %}
+                         <li><span class="card-content ">{{ xb_item.name }}</span></li>
+                    {% endif %}
+
+                {% endfor %}
+    	        <!--  <li><span class="card-content ">Children are welcome</span></li>
+    	         <li><span class="card-content ">Free cribs/infant beds</span></li>
+    	         <li><span class="card-content ">No rollaway beds are available</span></li> -->
+    	     </ul>
+         </div>
+         
+     </li>
+     {% endif %}
+
+     {% if pb_array is not empty %}
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Dog@2x.png'|theme }} 2x" class="icon"  width="25"/></div>
+         
+    	<div class="card-note">
+    	    <span class="card-title "> Pets & Service Animals</span>
+    	    <ul class="list-unstyled">
+    	        {% for pb_item in pb_array  %}
+                    
+                    {% if pb_item.id == '1073742807' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if pb_item.id ==  '2050' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if pb_item.id ==  '2644' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if pb_item.id == '2646' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if pb_item.id == '2808' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                     {% if pb_item.id == '2809' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if pb_item.id == '2810' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if pb_item.id == '2811' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if pb_item.id == '5058' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if pb_item.id == '5059' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+                    {% if pb_item.id == '51' %}
+                         <li><span class="card-content ">{{ pb_item.name }}</span></li>
+                    {% endif %}
+
+
+                {% endfor %}
+    	     </ul>
+             
+         </div>
+     </li>
+     {% endif %}
+     <li>
+         <div class="note-img"> <img srcset="{{ 'assets/images/amenity-icons/Card@2x.png'|theme }} 2x"  class="icon" width="25"/></div>
+        
+    	<div class="card-note">
+    	    <span class="card-title "> Payment Methods</span>
+    	    <div class="card-content ">
+                 <img src="{{ 'assets/images/payment-method.png'|theme }}" />
+             </div>
+         </div>
+         
+     </li>
+
+     {% if prop_array.fees_mandatory is not empty %}
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Coin@2x.png'|theme }} 2x" class="icon" width="25" height="25"/></div>
+         
+    	<div class="card-note card-override">
+    	    <span class="card-title "> Mandatory Fees </span>
+    	    <!-- <span class="card-content ">You’ll be asked to pay the following charges at the property:</span>
+    	    <ul class="list-unstyled">
+    	         <li><span class="card-content ">Deposit AUD 500 per stay</span></li>
+    	     </ul>
+    	     <span class="card-content ">We have included all charges provided to us by the property. However, charges can vary, for example, based on length of stay or the room you book.</span> -->
+             <span style="font-size:14px;">
+                 {{ prop_array.fees_mandatory|raw }}
+             </span>
+         </div>
+     </li>
+     {% endif %}
+
+     {% if prop_array.fees_optional is not empty %}
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Wallet@2x.png'|theme }} 2x" class="icon" /></div>
+         
+    	<div class="card-note card-override">
+    	    <span class="card-title ">Optional Extras</span>
+    	   <!--  <span class="card-content">The following fees and deposits are charged by the property at time of service, check-in, or check-out.</span>
+    	    <ul class="list-unstyled">
+    	         <li><span class="card-content ">Airport shuttle fee: AUD 22 per person</span></li>
+    	         <li><span class="card-content ">Self parking fee: AUD 35 per day</span></li>
+    	         <li><span class="card-content ">Rollaway bed fee: AUD 50.0 per night</span></li>
+    	         <li><span class="card-content ">Credit card charges are subject to a surcharge</span></li>
+    	      </ul> -->
+    	      <span style="font-size: 14px;"> {{ prop_array.fees_optional|raw }}</span>
+         </div>
+     </li>
+     {% endif %}
+
+     {% if prop_array.chkin_instructions is not empty %}
+     <li>
+         <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Information@2x.png'|theme }} 2x" class="icon" width="24"/></div>
+         
+    	<div class="card-note card-note-last">
+    	    <span class="card-title "> General Information</span>
+    	    <!-- <ul class="list-unstyled">
+    	         <li><span class="card-content ">Extra-person charges may apply and vary depending on property policy. </span></li>
+    	         <li><span class="card-content ">Government-issued photo identification and a credit card, debit card, or cash deposit are required at check-in for incidental charges.</span></li>
+    	         <li><span class="card-content ">Special requests are subject to availability upon check-in and may incur additional charges. Special requests cannot be guaranteed. </span></li>
+    	         <li><span class="card-content card-content-line24">Safety features at this property include a fire extinguisher and a smoke detector.  Please note that cultural norms and guest policies may differ by country and by property. The policies listed are provided by the property. </span></li>
+    	      </ul> -->
+               <span class="card-content" style="line-height: 24px !important;"> {{ prop_array.chkin_instructions|raw }}</span>
+         </div>
+     </li>
+     {% endif %}
+     {% if prop_array.policies_before_you_go is not empty %}
+      <li>
+          <div class="note-img"><img srcset="{{ 'assets/images/amenity-icons/Warning@2x.png'|theme }} 2x" class="icon" /></div>
+         
+    	<div class="card-note card-override">
+    	    <span class="card-title "> You Should Know</span>
+    	    <!-- <ul class="list-unstyled">
+    	         <li><span class="card-content card-content-line24">This property's policy is to refuse certain bookings for the purpose of group events or parties, including pre-wedding stag/bachelor and hen/bachelorette parties. </span></li>
+    	      </ul> -->
+              <!-- <span class="card-content"> -->{{ prop_array.policies_before_you_go|raw }}<!-- </span> -->
+         </div>
+     </li>
+     {% endif %}
+    </ul>
+</div>
+
+
+<style>
+  .card-override  p:last-child {
+  padding-top: 10px;
+}
+</style>

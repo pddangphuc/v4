@@ -1,0 +1,212 @@
+==
+<?php
+function onStart() {
+
+$prop_id = $this['prop_id'];
+$feature_amenities = Db::select( "SELECT
+                DISTINCT expedia_expediaimport_amenity_sets.description,
+                expedia_expediaimport_amenity_sets_link.amenity_set_id,
+                expedia_expediaimport_amenity_sets.sort_id,              
+                expedia_expediaimport_amenity_sets.amenity_type,
+                expedia_expediaimport_amenity_sets.class_name
+                FROM
+                expedia_expediaimport_amenities
+                JOIN expedia_expediaimport_amenity_sets_link
+                ON expedia_expediaimport_amenities.amenities_id = expedia_expediaimport_amenity_sets_link.amenity_id 
+                JOIN expedia_expediaimport_amenity_sets
+                ON expedia_expediaimport_amenity_sets_link.amenity_set_id = expedia_expediaimport_amenity_sets.id
+                WHERE
+                property_id = '$prop_id' AND  amenity_type = 'Features'
+                ORDER BY
+                expedia_expediaimport_amenity_sets.sort_id ASC LIMIT 6");
+
+      foreach ($feature_amenities as $famenity) {
+        //echo $property->name;
+      }
+
+      $this['famenities'] = $feature_amenities;
+
+}
+
+?>
+==
+{% set featuresAmenities = famenities %}
+<div  class="property-details">
+    <div class="row">
+        <div class="col-md-6 order-2 order-sm-1">
+            <div class="item-profile">
+                 <h5 class="carousel-title">About This Property</h5>
+                 {% if prop_array.desc_location is not empty  %}
+                    <p>
+                        {{ prop_array.desc_location|raw }}
+                    </p>
+                 {% endif %}
+                 
+                 {% if prop_array.desc_rooms is not empty  %}
+                    <p>
+                        {{ prop_array.desc_rooms|raw }}
+                    </p>
+                 {% endif %}
+                 <div class="show_more_block">
+                 {% if prop_array.desc_dining is not empty  %}
+                    <p>
+                        {{ prop_array.desc_dining|raw }}
+                    </p>
+                 {% endif %}
+
+                {% if prop_array.desc_amenities is not empty  %}
+                    <p>
+                        {{ prop_array.desc_amenities|raw }}
+                    </p>
+                 {% endif %}
+
+                 {% if prop_array.desc_buss_amenities is not empty  %}
+                    <p>
+                        {{ prop_array.desc_buss_amenities|raw }}
+                    </p>
+                 {% endif %}
+                </div>
+                <div class="text-right">
+                    <a href="#" class="card-link" data-content="toggle-text"><span class="read-more-btn">Read more</span> <img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+                </div>
+                
+            </div>
+           <div class="item-profile card-override all-in">
+            {% if prop_array.inc_details is not empty  %}
+                 <h5 class="carousel-title">All-inclusive details</h5>
+              
+                   <div class="intro">
+                   </div>
+                   <div class="full-text-ai">
+                   {{ prop_array.inc_details|raw }}
+                   </div>
+                
+                
+                <div class="text-right rd-more-ai">
+                    <a href="#" class="card-link "><span class="read-more-btn-ai">Read more</span> <img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+                </div>
+            {% endif %}
+            </div>
+
+
+
+            <div class="item-profile card-override">
+            {% if prop_array.desc_renovations is not empty  %}
+                 <h5 class="carousel-title">Renovations & Closures</h5>
+                <p>
+                   {{ prop_array.desc_renovations|raw }}
+                </p>
+                
+               <!--  <div class="text-right">
+                    <a href="#" class="card-link ">Read more <img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+                </div> -->
+            {% endif %}
+            </div>
+
+        </div>
+        <div class="col-md-6 order-1 order-sm-2">
+            <div class="list-feature">
+                <h5 class="carousel-title">Features</h5>
+                <ul class = "list-unstyled list-item-feature">
+                    {% for featuredamenity in featuresAmenities %}
+                     <li>
+                         <span class="card-img">
+                            <!-- <img src="{{ 'assets/images/icon-profile/iconfinder_WIFI_379659.svg'|theme }}" /> -->
+                            <img  srcset = '{{ "assets/images/amenity-icons/#{featuredamenity.class_name}@2x.png 2x"|theme }} 'class="icon" />
+                        </span>
+                         
+    		        	<span class="card-content ">{{ featuredamenity.description }}</span>
+                     </li>
+                    
+                     {% endfor %}
+                 </ul>
+                 <div class="text-right mt-2">
+                    <a href="#nav-amenities" id="btn-nav-amenities" class="card-link ">All amenities <img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+                </div>
+            </div>  
+            <div class="list-attractions">
+                <h5 class="carousel-title">Nearby Attractions</h5>
+
+                <!-- <p class="desc_attract">{{ prop_array.desc_attractions|raw|truncate(350) }}</p> -->
+                <!-- <ul class="list-unstyled list-style-dot" id='mydiv'>
+                     
+                 </ul> -->
+                 <div class="card-note card-override">
+                 <ul class="list-unstyled" id='mydiv'></ul>
+                 </div>
+                 <div class="text-right">
+                    <a href="#nav-location" class="card-link" id="btn-nav-location">All attractions <img class="icon-blue" src="{{ 'assets/images/icon-blue.png'|theme }}" /></a>
+                </div>
+            </div>  
+        </div>
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function () {
+
+    var str = "{{ prop_array.desc_attractions|raw|truncate(350) }}";
+
+
+    // remove p tags
+    var $temp = $("<div>").html(str);
+    $temp.find("p").each(function() {
+      $(this).replaceWith(this.childNodes);
+    });
+
+    // separate sentences by br tag
+    var output = $temp.html();
+    var lines = output.split('<br>');
+    lines = lines.filter(function(n) { 
+        return n; 
+    });
+
+    jQuery.each(lines, function(i) {
+      //console.log(this);
+      // exit on 5th 
+      if(i>5) return false;
+
+      // do not display first line 
+      if(i>0) {
+            $( "#mydiv" ).append('<li><span class="card-content">' + this  + '</span></li>');
+      }
+    });
+
+
+    // add read more if all inclusive has more lines
+
+    if ( $( ".all-in strong" ).length ) {
+ 
+      console.log ("all in strong found");
+      $( ".all-in .full-text-ai" ).hide();
+
+      var texts = $('.all-in strong').map(function(){
+          return this.previousSibling.nodeValue
+      });
+
+      //console.log(texts[0]);
+      $('.intro').append(texts[0]); 
+      $('.all-in .full-text-ai em').remove();
+      $( "<br />" ).insertBefore( ".full-text-ai strong" );
+  
+    } else {
+      $('.rd-more-ai').hide();
+      console.log('no strong lines.');
+    }
+
+    $(".read-more-btn-ai").on("click", function (e) {
+        e.preventDefault();
+        var txt = $(".all-in strong").is(':visible') ? 'Read more' : 'Read less';
+        $(".read-more-btn-ai").text(txt);
+        //$('.show_more_block').slideToggle(200);
+       
+        
+        $( ".all-in .full-text-ai" ).toggle(100);
+        $( ".all-in .intro" ).toggle(10);
+      });
+
+
+});
+
+</script>

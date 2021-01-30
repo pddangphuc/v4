@@ -1,6 +1,0 @@
-fields:
-    container_id:
-        label: alekseyp.googletagmanager::lang.settings.container_id.label
-        type: text
-        commentAbove: alekseyp.googletagmanager::lang.settings.container_id.commentAbove
-        description: alekseyp.googletagmanager::lang.settings.container_id.description

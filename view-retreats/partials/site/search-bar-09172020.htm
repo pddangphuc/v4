@@ -1,0 +1,182 @@
+==
+{{ form_open({ url: '/search', class: "form-search clearfix" }) }}
+  <div class="search-bar search-main">
+      <div class="container page-container">
+        <div class="search-block">
+          <div class="search-left float-md-left">
+            <input type="search" rel=comments name="txtsearch" autocomplete="off" placeholder="Destination or property" class="txtsearch-nav typeahead" id="txtsearch" />
+            <input type="text" name="txtcal-search-block" id="txtcal-search-block" autocomplete="off" placeholder="Check in - Check out" class="txtcal-search-block" />
+            <input type="text" rel=comments name="txtguests-search-block" class="txtguests" autocomplete="off" placeholder="1 room, 2 guests" id="txtguests" >
+            <input type="hidden" name="txttotalguests" id="txttotalguests" value="2" />
+            <input type="hidden" name="txtadults" id="txtadults" value="2" />
+            <input type="hidden" name="txtchildren" id="txtchildren" />
+            <input type="hidden" name="txtroom" id="txtroom" value="1"/>
+            
+          </div>
+          <div class="search-right float-md-left">
+            <button name="btnsearch" class="btn btn-search"><span class="text-search">Search</span><span class="text-profile">Check rates</span></button>
+          </div>
+          <div id="popover_template_search">
+            <div class="search_location">
+                <ul class="search_location_ul" id="location-list">
+                    <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+                    <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+                    <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+                    <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+                    <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+                    <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+                    <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+                    <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+                    <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+                    <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+                    <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+                    <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+                </ul>
+            </div>
+        </div>
+        <div id="popover_template" class="popover_template_room">
+            <div class="room-list">
+                <div class="room-item" id="item_1">
+                    <h5 >Room <span id="name_1">1</span> <span class="remove" >Remove</span></h5>
+                    <div class='guests-popup'>
+                      <div class='text'>Adults</div>
+                      <div class="cal-info">
+                          <div class='btn-minus btn-minus-a'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+                          <div class='total total-adult'>2</div>
+                          <div class='btn-plus btn-plus-a'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+                      </div>
+                    </div>
+                    <div class='guests-popup pt-1'>
+                      <div class='text'>Children <span>(aged 0-17)</span></div>
+                      <div class="cal-info">
+                          <div class='btn-minus btn-minus-c'><img src='{{ 'assets/images/minus-guest.png'|theme }}' /></div>
+                          <div class='total total-children'>0</div>
+                          <div class='btn-plus btn-plus-c'><img src='{{ 'assets/images/plus-guest.png'|theme }}' /></div>
+                        </div>
+                    </div>
+                    
+                    <div class='infants-popup' >
+                     
+                    </div>
+                </div>
+            </div>
+            <div onclick="ClickAddRoom()" id="btn-add-room">+  Add another room</div>
+        </div>
+        </div>
+      </div>
+    </div>
+{{ form_close() }}
+<div class="search_form_mobile" id="search_location_mobile">
+    <div class="search_form_header modal-header">
+        <span></span>
+        <h5 class="modal-title">Destination or Property </h5>
+        <button type="button" class="close" id="close-localtion-mobile"></button>
+    </div>
+    <div class="search_location">
+        <input type="search" rel=comments name="txtsearch" autocomplete="off" placeholder="Destination or property" class="txtsearch-mobile" id="txtsearch" />
+        <ul class="search_location_ul">
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+            <li class="search_location_li search_location_li_provin"  data-name="Location Name, State, Country">location name, state, country</li>
+            <li class="search_location_li search_location_li_country" data-name="Property Name, Town, State, Country">property name, town, state, country</li>
+        </ul>
+    </div>
+    <div class="search_form_footer">
+        <button type="button" class="btn" >OK</button>
+    </div>
+</div>
+<div class="search_form_mobile" id="search_guest_mobile">
+    <div class="search_form_header modal-header">
+        <span></span>
+        <h5 class="modal-title">Enter Number of Guests</h5>
+        <button type="button" class="close" id="close-localtion-mobile"></button>
+    </div>
+    <div class="clearfix search_guest_content">
+        <div class="room-list">
+            <div class="room-item" id="item_1">
+                <h5 >Room <span id="name_1">1</span> <span class="remove" >Remove</span></h5>
+                <div class='guests-popup'>
+                  <div class='text'>Adults</div>
+                  <div class="cal-info">
+                      <div class='btn-minus btn-minus-a'><img src="{{ 'assets/images/minus-guest.png'|theme }}" /></div>
+                      <div class='total total-adult'>2</div>
+                      <div class='btn-plus btn-plus-a'><img src="{{ 'assets/images/plus-guest.png'|theme }}" /></div>
+                  </div>
+                </div>
+                <div class='guests-popup pt-1'>
+                  <div class='text'>Children <span>(aged 0-17)</span></div>
+                  <div class="cal-info">
+                      <div class='btn-minus btn-minus-c'><img src="{{ 'assets/images/minus-guest.png'|theme }}" /></div>
+                      <div class='total total-children'>0</div>
+                      <div class='btn-plus btn-plus-c'><img src="{{ 'assets/images/plus-guest.png'|theme }}" /></div>
+                    </div>
+                </div>
+                
+                <div class='infants-popup' >
+                 
+                </div>
+            </div>
+        </div>
+        <div onclick="ClickAddRoom()" id="btn-add-room">+  Add another room</div>
+    </div>
+    <div class="search_form_footer">
+        <button type="button" class="btn" >OK</button>
+    </div>
+</div>
+<div class="search_form_mobile" id="search_datepicker_mobile">
+    <div class="search_form_header modal-header">
+        <span></span>
+        <h5 class="modal-title">Enter Your Dates</h5>
+        <button type="button" class="close" id="close-localtion-mobile"></button>
+    </div>
+    <div class="clearfix search_guest_content">
+        <div class="datepicker-show-text">
+            <div class="row align-items-center">
+                <div class="col-5 date-start">
+                    <div class="d-flex flex-column align-items-center">
+                        <p>Check-in</p>
+                        <div class="content-date">
+                            <h2 >10</h2>
+                            <div class="item-date">
+                                <h4 class="date">FRI</h4>
+                                <h4 class="month">JUN</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-2">
+                    <img src='{{ 'assets/images/right-date.png'|theme }}' />
+                </div>
+                <div class="col-5 date-end">
+                     <div class="d-flex flex-column align-items-center">
+                        <p>Check-out</p>
+                        <div class="content-date">
+                            <h2>13</h2>
+                            <div class="item-date">
+                                <h4 class="date">FRI</h4>
+                                <h4 class="month">JUN</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="datepicker_litepicker"></div>
+    </div>
+    <div class="search_form_footer">
+        <button type="button" class="btn btn-default" >Select Dates To Continue</button>
+        <button type="button" class="btn" id="btn-select">OK</button>
+    </div>
+</div>
+<!-- nav bg -->

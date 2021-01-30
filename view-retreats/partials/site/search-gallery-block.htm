@@ -1,0 +1,119 @@
+==
+<?php
+use ViewRetreats\Favourites\Models\Favourite;
+function onStart()
+{
+   
+   	$propertyid = $this->propid;
+	// Get Images 
+	$property_images = Db::select("SELECT id, links_large, newname, links_large_sort_id FROM expedia_expediaimport_images where property_id = $propertyid and links_large_sort_id <> 0 ORDER BY links_large_sort_id ASC limit 5");
+
+	$this['propertyimages'] = $property_images;
+	$this['propid'] = $propertyid;
+
+	//print_r($property_images);
+	//echo $propertyid;
+
+
+
+
+	 //search favourites
+    $user = $this->account->user();
+    if ($user) {
+        $favourites = Favourite::where('user_id', '=', $this['user']->id)
+                  ->leftJoin('expedia_expediaimport_properties' , 'expedia_expediaimport_properties.property_id', '=', 'viewretreats_favourites_list.product_id')
+                  ->get();
+        $favourites_id = [];
+        if(!empty($favourites)){
+        	foreach ($favourites as $key => $favourite) {
+	          $favourites_id[] = $favourite->property_id;
+	        }
+    	}else{
+    		$favourites_id = '';
+    	}
+
+
+       	if(empty($favourites_id)){
+       		$this['bookmarked'] = 'false';
+       }else{
+	       	foreach ($favourites_id as $value) {
+	       		if($value == $propertyid){
+	       			$this['bookmarked'] = 'true';
+	       			 break;
+	       		}else{
+	       			$this['bookmarked'] = 'false';
+	       		}
+	       	}
+	   	}
+    }else{
+    	$saved_favourites = Session::get('guestFavourites', function() { return 'Not found'; });
+       	if($saved_favourites == 'Not found'){
+       		$this['bookmarked'] = 'false';
+       }else{
+	       	foreach ($saved_favourites as $value) {
+	       		if($value == $propertyid){
+	       			$this['bookmarked'] = 'true';
+	       			 break;
+	       		}else{
+	       			$this['bookmarked'] = 'false';
+	       		}
+	       	}
+	   	}
+	}
+
+
+}
+?>
+==
+{% set listImages = propertyimages %}
+
+<div class="collection-landing-post">
+		    	
+	<div class="image-block {{ propid }}">
+		<div class="gallery owl-carousel" >
+		 {# if listImages.isNotEmpty() #}
+            {% for propImage in listImages %}
+			 	{% if loop.last %}
+			 	<div class="img-block" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.45) ), url('https://expedia-properties.s3-ap-southeast-2.amazonaws.com/media/properties/{{ propid }}/{{ propImage.newname }}');">
+			 		<div style="display: flex;justify-content: center;align-items: center;height: 100%;">
+			 		<div style="color: #ffffff; display: flex;justify-content: center;border:2px solid #ffffff;padding: 10px;max-width: 175px;width:100%;border-radius: 5px;">
+			 			View more
+			 		</div>
+			 		</div>	
+			 	</div>
+			 	{% else %}
+			 	<div class="img-block" style="background: url('https://expedia-properties.s3-ap-southeast-2.amazonaws.com/media/properties/{{ propid }}/{{ propImage.newname }}');">
+			 	</div>
+			 	{% endif %}
+			{% endfor %}
+
+          {# endif #}			
+		</div>
+	</div>
+
+    {% if user %}
+    	<i user_id='{{ user.id }}' product_id='{{ propid }}' class="user-bookmark fa 
+    	{% if bookmarked == 'false' %}
+    		fa-heart-o
+    	{% elseif bookmarked == 'true' %}
+    		fa-heart
+    	{% endif %}
+    	hover-fa-heart
+    	" style="z-index: 1;">
+    	</i>
+    {% else %}
+    	<i  product_id='{{ propid }}' class="guest-bookmark fa
+    	{% if bookmarked == 'false' %}
+    		fa-heart-o
+    	{% elseif bookmarked == 'true' %}
+    		fa-heart
+    	{% endif %}
+    	hover-fa-heart
+    	" style="z-index: 1;">
+    	</i>
+    {% endif %}
+
+	<!-- <i class="fa fa-heart-o hover-fa-heart" style="z-index: 1;"></i> -->
+   <!--  <div class="hover-slide-pre"></div>
+                           <div class="hover-slide-next"></div> -->
+</div>
